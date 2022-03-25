@@ -11,3 +11,4 @@ Referral Papers:
 7. http://www.ams.sunysb.edu/~jsbm/papers/watchman.pdf
 8. https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6320878
 9. https://link.springer.com/content/pdf/10.1007/BF02574671.pdf (WRP)
+10. https://link.springer.com/content/pdf/10.1007/PL00009467.pdf (WRP)
