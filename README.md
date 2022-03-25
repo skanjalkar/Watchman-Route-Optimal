@@ -10,3 +10,4 @@ Referral Papers:
 6. https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.105.1879&rep=rep1&type=pdf
 7. http://www.ams.sunysb.edu/~jsbm/papers/watchman.pdf
 8. https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6320878
+9. https://link.springer.com/content/pdf/10.1007/BF02574671.pdf (WRP)
