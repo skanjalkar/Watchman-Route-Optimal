@@ -58,10 +58,8 @@ Poly = [(0,0),(100,0),(100,10),(100,50),(90,50),(90,10),(80,10),(80,50),(70,50)\
 '''
 
 points = np.array(Poly)
-P = points
-vor = Voronoi(points)
 
-def voronoi_finite_polygons_2d(vor, radius=None):
+def voronoi_finite_polygons_2d(points, radius=None):
     """
     Reconstruct infinite voronoi regions in a 2D diagram to finite
     regions.
@@ -83,7 +81,8 @@ def voronoi_finite_polygons_2d(vor, radius=None):
         end.
 
     """
-
+    vor = Voronoi(points)
+    
     if vor.points.shape[1] != 2:
         raise ValueError("Requires 2D input")
 
@@ -141,10 +140,9 @@ def voronoi_finite_polygons_2d(vor, radius=None):
         # finish
         new_regions.append(new_region.tolist())
     return new_regions, np.asarray(new_vertices)
-regions, vertices = voronoi_finite_polygons_2d(vor)
-polygons = []
-#print("The vertices are:",vertices)
-fig = voronoi_plot_2d(vor)
+regions, vertices = voronoi_finite_polygons_2d(points)
+
+fig = voronoi_plot_2d(Voronoi(points))
 
 def round_off(vertices):
     vert = []
@@ -363,4 +361,4 @@ def plt_plot(P,Yn,vert):
     plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     End = time.time()
     return plt.show(),print("The end time is:",End),print("The runtime is:",(End-Start)) 
-# plt_plot(P,Yn,Vor_Vert)
+plt_plot(P,Yn,Vor_Vert)

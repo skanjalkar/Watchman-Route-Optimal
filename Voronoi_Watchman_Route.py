@@ -1,18 +1,18 @@
-from re import L
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import  Voronoi, voronoi_plot_2d
+
 # import sys
 # sys.path.append('/Educational/NTU_Research_Work/A_Research_Internship/Python_Codes/')
 
 import Final_Voronoi_New_and_Short
 
-Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
-     (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
-     (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
-     (23600,16045),(24970,16045)]
+# Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
+#      (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
+#      (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
+#      (23600,16045),(24970,16045)]
 
-'''Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
+Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
     ,(25785,41415),(16740,41416),(16740,39400),(10060,39400),(10060,41415)\
@@ -24,13 +24,12 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
     ,(26255,7085),(32000,7085),(32000,9720),(36510,9720),(36510,15050)\
     ,(34330,15050),(34330,12850),(31430,12850),(31430,19250),(34330,19250)\
     ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
-    ,(28385,26060),(28385,24260),(24970,24260)]'''
+    ,(28385,26060),(28385,24260),(24970,24260)]
 
 points = np.array(Poly)
-vor = Voronoi(points)
 VG = Final_Voronoi_New_and_Short
-regions, vertices = VG.voronoi_finite_polygons_2d(vor)
-fig = voronoi_plot_2d(vor)
+regions, vertices = VG.voronoi_finite_polygons_2d(points)
+# fig = voronoi_plot_2d(vor)
 Voronoi_Vertices = VG.round_off(vertices)
 P = Poly; P.append(P[0]); Pc = Voronoi_Vertices; Pc.append(Pc[0])
 Pb = VG.create_point_pair(P)
@@ -39,3 +38,4 @@ Yn = VG.mini_chk_pts(Pb,Pc,P,Yx)
 Final_Diagonals = VG.clean_up_final(Yn)
 Guards = VG.Guards(Final_Diagonals)
 print(Guards)
+VG.plt_plot(P,Final_Diagonals,Voronoi_Vertices)
