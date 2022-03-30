@@ -1,3 +1,4 @@
+from re import L
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import  Voronoi, voronoi_plot_2d
@@ -31,12 +32,10 @@ VG = Final_Voronoi_New_and_Short
 regions, vertices = VG.voronoi_finite_polygons_2d(vor)
 fig = voronoi_plot_2d(vor)
 Voronoi_Vertices = VG.round_off(vertices)
-print(Voronoi_Vertices)
 P = Poly; P.append(P[0]); Pc = Voronoi_Vertices; Pc.append(Pc[0])
-print(Pc)
 Pb = VG.create_point_pair(P)
 Yx = VG.non_intersecting_diag(Pc,P,Pb)
 Yn = VG.mini_chk_pts(Pb,Pc,P,Yx)
 Final_Diagonals = VG.clean_up_final(Yn)
-
-# print(Final_Diagonals)
+Guards = VG.Guards(Final_Diagonals)
+print(Guards)

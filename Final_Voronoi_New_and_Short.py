@@ -328,6 +328,13 @@ def clean_up_final(Yn):
 Final_Diagonals = clean_up_final(Yn) 
 Yn = Final_Diagonals
 
+def Guards(Final_Diagonals):
+    Guards = []
+    for i in range(len(Final_Diagonals)):
+        if not Final_Diagonals[i][0][0] in Guards:
+            Guards.append(Final_Diagonals[i][0][0])
+    return Guards
+
 def plt_plot(P,Yn,vert):
     plot_lstx = list()
     plot_lsty = list()
