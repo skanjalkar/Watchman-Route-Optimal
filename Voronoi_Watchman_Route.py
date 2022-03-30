@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.spatial import  Voronoi, voronoi_plot_2d
 # import sys
 # sys.path.append('/Educational/NTU_Research_Work/A_Research_Internship/Python_Codes/')
@@ -29,35 +30,13 @@ vor = Voronoi(points)
 VG = Final_Voronoi_New_and_Short
 regions, vertices = VG.voronoi_finite_polygons_2d(vor)
 fig = voronoi_plot_2d(vor)
-vert = []
-
-for i in range(len(vertices)):
-    Vx = [] ;Vy = []
-    Vx = (vertices[i][0])
-    Vy = (vertices[i][1])
-    V = (Vx,Vy)
-    vert.append(V)
-
-P = Poly; AP = P; P.append(P[0]); Pc = vert; Pc.append(Pc[0]); AAP = Pc
-print(P)
-
+Voronoi_Vertices = VG.round_off(vertices)
+print(Voronoi_Vertices)
+P = Poly; P.append(P[0]); Pc = Voronoi_Vertices; Pc.append(Pc[0])
+print(Pc)
 Pb = VG.create_point_pair(P)
 Yx = VG.non_intersecting_diag(Pc,P,Pb)
 Yn = VG.mini_chk_pts(Pb,Pc,P,Yx)
+Final_Diagonals = VG.clean_up_final(Yn)
 
-Pfinal = Yn; final = []; R = [];r = []
-for i in Pfinal:
-    if not i in final:
-       final.append(i)
-for p in range(len(final)): #solution for adjecent points
-    for q in range(len(final)): #this is a big change!!!!!!!!!
-        for r in range(len(Pc)-1):
-            if (final[p][0][0] or final[p][1][0]) == Pc[r]:
-                if (Pc[r+1] or Pc[r-1])==(final[q][0][1] or final[q][1][1]):
-                    R.append(final[q])
-for r in range(len(R)):#PREVENT REPITITION
-    if R[r] in final:
-       final.remove(R[r])
-Yn = final
-
-print(Yn)
+# print(Final_Diagonals)
