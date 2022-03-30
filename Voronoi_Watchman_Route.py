@@ -2,15 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import  Voronoi, voronoi_plot_2d
 
-# import sys
-# sys.path.append('/Educational/NTU_Research_Work/A_Research_Internship/Python_Codes/')
-
 import Final_Voronoi_New_and_Short
 
-# Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
-#      (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
-#      (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
-#      (23600,16045),(24970,16045)]
+Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
+     (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
+     (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
+     (23600,16045),(24970,16045)]
 
 Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
@@ -26,14 +23,14 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
     ,(28385,26060),(28385,24260),(24970,24260)]
 
-points = np.array(Poly)
 VG = Final_Voronoi_New_and_Short
+points = np.array(Poly)
 regions, vertices = VG.voronoi_finite_polygons_2d(points)
-# fig = voronoi_plot_2d(vor)
-Voronoi_Vertices = VG.round_off(vertices)
+fig = voronoi_plot_2d(Voronoi(points))
+Voronoi_Vertices = VG.round_off(points)
 P = Poly; P.append(P[0]); Pc = Voronoi_Vertices; Pc.append(Pc[0])
 Pb = VG.create_point_pair(P)
-Yx = VG.non_intersecting_diag(Pc,P,Pb)
+Yx = VG.non_intersecting_diag(Pc,P)
 Yn = VG.mini_chk_pts(Pb,Pc,P,Yx)
 Final_Diagonals = VG.clean_up_final(Yn)
 Guards = VG.Guards(Final_Diagonals)
