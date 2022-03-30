@@ -12,11 +12,8 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
 
 points = np.array(Poly)
 vor = Voronoi(points)
-
-V = Final_Voronoi_New_and_Short
-
-regions, vertices = V.voronoi_finite_polygons_2d(vor)
-
+VG = Final_Voronoi_New_and_Short
+regions, vertices = VG.voronoi_finite_polygons_2d(vor)
 fig = voronoi_plot_2d(vor)
 vert = []
 
@@ -27,33 +24,26 @@ for i in range(len(vertices)):
     V = (Vx,Vy)
     vert.append(V)
 
-P = Poly
-AP = P
-P.append(P[0])
-Pc = vert
-Pc.append(Pc[0])
-AAP = Pc
+P = Poly; AP = P; P.append(P[0])
+Pc = vert; Pc.append(Pc[0]); AAP = Pc
 print(P)
-Pb = V.create_point_pair(P)
-Yx = V.non_intersecting_diag(Pc,P,Pb)
-Yn = V.mini_chk_pts(Pb,Pc,P,Yx)
+Pb = VG.create_point_pair(P)
+Yx = VG.non_intersecting_diag(Pc,P,Pb)
+Yn = VG.mini_chk_pts(Pb,Pc,P,Yx)
 
-Pfinal = Yn; final = []; R = []
+Pfinal = Yn; final = []; R = [];r = []
 for i in Pfinal:
     if not i in final:
        final.append(i)
-r = []
 for p in range(len(final)): #solution for adjecent points
     for q in range(len(final)): #this is a big change!!!!!!!!!
         for r in range(len(Pc)-1):
             if (final[p][0][0] or final[p][1][0]) == Pc[r]:
                 if (Pc[r+1] or Pc[r-1])==(final[q][0][1] or final[q][1][1]):
                     R.append(final[q])
-#print("Bro R is:",R)
 for r in range(len(R)):#PREVENT REPITITION
     if R[r] in final:
        final.remove(R[r])
-# Code perfect................................................#
 Yn = final
 
 print(Yn)
