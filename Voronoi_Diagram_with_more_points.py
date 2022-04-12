@@ -32,8 +32,8 @@ P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
     ,(26255,7085),(32000,7085),(32000,9720),(36510,9720),(36510,15050)\
     ,(34330,15050),(34330,12850),(31430,12850),(31430,19250),(34330,19250)\
     ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
-    ,(28385,26060),(28385,24260),(24970,24260)]'''
-
+    ,(28385,26060),(28385,24260),(24970,24260)]
+'''
 '''P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
@@ -160,9 +160,9 @@ def voronoi_finite_polygons_2d(P, radius=None):
         new_regions.append(new_region.tolist())
     return new_regions, np.asarray(new_vertices)
 
-fig = voronoi_plot_2d(Voronoi(points))                        
+fig = voronoi_plot_2d(Voronoi(points))  
+
 def round_off(P):
-    vor_vertices = [] 
     points = np.array(P)
     regions, vertices = voronoi_finite_polygons_2d(points)
     vert = []
@@ -174,9 +174,10 @@ def round_off(P):
         if V not in vert:
             if Polygon(P).contains(Point(V[0],V[1])):
                 vert.append(V)
+    print(vert)
     return vert
 
-P.append(P[0]);Pc = round_off(points); Vor_Vert = round_off(points)
+P.append(P[0]);Pc = round_off(points)
 # Pc.append(Pc[0])   #This could be a problem in the code, if the error is some how giving error.
 
 Start = time.time() #starting the time
@@ -308,9 +309,22 @@ def mini_chk_pts(Pb,Pc,P,Yx):
                         Yy.append(Yf1[a][b])
             Ys.append(Yy)
         Yf2 = Sorting(Ys)
+
+        '''
+        Check the distances for every list in the Yf2, so that we can visualize
+        '''
+        Yf2_len = []
+        for i in Yf2:
+            Yf2_len.append(len(i))
+        print(Yf2_len)
+        '''
+        This is where you make changes for optimization for guard positions
+        Below, you directly choose the first sub-list in the yf2 list as you know that is the sub-list with maximum elements 
+        '''
         A2 = Yf2[0]
         for i in range(len(Yf2[0])):
             Yn.append(Yf2[0][i])
+        
         Yf2.remove(Yf2[0])
         for j in range(len(F)):
             for k in range(len(A2)):
@@ -379,4 +393,4 @@ def plt_plot(P,Yn,vert):
     plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     End = time.time()
     return plt.show(),print("The end time is:",End),print("The runtime is:",(End-Start)) 
-plt_plot(P,Yn,Vor_Vert)
+plt_plot(P,Yn,Pc)
