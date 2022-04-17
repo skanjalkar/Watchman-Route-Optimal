@@ -3,6 +3,7 @@ from scipy.spatial import  Voronoi, voronoi_plot_2d
 import numpy as np
 import math
 import pyclipper
+from sympy import Max
 import tripy
 from shapely.geometry import Point,Polygon #used to chk pt in or out of poly
 import time
@@ -20,6 +21,9 @@ P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
      (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
      (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
      (23600,16045),(24970,16045)]
+
+# P = [(1000,2000),(0,0),(2000,-3000),(5000,-3000),(7000,-1000),(6000,2000),\
+#     (7000,4000),(4000,6000),(3000,6000),(-3000,4000)]
 '''P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
@@ -217,6 +221,7 @@ def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
         if ((o1!=o2) and (o3!=o4)):
             return True
         return  False
+
 def create_point_pair(P):
     Pb = []
     for i in range(len(P)-1):
@@ -226,9 +231,11 @@ def create_point_pair(P):
         Pb.append(Pa)
     return Pb
 Pb = create_point_pair(P)
+
 def find_dist(A,B,C,D):
     d = ((C-A)^2 + (D-B)^2)^(1/2)
     return d
+
 def non_intersecting_diag(Pc,P):
     for i in range(len(Pc)-1):
         S = []
@@ -272,8 +279,9 @@ def non_intersecting_diag(Pc,P):
                 Yx.remove(Pout[n])
     return Yx
 Yx = non_intersecting_diag(Pc,P)
+
 def mini_chk_pts(Pb,Pc,P,Yx):
-    Yn=[];M=[];Ys1=[];Yk1=[];Yy1=[];Yf1 = [];Ye1 = []; R = []
+    Yn=[];M=[];Ys1=[];Yk1=[];Yy1=[];Yf1 = [];Yf2 = [];Ye1 = []; R = [];F = Pb
     for r in range(len(Pc)-1):#this is important for arranging the diagonals.
         Yy1 = []
         for s in range(len(Yx)):
@@ -283,7 +291,6 @@ def mini_chk_pts(Pb,Pc,P,Yx):
                Yy1.append(Yy1[0])
         Ys1.append(Yy1)
     Yk1 = Sorting(Ys1)  #sorting in descending order of  length of sub-list.
-    #print("The list Yk1 is:",Yk1)
     for b in range(len(Yk1)):
             Yg = []
             for c in range(len(Yk1[b])-1):
@@ -296,8 +303,10 @@ def mini_chk_pts(Pb,Pc,P,Yx):
             if not Yg == []:
                 Ye1.append(Yg)
     Yf1 = Sorting(Ye1)
-    F = Pb
-    Yf2 = []
+
+# '''................................................................................'''
+# ''' The Yf2 for loop has to be in the while loop '''
+
     while F != []:
         Yy = []; Ys = []; M = []
         for a in range(len(Yf1)):
@@ -310,38 +319,57 @@ def mini_chk_pts(Pb,Pc,P,Yx):
             Ys.append(Yy)
         Yf2 = Sorting(Ys)
 
+        '''Play here ..............................................................'''
+        # print(Yf2)
+        # print(len(Yf2[0]))
         '''
-        Check the distances for every list in the Yf2, so that we can visualize
+        Check the len of every list in the Yf2, so that we can visualize
         '''
         Yf2_len = []
         for i in Yf2:
             Yf2_len.append(len(i))
         print(Yf2_len)
+
+        Max_list = []
+        Max_list.append(Yf2_len.index(max(Yf2_len)))
+        for i in range(len(Yf2_len)):
+            if i == Yf2_len.index(max(Yf2_len)):
+                continue
+            else:
+                if Yf2_len[i] == max(Yf2_len):
+                    Max_list.append(Yf2_len.index(Yf2_len[i]))
+        Q = Max_list[0]
+
+        # print(Max_list)
+        # print(Q)
         '''
         This is where you make changes for optimization for guard positions
         Below, you directly choose the first sub-list in the yf2 list as you know that is the sub-list with maximum elements 
         '''
-        A2 = Yf2[0]
-        for i in range(len(Yf2[0])):
-            Yn.append(Yf2[0][i])
         
-        Yf2.remove(Yf2[0])
+        # for ele in range(len(Max_list)): # You added a for loop for Max_list
+        A2 = Yf2[Q]
+        for i in range(len(A2)):
+            Yn.append(A2[i])
+        Yf2.remove(A2)
+
         for j in range(len(F)):
             for k in range(len(A2)):
                 if (F[j][0] == A2[k][0][1]) and (F[j][1] == A2[k][1][1]):
                         M.append(F[j])
                 else:
                         continue
-        F2 = []
+        F2 = [] 
         for l in range(len(F)):
-                if not F[l] in M:
-                        F2.append(F[l])
-                else:
-                        continue
+            if not F[l] in M:
+                F2.append(F[l])
+            else:
+                continue
         Yf1 = Yf2
         F = F2
     return Yn
 Yn = mini_chk_pts(Pb,Pc,P,Yx)
+
 def clean_up_final(Yn):
     final = [];R = [];r = []
     for i in Yn:
@@ -359,12 +387,14 @@ def clean_up_final(Yn):
     return final
 Final_Diagonals = clean_up_final(Yn) 
 Yn = Final_Diagonals
+
 def Guards(Final_Diagonals):
     Guards = []
     for i in range(len(Final_Diagonals)):
         if not Final_Diagonals[i][0][0] in Guards:
             Guards.append(Final_Diagonals[i][0][0])
     return Guards
+
 def plt_plot(P,Yn,vert):
     plot_lstx = list()
     plot_lsty = list()
@@ -393,4 +423,5 @@ def plt_plot(P,Yn,vert):
     plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     End = time.time()
     return plt.show(),print("The end time is:",End),print("The runtime is:",(End-Start)) 
+
 plt_plot(P,Yn,Pc)

@@ -360,4 +360,4 @@ def plt_plot(P,Yn,vert):
     plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     End = time.time()
     return plt.show(),print("The end time is:",End),print("The runtime is:",(End-Start)) 
-plt_plot(P,Yn,Vor_Vert)
+# plt_plot(P,Yn,Vor_Vert)
