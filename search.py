@@ -4,7 +4,6 @@
 
 from operator import mod
 
-
 class Node:
     def __init__(self, row, col, is_obs, h):
         self.row = row        # coordinate
@@ -43,7 +42,7 @@ def backprop(start,goal,nodes,parent_nodes):
     return path
 
 def adjecent_nodes(u):
-    return [[u[0]+0,u[1]+1],[u[0]+1,u[1]+0],[u[0]+0,u[1]-1],[u[0]-1,u[1]+0]]
+    return [[u[0]+0,u[1]+1],[u[0]-1,u[1]+1],[u[0]+1,u[1]+0],[u[0]-1,u[1]-1],[u[0]+0,u[1]-1],[u[0]+1,u[1]-1],[u[0]-1,u[1]+0],[u[0]+1,u[1]+1]]
 
 def Steps(black,goal):
     steps = 0
