@@ -3,6 +3,7 @@ from scipy.spatial import  Voronoi, voronoi_plot_2d
 import numpy as np
 import math
 import pyclipper
+from sympy import Max
 import tripy
 from shapely.geometry import Point,Polygon #used to chk pt in or out of poly
 import time
@@ -21,7 +22,23 @@ P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
      (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
      (23600,16045),(24970,16045)]
 
-P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
+# P = [(1000,2000),(0,0),(2000,-3000),(5000,-3000),(7000,-1000),(6000,2000),\
+#     (7000,4000),(4000,6000),(3000,6000),(-3000,4000)]
+'''P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
+    ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
+    ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
+    ,(25785,41415),(16740,41416),(16740,39400),(10060,39400),(10060,41415)\
+    ,(4315,41415),(4315,39400),(1300,39400),(1300,31300),(3545,31300)\
+    ,(3545,34300),(6245,34300),(6245,29085),(4785,29085),(4785,26570)\
+    ,(2085,26570),(2085,28615),(0,28615),(0,21110),(11925,21110),(12445,21630)\
+    ,(16865,17210),(14600,14946),(16407,13139),(14498,11230),(12691,13036)\
+    ,(9085,9430),(11430,7085),(11430,4800),(19590,4800),(19590,9250),(26255,9250)\
+    ,(26255,7085),(32000,7085),(32000,9720),(36510,9720),(36510,15050)\
+    ,(34330,15050),(34330,12850),(31430,12850),(31430,19250),(34330,19250)\
+    ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
+    ,(28385,26060),(28385,24260),(24970,24260)]
+'''
+'''P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
     ,(25785,41415),(16740,41416),(16740,39400),(10060,39400),(10060,41415)\
@@ -35,7 +52,6 @@ P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
     ,(28385,26060),(28385,24260),(24970,24260)]
 
-'''
 #P = [(8,8),(9,6),(11,8),(10,10),(9,12),(6,12),(5,16),(3,13),(0,13),(4,10)\
 #        ,(0,0),(5,0),(8,2),(6,6),(7,7)]
 #P = [(12,3),(8,8),(14,8),(9,11),(4,8),\
@@ -63,6 +79,7 @@ P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
 #     (20000,10000),(20000,14000),(16000,14000),(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000),\
 #     (2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0),(4000,4000)]
 '''
+
 
 points = np.array(P)                             
 def voronoi_finite_polygons_2d(P, radius=None):
@@ -146,8 +163,9 @@ def voronoi_finite_polygons_2d(P, radius=None):
         # finish
         new_regions.append(new_region.tolist())
     return new_regions, np.asarray(new_vertices)
-# regions, vertices = voronoi_finite_polygons_2d(points)
-# fig = voronoi_plot_2d(Voronoi(points))
+
+fig = voronoi_plot_2d(Voronoi(points))  
+
 def round_off(P):
     points = np.array(P)
     regions, vertices = voronoi_finite_polygons_2d(points)
@@ -157,9 +175,15 @@ def round_off(P):
         Vx = round(vertices[i][0])
         Vy = round(vertices[i][1])
         V = (Vx,Vy)
-        vert.append(V)
+        if V not in vert:
+            if Polygon(P).contains(Point(V[0],V[1])):
+                vert.append(V)
+    print(vert)
     return vert
-P.append(P[0]);Pc = round_off(points);Pc.append(Pc[0]);Vor_Vert = round_off(points)
+
+P.append(P[0]);Pc = round_off(points)
+# Pc.append(Pc[0])   #This could be a problem in the code, if the error is some how giving error.
+
 Start = time.time() #starting the time
 def Sorting(lst): 
     lst2 = sorted(lst, key=len, reverse = True) 
@@ -182,21 +206,22 @@ def point_in_seg_area(x1,y1,x2,y2,x3,y3):
 ''' check_intersection function: To check if the line formed by points (x1,y1) and (x2,y2) intersects line
       formed by (x3,y3) and (x4,y4)'''
 def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
-    o1 = orientation(x1,y1,x2,y2,x3,y3)
-    o2 = orientation(x1,y1,x2,y2,x4,y4)
-    o3 = orientation(x3,y3,x4,y4,x1,y1)
-    o4 = orientation(x3,y3,x4,y4,x2,y2)
-    if ((o1 == 0) and point_in_seg_area(x1,y1,x3,y3,x2,y2)): #both are neede to tell if the point is on the segment
-        return False
-    if ((o2 == 0) and point_in_seg_area(x1,y1,x4,y4,x2,y2)):
-        return False
-    if ((o3 == 0) and point_in_seg_area(x3,y3,x1,y1,x4,y4)):
-        return False
-    if ((o4 == 0) and point_in_seg_area(x3,y3,x1,y1,x4,y4)):
-        return False
-    if ((o1!=o2) and (o3!=o4)):
-        return True
-    return False
+        o1 = orientation(x1,y1,x2,y2,x3,y3)
+        o2 = orientation(x1,y1,x2,y2,x4,y4)
+        o3 = orientation(x3,y3,x4,y4,x1,y1)
+        o4 = orientation(x3,y3,x4,y4,x2,y2)
+        if ((o1 == 0) and point_in_seg_area(x1,y1,x3,y3,x2,y2)): #both are neede to tell if the point is on the segment 
+            return False
+        if ((o2 == 0) and point_in_seg_area(x1,y1,x4,y4,x2,y2)):
+            return False
+        if ((o3 == 0) and point_in_seg_area(x3,y3,x1,y1,x4,y4)):
+            return False
+        if ((o4 == 0) and point_in_seg_area(x3,y3,x1,y1,x4,y4)):
+            return False
+        if ((o1!=o2) and (o3!=o4)):
+            return True
+        return  False
+
 def create_point_pair(P):
     Pb = []
     for i in range(len(P)-1):
@@ -206,9 +231,11 @@ def create_point_pair(P):
         Pb.append(Pa)
     return Pb
 Pb = create_point_pair(P)
+
 def find_dist(A,B,C,D):
     d = ((C-A)^2 + (D-B)^2)^(1/2)
     return d
+
 def non_intersecting_diag(Pc,P):
     for i in range(len(Pc)-1):
         S = []
@@ -223,7 +250,7 @@ def non_intersecting_diag(Pc,P):
         for k in range(len(PS[n])):
             Xn = []
             for l in range(len(P)-1):
-                if (check_intersection(PS[n][k][0][0],PS[n][k][0][1],PS[n][k][1][0]\
+                if  (check_intersection(PS[n][k][0][0],PS[n][k][0][1],PS[n][k][1][0]\
                     ,PS[n][k][1][1],P[l][0],P[l][1],P[l+1][0],P[l+1][1])==True)\
                      : #chek on this, error
                       continue
@@ -252,8 +279,9 @@ def non_intersecting_diag(Pc,P):
                 Yx.remove(Pout[n])
     return Yx
 Yx = non_intersecting_diag(Pc,P)
+
 def mini_chk_pts(Pb,Pc,P,Yx):
-    Yn=[];M=[];Ys1=[];Yk1=[];Yy1=[];Yf1 = [];Ye1 = []; R = []
+    Yn=[];M=[];Ys1=[];Yk1=[];Yy1=[];Yf1 = [];Yf2 = [];Ye1 = []; R = [];F = Pb
     for r in range(len(Pc)-1):#this is important for arranging the diagonals.
         Yy1 = []
         for s in range(len(Yx)):
@@ -263,7 +291,6 @@ def mini_chk_pts(Pb,Pc,P,Yx):
                Yy1.append(Yy1[0])
         Ys1.append(Yy1)
     Yk1 = Sorting(Ys1)  #sorting in descending order of  length of sub-list.
-    #print("The list Yk1 is:",Yk1)
     for b in range(len(Yk1)):
             Yg = []
             for c in range(len(Yk1[b])-1):
@@ -276,8 +303,10 @@ def mini_chk_pts(Pb,Pc,P,Yx):
             if not Yg == []:
                 Ye1.append(Yg)
     Yf1 = Sorting(Ye1)
-    F = Pb
-    Yf2 = []
+
+# '''................................................................................'''
+# ''' The Yf2 for loop has to be in the while loop '''
+
     while F != []:
         Yy = []; Ys = []; M = []
         for a in range(len(Yf1)):
@@ -289,26 +318,58 @@ def mini_chk_pts(Pb,Pc,P,Yx):
                         Yy.append(Yf1[a][b])
             Ys.append(Yy)
         Yf2 = Sorting(Ys)
-        A2 = Yf2[0]
-        for i in range(len(Yf2[0])):
-            Yn.append(Yf2[0][i])
-        Yf2.remove(Yf2[0])
+
+        '''Play here ..............................................................'''
+        # print(Yf2)
+        # print(len(Yf2[0]))
+        '''
+        Check the len of every list in the Yf2, so that we can visualize
+        '''
+        Yf2_len = []
+        for i in Yf2:
+            Yf2_len.append(len(i))
+        print(Yf2_len)
+
+        Max_list = []
+        Max_list.append(Yf2_len.index(max(Yf2_len)))
+        for i in range(len(Yf2_len)):
+            if i == Yf2_len.index(max(Yf2_len)):
+                continue
+            else:
+                if Yf2_len[i] == max(Yf2_len):
+                    Max_list.append(Yf2_len.index(Yf2_len[i]))
+        Q = Max_list[0]
+
+        # print(Max_list)
+        # print(Q)
+        '''
+        This is where you make changes for optimization for guard positions
+        Below, you directly choose the first sub-list in the yf2 list as you know that is the sub-list with maximum elements 
+        '''
+        
+        # for ele in range(len(Max_list)): # You added a for loop for Max_list
+        A2 = Yf2[Q]
+        for i in range(len(A2)):
+            Yn.append(A2[i])
+        Yf2.remove(A2)
+
         for j in range(len(F)):
             for k in range(len(A2)):
                 if (F[j][0] == A2[k][0][1]) and (F[j][1] == A2[k][1][1]):
                         M.append(F[j])
                 else:
                         continue
-        F2 = []
+        F2 = [] 
         for l in range(len(F)):
-                if not F[l] in M:
-                        F2.append(F[l])
-                else:
-                        continue
+            if not F[l] in M:
+                F2.append(F[l])
+            else:
+                continue
         Yf1 = Yf2
         F = F2
     return Yn
 Yn = mini_chk_pts(Pb,Pc,P,Yx)
+
 def clean_up_final(Yn):
     final = [];R = [];r = []
     for i in Yn:
@@ -326,12 +387,14 @@ def clean_up_final(Yn):
     return final
 Final_Diagonals = clean_up_final(Yn) 
 Yn = Final_Diagonals
+
 def Guards(Final_Diagonals):
     Guards = []
     for i in range(len(Final_Diagonals)):
         if not Final_Diagonals[i][0][0] in Guards:
             Guards.append(Final_Diagonals[i][0][0])
     return Guards
+
 def plt_plot(P,Yn,vert):
     plot_lstx = list()
     plot_lsty = list()
@@ -360,4 +423,5 @@ def plt_plot(P,Yn,vert):
     plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     End = time.time()
     return plt.show(),print("The end time is:",End),print("The runtime is:",(End-Start)) 
-# plt_plot(P,Yn,Vor_Vert)
+
+plt_plot(P,Yn,Pc)

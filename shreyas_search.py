@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.spatial import Voronoi, voronoi_plot_2d
