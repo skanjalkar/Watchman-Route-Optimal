@@ -26,7 +26,7 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
 VG = Final_Voronoi_New_and_Short
 points = np.array(Poly)
 regions, vertices = VG.voronoi_finite_polygons_2d(points)
-fig = voronoi_plot_2d(Voronoi(points))
+# fig = voronoi_plot_2d(Voronoi(points))
 Voronoi_Vertices = VG.round_off(points)
 P = Poly; P.append(P[0]); Pc = Voronoi_Vertices; Pc.append(Pc[0])
 Pb = VG.create_point_pair(P)

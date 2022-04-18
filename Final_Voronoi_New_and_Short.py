@@ -147,7 +147,7 @@ def voronoi_finite_polygons_2d(P, radius=None):
         new_regions.append(new_region.tolist())
     return new_regions, np.asarray(new_vertices)
 # regions, vertices = voronoi_finite_polygons_2d(points)
-fig = voronoi_plot_2d(Voronoi(points))
+# fig = voronoi_plot_2d(Voronoi(points))
 def round_off(P):
     points = np.array(P)
     regions, vertices = voronoi_finite_polygons_2d(points)
@@ -182,21 +182,21 @@ def point_in_seg_area(x1,y1,x2,y2,x3,y3):
 ''' check_intersection function: To check if the line formed by points (x1,y1) and (x2,y2) intersects line
       formed by (x3,y3) and (x4,y4)'''
 def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
-        o1 = orientation(x1,y1,x2,y2,x3,y3)
-        o2 = orientation(x1,y1,x2,y2,x4,y4)
-        o3 = orientation(x3,y3,x4,y4,x1,y1)
-        o4 = orientation(x3,y3,x4,y4,x2,y2)
-        if ((o1 == 0) and point_in_seg_area(x1,y1,x3,y3,x2,y2)): #both are neede to tell if the point is on the segment 
-            return False
-        if ((o2 == 0) and point_in_seg_area(x1,y1,x4,y4,x2,y2)):
-            return False
-        if ((o3 == 0) and point_in_seg_area(x3,y3,x1,y1,x4,y4)):
-            return False
-        if ((o4 == 0) and point_in_seg_area(x3,y3,x1,y1,x4,y4)):
-            return False
-        if ((o1!=o2) and (o3!=o4)):
-            return True
-        return  False
+    o1 = orientation(x1,y1,x2,y2,x3,y3)
+    o2 = orientation(x1,y1,x2,y2,x4,y4)
+    o3 = orientation(x3,y3,x4,y4,x1,y1)
+    o4 = orientation(x3,y3,x4,y4,x2,y2)
+    if ((o1 == 0) and point_in_seg_area(x1,y1,x3,y3,x2,y2)): #both are neede to tell if the point is on the segment
+        return False
+    if ((o2 == 0) and point_in_seg_area(x1,y1,x4,y4,x2,y2)):
+        return False
+    if ((o3 == 0) and point_in_seg_area(x3,y3,x1,y1,x4,y4)):
+        return False
+    if ((o4 == 0) and point_in_seg_area(x3,y3,x1,y1,x4,y4)):
+        return False
+    if ((o1!=o2) and (o3!=o4)):
+        return True
+    return False
 def create_point_pair(P):
     Pb = []
     for i in range(len(P)-1):
@@ -223,7 +223,7 @@ def non_intersecting_diag(Pc,P):
         for k in range(len(PS[n])):
             Xn = []
             for l in range(len(P)-1):
-                if  (check_intersection(PS[n][k][0][0],PS[n][k][0][1],PS[n][k][1][0]\
+                if (check_intersection(PS[n][k][0][0],PS[n][k][0][1],PS[n][k][1][0]\
                     ,PS[n][k][1][1],P[l][0],P[l][1],P[l+1][0],P[l+1][1])==True)\
                      : #chek on this, error
                       continue
@@ -351,7 +351,7 @@ def plt_plot(P,Yn,vert):
         Dy.append(Yn[j][1][1][1])
         Sx.append(Yn[j][0][0][0])
         Sy.append(Yn[j][0][0][1])
-        plt.plot(Dx,Dy, color = 'g')
+        # plt.plot(Dx,Dy, color = 'g')
     for k in range(len(vert)):
         Pcx.append(vert[k][0])
         Pcy.append(vert[k][1])
