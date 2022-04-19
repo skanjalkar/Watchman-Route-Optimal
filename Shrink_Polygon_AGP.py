@@ -252,6 +252,9 @@ def mini_chk_pts(Pb,Pc,P,Yx):
         Yf2 = Sorting(Ys)
         
         '''...........................................................'''
+        '''This part of code compares the distances of the guards with the previous guards, in the hope of binding them closer'''
+
+
         Yf2_len = []
         for i in Yf2:
             Yf2_len.append(len(i))
@@ -267,18 +270,18 @@ def mini_chk_pts(Pb,Pc,P,Yx):
             if Yn == []:
                 continue
             else: 
-                a = Yn[len(Yn)-1][0][0]
-                b = Yf2[i][0][0][0]
+                a = Yn[len(Yn)-1][0][0]    # Because the first element has no one to compare with
+                b = Yf2[i][0][0][0]        # current elements list
                 dist = math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
                 Dist.append(dist)
            
         '''..........................................................'''
-        if Yn == []:
-            A2 = Yf2[0]
-        else:
-            A2 = Yf2[Dist.index(min(Dist))]
+        # if Yn == []:
+        #     A2 = Yf2[0]
+        # else:
+        #     A2 = Yf2[Dist.index(min(Dist))]
 
-        # A2 = Yf2[0]
+        A2 = Yf2[0]
         for i in range(len(A2)):
             Yn.append(A2[i])
         # print(Yn)
