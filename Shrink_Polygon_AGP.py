@@ -3,6 +3,8 @@ import math
 import pyclipper
 from shapely.geometry import Point,Polygon #used to chk pt in or out of poly
 import time
+
+from sympy import Max
 #Start = time.time() #starting the time
 #print("The start time is:",Start)
 X = [];Y = [];Pi = [];PS = [];Xn = []; S = [];Yx = [];Yn = []; Yy = []; Pout = []
@@ -11,6 +13,7 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
      (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
      (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
      (23600,16045),(24970,16045)]
+
 Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
@@ -24,29 +27,31 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(34330,15050),(34330,12850),(31430,12850),(31430,19250),(34330,19250)\
     ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
     ,(28385,26060),(28385,24260),(24970,24260)]
-#Poly = [(8,8),(9,6),(11,8),(10,10),(9,12),(6,12),(5,16),(3,13),(0,13),(4,10)\
- #       ,(0,0),(5,0),(8,2),(6,5),(7,7)]
-#Poly = [(-3,6),(-2,3),(3,0),(5,2),(8,0),(14,0),(16,2),(15,8),(13,7),(12,3),(8,8),(14,8)\
-#     ,(9,11),(4,8),(5,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6)]
+'''
+Poly = [(8,8),(9,6),(11,8),(10,10),(9,12),(6,12),(5,16),(3,13),(0,13),(4,10)\
+       ,(0,0),(5,0),(8,2),(6,5),(7,7)]
+Poly = [(-3,6),(-2,3),(3,0),(5,2),(8,0),(14,0),(16,2),(15,8),(13,7),(12,3),(8,8),(14,8)\
+       ,(9,11),(4,8),(5,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6)]
 Poly = [(8000,8000),(9000,6000),(11000,8000),(9000,12000),(6000,12000)\
         ,(5000,16000),(3000,13000),(0,13000),(4000,10000),\
         (0,0),(5000,0),(8000,2000),(6000,5000),(7000,7000)]
-#Poly = [(0,0),(10,0),(10,1),(10,5),(9,5),(8,1),(8,5),(7,5)\
-#         ,(6,1),(6,5),(5,5),(4,1),(4,5),(3,5),(2,1),(2,5),(1,5),(0,1)]
-'''Poly = [(0,0),(100,0),(100,10),(100,50),(90,50),(90,10),(80,10),(80,50),(70,50)\
+Poly = [(0,0),(10,0),(10,1),(10,5),(9,5),(8,1),(8,5),(7,5)\
+        ,(6,1),(6,5),(5,5),(4,1),(4,5),(3,5),(2,1),(2,5),(1,5),(0,1)]
+Poly = [(0,0),(100,0),(100,10),(100,50),(90,50),(90,10),(80,10),(80,50),(70,50)\
         ,(70,10),(60,10),(60,50),(50,50),(50,10),(40,10),(40,50)\
-        ,(30,50),(30,10),(20,10),(20,50),(10,50),(10,10),(0,10),(0,0)]'''
-#Poly = [(0,0),(4,0),(4,4),(0,4)]
-#Poly = [(10,10),(8,6),(7,8),(5,6),(4,7),(2,3)\
-#        ,(0,4),(0,2),(1,1),(6,0),(8,0),(10,2),(9,4)]
-#Poly = [(0,6),(1,1),(3,0),(7,2),(5,4),(7,5),(6,8),(4,7),(2,11)]
-#Poly = [(1,1),(2,2),(1,5),(4,3),(5,7),(5,5),(10,10),(10,-5),(6,-1),(3,-3)]
-#Poly = [(0,0),(2,2),(0,4),(3,4),(3,0)]
-#Poly = [(1,2),(0,0),(2,-3),(5,-3),(7,1),(6,2),(7,4),(4,6),(3,6),(-3,4)]
-#Poly = [(0,0),(10,0),(10,1),(10,5),(8,1),(8,5),(6,1),(6,5),(4,1),(4,5),(2,1),(2,5),(0,1)]
-#Poly = [(1,8),(4,3),(6,0),(7,4),(8,2),(9,9),(7,6),(5,7),(5,5)]
-#Poly = [(3,16),(4,13),(5,11),(6,10),(8,9),(7,7),(5,4),(6,2),(7,4),(7,0),\
-#        (4,0),(1,0),(1,1),(2,1),(3,3),(2,3),(2,6),(1,3),(0,3),(1,6)]
+        ,(30,50),(30,10),(20,10),(20,50),(10,50),(10,10),(0,10),(0,0)]
+Poly = [(0,0),(4,0),(4,4),(0,4)]
+Poly = [(10,10),(8,6),(7,8),(5,6),(4,7),(2,3)\
+       ,(0,4),(0,2),(1,1),(6,0),(8,0),(10,2),(9,4)]
+Poly = [(0,6),(1,1),(3,0),(7,2),(5,4),(7,5),(6,8),(4,7),(2,11)]
+Poly = [(1,1),(2,2),(1,5),(4,3),(5,7),(5,5),(10,10),(10,-5),(6,-1),(3,-3)]
+Poly = [(0,0),(2,2),(0,4),(3,4),(3,0)]
+Poly = [(1,2),(0,0),(2,-3),(5,-3),(7,1),(6,2),(7,4),(4,6),(3,6),(-3,4)]
+Poly = [(0,0),(10,0),(10,1),(10,5),(8,1),(8,5),(6,1),(6,5),(4,1),(4,5),(2,1),(2,5),(0,1)]
+Poly = [(1,8),(4,3),(6,0),(7,4),(8,2),(9,9),(7,6),(5,7),(5,5)]
+Poly = [(3,16),(4,13),(5,11),(6,10),(8,9),(7,7),(5,4),(6,2),(7,4),(7,0),\
+       (4,0),(1,0),(1,1),(2,1),(3,3),(2,3),(2,6),(1,3),(0,3),(1,6)]
+'''
 '''Poly = [(4000,4000),(8000,4000),(8000,0000),(14000,-5000),(20000,0),(20000,6000),(15000,6000),(15000,10000)\
         ,(20000,10000),(20000,14000),(16000,14000),(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000)\
        ,(2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0)]'''
@@ -63,14 +68,15 @@ while True:
     except: print("Invalid Input");continue
     Yp.append(Vy)
 Poly = [(Xp[i],Yp[i]) for i in range(0,len(Xp))]'''
-
-Poly = [(4,4),(8,4),(8,0),(14,-5),(20,0),(20,6),(15,6),(15,10),\
+'''Poly = [(4,4),(8,4),(8,0),(14,-5),(20,0),(20,6),(15,6),(15,10),\
     (20,10),(20,14),(16,14),(16,16),(10,16),(10,14),(6,14),(6,16),(2,16)\
-       ,(2,14),(0,14),(-5,7),(0,0),(2,-2),(4,0)]
-Poly.reverse()
-P = Poly
-AP = P
-P.append(P[0])
+       ,(2,14),(0,14),(-5,7),(0,0),(2,-2),(4,0)]'''
+
+# Poly = [(2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0),(4000,4000),\
+#     (4000,4000),(8000,4000),(8000,0),(14000,-5000),(20000,0),(20000,6000),(15000,6000),(15000,10000),\
+#         (20000,10000),(20000,14000),(16000,14000),(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000)]                                                                      
+# Poly = [(1,8),(4,3),(6,0),(7,4),(8,2),(9,9),(7,6),(5,7),(5,5)]
+Poly.reverse(); P = Poly; AP = P; P.append(P[0])
 def det(a, b): #readymade function taken from the net
         return a[0] * b[1] - a[1] * b[0]
 def point_of_intersection(line1, line2):
@@ -85,8 +91,8 @@ def point_of_intersection(line1, line2):
     return x, y
 def shrink(Poly):
 # how much the coordinates are moved as an absolute value
-    shrink_x = 0.1
-    shrink_y = 0.1
+    shrink_x = 0.01
+    shrink_y = 0.01
 # coords must be clockwise
     lines = [[Poly[i-1], Poly[i]] for i in range(len(Poly))]
     new_lines = []
@@ -109,7 +115,7 @@ def shrink(Poly):
     return new_polygon
 Pc = shrink(Poly)
 Start = time.time() #starting the time
-print("The start time is:",Start)
+# print("The start time is:",Start)
 Pc.append(Pc[0])
 AAP = Pc
 def Sorting(lst): 
@@ -204,9 +210,8 @@ def non_intersecting_diag(Pc,P,Pb):
     return Yx
 # Code perfect................................................#
 Yx = non_intersecting_diag(Pc,P,Pb)
-#print("The non intersecting diagonals are:",Yx)
-# Code perfect................................................#
-def mini_chk_pts(Yn,Pb,Pc,P,Yx):
+
+def mini_chk_pts(Pb,Pc,P,Yx):
     Yn=[];M=[];Ys1=[];Yk1=[];Yy1=[];Yf1 = [];Ye1 = []; R = []
     for r in range(len(Pc)-1):#this is important for arranging the diagonals.
         Yy1 = []
@@ -232,9 +237,11 @@ def mini_chk_pts(Yn,Pb,Pc,P,Yx):
     Yf1 = Sorting(Ye1)
     F = Pb
     Yf2 = []
+
     while F != []:
         Yy = []; Ys = []; M = []
-        for a in range(len(Yf1)):
+
+        for a in range(len(Yf1)):               # So this loop is find the guards which guard maximum of the unguarded edges (first case is similar to yf1)
             Yy = []
             for b in range(len(Yf1[a])):
                 for c in range(len(F)):
@@ -243,17 +250,46 @@ def mini_chk_pts(Yn,Pb,Pc,P,Yx):
                         Yy.append(Yf1[a][b])
             Ys.append(Yy)
         Yf2 = Sorting(Ys)
-        A2 = Yf2[0]
-        for i in range(len(Yf2[0])):
-            Yn.append(Yf2[0][i])
-        Yf2.remove(Yf2[0])
+        
+        '''...........................................................'''
+        Yf2_len = []
+        for i in Yf2:
+            Yf2_len.append(len(i))
+        print(Yf2_len)
+        
+        high = []
+        for i in Yf2:
+            if len(i) == len(Yf2[0]):
+                high.append(Yf2.index(i))
+       
+        Dist = []
+        for i in high:
+            if Yn == []:
+                continue
+            else: 
+                a = Yn[len(Yn)-1][0][0]
+                b = Yf2[i][0][0][0]
+                dist = math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
+                Dist.append(dist)
+           
+        '''..........................................................'''
+        if Yn == []:
+            A2 = Yf2[0]
+        else:
+            A2 = Yf2[Dist.index(min(Dist))]
+
+        # A2 = Yf2[0]
+        for i in range(len(A2)):
+            Yn.append(A2[i])
+        # print(Yn)
+        Yf2.remove(A2)
         for j in range(len(F)):
             for k in range(len(A2)):
                 if (F[j][0] == A2[k][0][1]) and (F[j][1] == A2[k][1][1]):
                         M.append(F[j])
                 else:
                         continue
-        F2 = []
+        F2 = []     
         for l in range(len(F)):
                 if not F[l] in M:
                         F2.append(F[l])
@@ -263,27 +299,36 @@ def mini_chk_pts(Yn,Pb,Pc,P,Yx):
         F = F2
     return Yn
 # Code perfect................................................#
-Pfinal = mini_chk_pts(Yn,Pb,Pc,P,Yx)
-final = []
-R = []
-for i in Pfinal:  #avoiding repetition
-    if not i in final:
-       final.append(i)
-r = []
-for p in range(len(final)): #solution for adjecent points
-    for q in range(len(final)): #this is a big change!!!!!!!!!
-        for r in range(len(Pc)-1):
-            if (final[p][0][0] or final[p][1][0]) == Pc[r]:
-                if (Pc[r+1] or Pc[r-1])==(final[q][0][1] or final[q][1][1]):
-                    R.append(final[q])
-#print("Bro R is:",R)
-for r in range(len(R)):
-    if R[r] in final:
-       final.remove(R[r])
-Yn = final
+Yn = mini_chk_pts(Pb,Pc,P,Yx)
+print(Yn)
+def clean_up_final(Yn):
+    final = []; R = []; r = []
+    for i in Yn:  #avoiding repetition
+        if not i in final:
+            final.append(i)
+    for p in range(len(final)): #solution for adjecent points
+        for q in range(len(final)): #this is a big change!!!!!!!!!
+            for r in range(len(Pc)-1):
+                if (final[p][0][0] or final[p][1][0]) == Pc[r]:
+                    if (Pc[r+1] or Pc[r-1])==(final[q][0][1] or final[q][1][1]):
+                        R.append(final[q])
+    for r in range(len(R)):
+        if R[r] in final:
+            final.remove(R[r])
+    Yn = final
+    return Yn
 # Code perfect................................................#
+Final_Diagonals = clean_up_final(Yn) 
+Yn = Final_Diagonals
 
-print("The co-ordinates are:",Yn)
+def Guards(Final_Diagonals):
+    Guards = []
+    for i in range(len(Final_Diagonals)):
+        if not Final_Diagonals[i][0][0] in Guards:
+            Guards.append(Final_Diagonals[i][0][0])
+    return Guards
+# print(Guards(Final_Diagonals))
+# print("The co-ordinates are:",Yn)
 # Code perfect................................................#
 def plt_plot(P,Yn):
     Px = [];Py = [];Dx = [];Dy = [];Sx = [];Sy = [];APx = [];APy = []
