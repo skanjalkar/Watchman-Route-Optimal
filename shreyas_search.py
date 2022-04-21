@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.spatial import Voronoi, voronoi_plot_2d
@@ -7,7 +6,9 @@ from shapely.geometry.polygon import Polygon
 import time
 import math
 from queue import Queue
-
+from matplotlib.animation import FuncAnimation
+global answer
+answer = []
 
 class Node:
     def __init__(self, x, y, inside, h):
@@ -87,7 +88,7 @@ def search(grid, start, goal, poly):
     node = []
     path_length = 0
 
-    print(f'this is {start}, {goal}')
+    # print(f'this is {start}, {goal}')
     # created nodes
     for i, row in enumerate(grid):
         col = []
@@ -101,14 +102,14 @@ def search(grid, start, goal, poly):
     # initialize starting node
     node[start[0]][start[1]].cost = 0
     current_node = not_seen_min_cost(node, seen)
-    print(current_node.x, current_node.y)
+    # print(current_node.x, current_node.y)
     seen[current_node.x][current_node.y] = True
 
     while current_node:
         # goal condition
         if current_node.x == goal[0] and current_node.y == goal[1]:
             path.append(goal)
-            print(current_node.x, current_node.y)
+            # print(current_node.x, current_node.y)
             while path[-1] != start:
                 path_length += distance(current_node, current_node.parent)
                 path.append((current_node.parent.x, current_node.parent.y))
@@ -161,14 +162,13 @@ def astar(grid, start, goal, poly):
         if current_node.x == goal[0] and current_node.y == goal[1]:
             path.append(goal)
             while path[-1] != start:
-                path.append([current_node.parent.x, current_node.parent.y])
+                path_length += distance(current_node, current_node.parent)
+                path.append((current_node.parent.x, current_node.parent.y))
                 current_node = current_node.parent
             path.reverse()
-            found = True
             break
 
         neighbor_locations = travel(current_node, grid, seen)
-
         for neighbor in neighbor_locations:
             # check f value
             if node[neighbor[0]][neighbor[1]].cost is None or \
@@ -184,7 +184,18 @@ def astar(grid, start, goal, poly):
             break
         seen[current_node.x][current_node.y] = True  # won't visit this node again
 
-    return path, steps
+    return path, path_length
+
+def animate(i, path):
+    x = []
+    y = []
+    for i in path:
+        x.append(i[0])
+        y.append(i[1])
+    ax.clear()
+    ax.plot(x, y)
+
+
 
 def draw_polygon(ax, n, lim_x, lim_y):
 
@@ -215,10 +226,22 @@ def draw_polygon(ax, n, lim_x, lim_y):
     poly = list(zip(x, y))
     return poly
 
+def TSP(graph, v, current_pos, num_nodes, count, cost):
+    if count == num_nodes and graph[current_pos][0]:
+        answer.append(cost + graph[current_pos][0])
+        return
+
+    for i in range(num_nodes):
+        if v[i] == False and graph[current_pos][i]:
+            v[i] = True
+            TSP(graph, v, i, num_nodes, count+1, cost + graph[current_pos][i])
+            v[i] = False
+
+
 if __name__ == '__main__':
     fig, ax = plt.subplots()
-    lim_x, lim_y = 100, 100
-    poly = draw_polygon(ax, 20, lim_x,  lim_y)
+    lim_x, lim_y = 40, 40
+    poly = draw_polygon(ax, 10, lim_x,  lim_y)
     vor = Voronoi(poly)
     vor_int, vor_x, vor_y, vor_inside_poly = [], [], [], []
     for i in vor.vertices:
@@ -236,11 +259,30 @@ if __name__ == '__main__':
             vor_inside_poly.append(i)
     print(len(vor_inside_poly))
     track = {}
+    back_track = []
+    paths = []
     s = time.time()
     for i in range(len(vor_inside_poly)):
-        for j in range(i+1, len(vor_inside_poly)):
-            path, path_length = search(grid, vor_inside_poly[i], vor_inside_poly[j], polygon)
-            print(path_length)
+        track[vor_inside_poly[i]] = {}
+        f = []
+        for j in range(len(vor_inside_poly)):
+            # path, path_length = search(grid, vor_inside_poly[i], vor_inside_poly[j], polygon)
+            path, path_length = astar(grid, vor_inside_poly[i], vor_inside_poly[j], polygon)
+            f.append(path_length)
+            track[vor_inside_poly[i]][vor_inside_poly[j]] = path_length
+            back_track.append(path)
+        paths.append(f)
+    v = [False for i in range(len(vor_inside_poly))]
+    v[0] = True
+    TSP(paths, v, 0, len(vor_inside_poly), 1, 0)
+    print(answer)
+    print(min(answer))
+    print(answer.index(min(answer)))
+    print(paths)
+    # print(track)
+    print()
+    # print(back_track)
     print(time.time()-s)
+    # ani = FuncAnimation(fig, animate(back_track), frames=30, interval=500, repeat=False)
     plt.scatter(vor_x, vor_y, c="red")
     plt.show()
