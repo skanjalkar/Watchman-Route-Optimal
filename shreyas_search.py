@@ -7,8 +7,13 @@ import time
 import math
 from queue import Queue
 from matplotlib.animation import FuncAnimation
+from itertools import combinations
+from itertools import pairwise
+from itertools import permutations
+import sys
 global answer
 answer = []
+
 
 class Node:
     def __init__(self, x, y, inside, h):
@@ -59,6 +64,17 @@ def travel(node, grid, visited):
     if valid(node.x-1, node.y, grid, visited):  # move up
         possible_travel.append([node.x-1, node.y])
 
+    if valid(node.x-1, node.y-1, grid, visited):
+        possible_travel.append([node.x-1, node.y-1])
+
+    if valid(node.x+1, node.y-1, grid, visited):  # move up
+        possible_travel.append([node.x+1, node.y-1])
+
+    if valid(node.x-1, node.y+1, grid, visited):  # move up
+        possible_travel.append([node.x-1, node.y+1])
+
+    if valid(node.x+1, node.y+1, grid, visited):  # move up
+        possible_travel.append([node.x+1, node.y+1])
     return possible_travel  # returns all possible node locations that you can travel to
 
 
@@ -226,7 +242,7 @@ def draw_polygon(ax, n, lim_x, lim_y):
     poly = list(zip(x, y))
     return poly
 
-def TSP(graph, v, current_pos, num_nodes, count, cost):
+def TSP(graph, v, current_pos, num_nodes, count, cost):   # brute force with recursion
     if count == num_nodes and graph[current_pos][0]:
         answer.append(cost + graph[current_pos][0])
         return
@@ -236,6 +252,45 @@ def TSP(graph, v, current_pos, num_nodes, count, cost):
             v[i] = True
             TSP(graph, v, i, num_nodes, count+1, cost + graph[current_pos][i])
             v[i] = False
+
+def held_karp(paths):
+    n = len(paths)
+    C = {}
+    for k in range(1, n):
+        pass
+
+def brute_force(graph):   # naive brute force
+    vertex = []
+    for i in range(len(graph)):
+        if i != 0:
+            vertex.append(i)
+    # print(vertex)
+
+    min_path = sys.maxsize
+    next_permutation = permutations(vertex)
+    # next_permutation = [perm for perm in permutations(vertex)]
+    # print(next_permutation)
+    for i in next_permutation:
+        # print(i)
+        current_length = 0
+        k = 0
+        for j in i:
+            current_length += graph[k][j]
+            k = j
+        current_length += graph[k][0]
+
+        min_path = min(min_path, current_length)
+
+    return min_path
+
+# def pairwise(it):
+#     it = iter(it)
+#     while True:
+#         try:
+#             yield next(it), next(it)
+#         except StopIteration:
+#             # no more elements in the iterator
+#             return
 
 
 if __name__ == '__main__':
@@ -261,6 +316,7 @@ if __name__ == '__main__':
     track = {}
     back_track = []
     paths = []
+
     s = time.time()
     for i in range(len(vor_inside_poly)):
         track[vor_inside_poly[i]] = {}
@@ -272,17 +328,35 @@ if __name__ == '__main__':
             track[vor_inside_poly[i]][vor_inside_poly[j]] = path_length
             back_track.append(path)
         paths.append(f)
+    # print(track)
+    # print(back_track)
+    # print(vor_inside_poly)
     v = [False for i in range(len(vor_inside_poly))]
     v[0] = True
+    # print(paths)
+    # print(paths)
     TSP(paths, v, 0, len(vor_inside_poly), 1, 0)
+    print(brute_force(paths))
+    # plotTSP(paths, vor_inside_poly, len(paths))
     print(answer)
-    print(min(answer))
-    print(answer.index(min(answer)))
-    print(paths)
+    print(min(answer), answer.index(min(answer)))
     # print(track)
-    print()
+    # print()
     # print(back_track)
-    print(time.time()-s)
+    # print(time.time()-s)
+    # point_list = [i for i in combinations(vor_inside_poly, 2)]
+    # print(point_list)
+    for i in back_track:
+        if len(i) == 1:
+            continue
+        point_list = [pair for pair in pairwise(i)]
+        for j in range(len(point_list)):
+            x_values = [point_list[j][0][0], point_list[j][1][0]]
+            y_values = [point_list[j][0][1], point_list[j][1][1]]
+            plt.plot(x_values, y_values, c='grey')
     # ani = FuncAnimation(fig, animate(back_track), frames=30, interval=500, repeat=False)
     plt.scatter(vor_x, vor_y, c="red")
     plt.show()
+
+    plt.scatter(vor_x, vor_y, c='blue')
+
