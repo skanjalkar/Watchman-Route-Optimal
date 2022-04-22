@@ -31,24 +31,32 @@ def load_map(file_path, resolution_scale):
 
 if __name__ == "__main__":
     # Load the map
-    start = (200, 75)
-    goal  = (30, 250)
-    map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Assignments\Assignment 3\Standard Search Algorithms\WPI_map.jpg", 0.3)
+    # start = (200, 75)
+    # goal  = (30, 250)
+    # map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Assignments\Assignment 3\Standard Search Algorithms\WPI_map.jpg", 0.3)
 
-    # Planning class
-    PRM_planner = PRM(map_array)
-    RRT_planner = RRT(map_array, start, goal)
+    # # Planning class
+    # PRM_planner = PRM(map_array)
+    # RRT_planner = RRT(map_array, start, goal)
 
     # Search with PRM
-    PRM_planner.sample(n_pts=1000, sampling_method="uniform")
-    PRM_planner.search(start, goal)
-    PRM_planner.sample(n_pts=1000, sampling_method="random")
-    PRM_planner.search(start, goal)
-    PRM_planner.sample(n_pts=2000, sampling_method="gaussian")
-    PRM_planner.search(start, goal)
-    PRM_planner.sample(n_pts=20000, sampling_method="bridge")
-    PRM_planner.search(start, goal)
+    points = [(63,159),(121,220),(273,324)]
+    print(points)
+    for i in range(len(points)-1):
+        start = points[i]
+        goal = points[i+1]
+        map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Robot-Motion-Planning-for-an-optimal-Watchman-Route\Colored Polygons\GS3.jpeg",1)
+        RRT_planner = RRT(map_array, start, goal)
+        PRM_planner = PRM(map_array)
+        PRM_planner.sample(n_pts=1000, sampling_method="uniform")
+        PRM_planner.search(start, goal)
+        PRM_planner.sample(n_pts=1000, sampling_method="random")
+        PRM_planner.search(start, goal)
+        PRM_planner.sample(n_pts=20000, sampling_method="gaussian")
+        PRM_planner.search(start, goal)
+        PRM_planner.sample(n_pts=20000, sampling_method="bridge")
+        PRM_planner.search(start, goal)
 
     # Search with RRT and RRT*
-    RRT_planner.RRT(n_pts=1000)
-    RRT_planner.RRT_star(n_pts=2000)
+    # RRT_planner.RRT(n_pts=1000)
+    # RRT_planner.RRT_star(n_pts=2000)
