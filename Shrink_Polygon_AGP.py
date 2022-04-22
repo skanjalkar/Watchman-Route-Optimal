@@ -3,18 +3,18 @@ import math
 import pyclipper
 from shapely.geometry import Point,Polygon #used to chk pt in or out of poly
 import time
-
+import numpy as np
 from sympy import Max
 #Start = time.time() #starting the time
 #print("The start time is:",Start)
-X = [];Y = [];Pi = [];PS = [];Xn = []; S = [];Yx = [];Yn = []; Yy = []; Pout = []
+X = [];Y = [];Pi = [];PS = [];Xn = []; S = [];Yx = [];Yn = []; Yy = []; Pout = [];Yx = []
 MP = []; Ym = [];Yp = [];Poly = []; YN = [];m = []
 Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
      (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
      (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
      (23600,16045),(24970,16045)]
 
-Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
+'''Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
     ,(25785,41415),(16740,41416),(16740,39400),(10060,39400),(10060,41415)\
@@ -26,8 +26,7 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(26255,7085),(32000,7085),(32000,9720),(36510,9720),(36510,15050)\
     ,(34330,15050),(34330,12850),(31430,12850),(31430,19250),(34330,19250)\
     ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
-    ,(28385,26060),(28385,24260),(24970,24260)]
-
+    ,(28385,26060),(28385,24260),(24970,24260)]'''
 '''
 Poly = [(8,8),(9,6),(11,8),(10,10),(9,12),(6,12),(5,16),(3,13),(0,13),(4,10)\
        ,(0,0),(5,0),(8,2),(6,5),(7,7)]
@@ -38,6 +37,9 @@ Poly = [(8000,8000),(9000,6000),(11000,8000),(9000,12000),(6000,12000)\
         (0,0),(5000,0),(8000,2000),(6000,5000),(7000,7000)]
 Poly = [(0,0),(10,0),(10,1),(10,5),(9,5),(8,1),(8,5),(7,5)\
         ,(6,1),(6,5),(5,5),(4,1),(4,5),(3,5),(2,1),(2,5),(1,5),(0,1)]
+Poly = [(0,0),(100,0),(100,10),(100,50),(90,50),(90,10),(80,10),(80,50),(70,50)\
+        ,(70,10),(60,10),(60,50),(50,50),(50,10),(40,10),(40,50)\
+        ,(30,50),(30,10),(20,10),(20,50),(10,50),(10,10),(0,10),(0,0)]
 Poly = [(0,0),(4,0),(4,4),(0,4)]
 Poly = [(10,10),(8,6),(7,8),(5,6),(4,7),(2,3)\
        ,(0,4),(0,2),(1,1),(6,0),(8,0),(10,2),(9,4)]
@@ -66,16 +68,35 @@ while True:
     except: print("Invalid Input");continue
     Yp.append(Vy)
 Poly = [(Xp[i],Yp[i]) for i in range(0,len(Xp))]'''
-Poly = [(4,4),(8,4),(8,0),(14,-5),(20,0),(20,6),(15,6),(15,10),\
+'''Poly = [(4,4),(8,4),(8,0),(14,-5),(20,0),(20,6),(15,6),(15,10),\
     (20,10),(20,14),(16,14),(16,16),(10,16),(10,14),(6,14),(6,16),(2,16)\
-       ,(2,14),(0,14),(-5,7),(0,0),(2,-2),(4,0)]
+       ,(2,14),(0,14),(-5,7),(0,0),(2,-2),(4,0)]'''
 
-# Poly = [(2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0),(4000,4000),\
-#     (4000,4000),(8000,4000),(8000,0),(14000,-5000),(20000,0),(20000,6000),(15000,6000),(15000,10000),\
-#         (20000,10000),(20000,14000),(16000,14000),(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000)]                                                                      
-# Poly = [(1,8),(4,3),(6,0),(7,4),(8,2),(9,9),(7,6),(5,7),(5,5)]
-Poly.reverse();
+# Poly = [(20,140),(0,140),(-50,70),(0,0),(20,-20),(40,0),(40,40),\
+#     (40,40),(80,40),(80,0),(140,-50),(200,0),(200,60),(150,60),(150,100),\
+#     (200,100),(200,140),(160,140),(160,160),(100,160),(100,140),(60,140),(60,160),(20,160)]
+
+# Poly = [(12,3),(8,8),(14,8),(9,11),(4,8),\
+#        (6,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6),(-3,6),\
+#        (-2,3),(3,0),(4,2),(8,0),(14,0),(16,2),(15,8),(13,7)]
+
+Poly = [(250,190),(236,192),(207,221),(227,241),(193,275)\
+    ,(173,255),(155,272),(155,302),(164,302),(164,315)\
+    ,(206,315),(206,337),(233,337),(233,311),(257,311)\
+    ,(257,414),(167,414),(167,394),(100,394),(100,414)\
+    ,(43,414),(43,394),(13,394),(13,313),(35,313)\
+    ,(35,343),(62,343),(62,290),(47,290),(47,265)\
+    ,(20,265),(20,286),(0,286),(0,211),(119,211),(124,216)\
+    ,(168,172),(146,149),(164,131),(144,112),(126,130)\
+    ,(90,94),(114,70),(114,48),(195,48),(195,92),(262,92)\
+    ,(262,70),(320,70),(320,97),(365,97),(365,150)\
+    ,(343,150),(343,128),(314,128),(314,192),(343,192)\
+    ,(343,170),(374,170),(374,234),(343,234),(343,260)\
+    ,(283,260),(283,242),(249,242)]
+
+Poly.reverse(); 
 P = Poly; AP = P; P.append(P[0])
+
 def det(a, b): #readymade function taken from the net
         return a[0] * b[1] - a[1] * b[0]
 def point_of_intersection(line1, line2):
@@ -90,8 +111,8 @@ def point_of_intersection(line1, line2):
     return x, y
 def shrink(Poly):
 # how much the coordinates are moved as an absolute value
-    shrink_x = 1
-    shrink_y = 1
+    shrink_x = 10
+    shrink_y = 10
 # coords must be clockwise
     lines = [[Poly[i-1], Poly[i]] for i in range(len(Poly))]
     new_lines = []
@@ -112,11 +133,25 @@ def shrink(Poly):
     for i in range(len(new_lines)):
         new_polygon.append((point_of_intersection(new_lines[i-1], new_lines[i])))
     return new_polygon
+
 Pc = shrink(Poly)
 Start = time.time() #starting the time
-# print("The start time is:",Start)
 Pc.append(Pc[0])
+
+''' Pl is the list of vertices of the polygon and the points equally spaced between them'''
+# def sampling_points(Pc):
+#     Pl = []
+#     for i in range(len(Pc)-1):
+#         a = np.linspace(Pc[i], Pc[i+1], num=10)
+#         for j in a:
+#             if (j[0],j[1]) not in Pl:
+#                 Pl.append((j[0],j[1]))
+#     Pl.append(Pl[0])
+#     return Pl
+
+# Pc = sampling_points(Pc)
 AAP = Pc
+
 def Sorting(lst): 
     lst2 = sorted(lst, key=len, reverse = True) 
     return lst2 
@@ -161,11 +196,9 @@ def create_point_pair(P):
         Pa.append(P[i+1])
         Pb.append(Pa)
     return Pb
-# Code perfect................................................#
+
 Pb = create_point_pair(P)
-#print("The pair of points are:",create_point_pair(P))
-Yx = []
-# Code perfect................................................#
+
 def non_intersecting_diag(Pc,P,Pb):
     for i in range(len(Pc)-1):
         S = []
@@ -207,7 +240,7 @@ def non_intersecting_diag(Pc,P,Pb):
             if Pout[n] in Yx:
                 Yx.remove(Pout[n])
     return Yx
-# Code perfect................................................#
+
 Yx = non_intersecting_diag(Pc,P,Pb)
 
 def mini_chk_pts(Pb,Pc,P,Yx):
@@ -257,7 +290,7 @@ def mini_chk_pts(Pb,Pc,P,Yx):
         Yf2_len = []
         for i in Yf2:
             Yf2_len.append(len(i))
-        print(Yf2_len)
+        # print(Yf2_len)
         
         high = []
         for i in Yf2:
@@ -275,12 +308,12 @@ def mini_chk_pts(Pb,Pc,P,Yx):
                 Dist.append(dist)
            
         '''..........................................................'''
-        # if Yn == []:
-        #     A2 = Yf2[0]
-        # else:
-        #     A2 = Yf2[Dist.index(min(Dist))]
+        if Yn == []:
+            A2 = Yf2[0]
+        else:
+            A2 = Yf2[Dist.index(min(Dist))]
 
-        A2 = Yf2[0]
+        # A2 = Yf2[0]
         for i in range(len(A2)):
             Yn.append(A2[i])
         # print(Yn)
@@ -300,9 +333,9 @@ def mini_chk_pts(Pb,Pc,P,Yx):
         Yf1 = Yf2
         F = F2
     return Yn
-# Code perfect................................................#
+
 Yn = mini_chk_pts(Pb,Pc,P,Yx)
-print(Yn)
+
 def clean_up_final(Yn):
     final = []; R = []; r = []
     for i in Yn:  #avoiding repetition
@@ -319,7 +352,7 @@ def clean_up_final(Yn):
             final.remove(R[r])
     Yn = final
     return Yn
-# Code perfect................................................#
+
 Final_Diagonals = clean_up_final(Yn) 
 Yn = Final_Diagonals
 
@@ -329,9 +362,7 @@ def Guards(Final_Diagonals):
         if not Final_Diagonals[i][0][0] in Guards:
             Guards.append(Final_Diagonals[i][0][0])
     return Guards
-# print(Guards(Final_Diagonals))
-# print("The co-ordinates are:",Yn)
-# Code perfect................................................#
+
 def plt_plot(P,Yn):
     Px = [];Py = [];Dx = [];Dy = [];Sx = [];Sy = [];APx = [];APy = []
     for h in range(len(AAP)):
@@ -352,13 +383,13 @@ def plt_plot(P,Yn):
         Dy.append(Yn[j][1][1][1])
         Sx.append(Yn[j][0][0][0])
         Sy.append(Yn[j][0][0][1])
-        plt.plot(Dx,Dy, color = 'g')
+        # plt.plot(Dx,Dy, color = 'g')
     plt.plot(Px,Py,color = 'b')
-    plt.plot(APx,APy,color = 'r')
-    plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
+    # plt.plot(APx,APy,color = 'r')
+    plt.scatter(Sx,Sy,s = 150,marker = '.',color = 'k')
     End = time.time()
     return plt.show(), print("The End time is:",End),print("The runtime is:",(End-Start))
-plt_plot(P,Yn)
+# plt_plot(P,Yn)
 
 
 
