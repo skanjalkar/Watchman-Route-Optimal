@@ -346,7 +346,6 @@ def astar(grid, start, goal):
         print("No path found")
     return path, steps
 
-
 # Doctest
 if __name__ == "__main__":
     # load doc test

@@ -92,9 +92,19 @@ test_list = [1, 4, 5, 5, 5, 9, 1]
          [[(24969.990000000013, 16045.00999999999), (23600, 19250)], [(24969.990000000013, 16045.00999999999), (24970, 19250)]], 
 [[(24969.990000000013, 16045.00999999999), (24970, 19250)], [(24969.990000000013, 16045.00999999999), (24970, 16045)]]]
 '''
-import numpy as np
-start = (0,0)
-stop = (10,10)
-a = np.linspace(start, stop, num=4)
-print(a)
-print(len(a))
+# import numpy as np
+# start = (0,0)
+# stop = (10,10)
+# a = np.linspace(start, stop, num=4)
+# print(a)
+# print(len(a))
+
+# from matplotlib.collections import PatchCollection
+# from matplotlib.patches import Polygon
+# from matplotlib import pyplot as plt
+# vertices = [(0,0),(4,0),(4,4),(0,4)]
+# Polygon(vertices, color=[1, 0, 0])
+# p = PatchCollection(patches)
+# p.set_color([1, 0, 0])
+
+# print([1,2,3,4] * 5)

@@ -15,7 +15,6 @@ class Node:
         self.parent = None    # parent node / edge
         self.cost = 0.0       # cost to parent / edge weight
 
-
 # Class for RRT
 class RRT:
     # Constructor

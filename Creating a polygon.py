@@ -66,7 +66,7 @@ while True:
     except: print("Invalid Input");continue
     Y.append(Vy)
 P = [(X[i],Y[i]) for i in range(0,len(X))]'''
-# Plot_Polygon(P)
+Plot_Polygon(P)
 
 ''' Grayscale Image and Binarizing the Image'''
 
