@@ -1,6 +1,11 @@
 # RBE550Project
 Motion Planning Group Project
 
+Before you run the code, to make sure you have all the requirements met do:
+
+```pip install -r requirements.txt```
+
+
 Referral Papers:
 1. https://math.mit.edu/~apost/courses/18.204_2018/Nicole_Chesnokov_paper.pdf
 2. https://members.loria.fr/HEverett/McGill-ISA/Bellairs-2005/rafa.pdf

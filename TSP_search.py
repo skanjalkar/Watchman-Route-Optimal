@@ -103,3 +103,6 @@ def held_karp(dists):
     # Add implicit start state
     path.append(0)
     return opt, list(reversed(path))
+
+def TSP_SA(graph):
+    s = list(range(graph))

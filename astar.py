@@ -45,7 +45,6 @@ def astar(grid, start, goal, poly):
                 node[neighbor[0]][neighbor[1]].cost = node[neighbor[0]][neighbor[1]].g + node[neighbor[0]][
                     neighbor[1]].h
                 node[neighbor[0]][neighbor[1]].parent = current_node
-
         current_node = not_seen_min_cost(node, seen)
         # if no path exists
         if current_node is None:
