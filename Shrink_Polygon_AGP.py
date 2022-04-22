@@ -80,6 +80,20 @@ Poly = [(Xp[i],Yp[i]) for i in range(0,len(Xp))]'''
 #        (6,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6),(-3,6),\
 #        (-2,3),(3,0),(4,2),(8,0),(14,0),(16,2),(15,8),(13,7)]
 
+Poly = [(250,190),(236,192),(207,221),(227,241),(193,275)\
+    ,(173,255),(155,272),(155,302),(164,302),(164,315)\
+    ,(206,315),(206,337),(233,337),(233,311),(257,311)\
+    ,(257,414),(167,414),(167,394),(100,394),(100,414)\
+    ,(43,414),(43,394),(13,394),(13,313),(35,313)\
+    ,(35,343),(62,343),(62,290),(47,290),(47,265)\
+    ,(20,265),(20,286),(0,286),(0,211),(119,211),(124,216)\
+    ,(168,172),(146,149),(164,131),(144,112),(126,130)\
+    ,(90,94),(114,70),(114,48),(195,48),(195,92),(262,92)\
+    ,(262,70),(320,70),(320,97),(365,97),(365,150)\
+    ,(343,150),(343,128),(314,128),(314,192),(343,192)\
+    ,(343,170),(374,170),(374,234),(343,234),(343,260)\
+    ,(283,260),(283,242),(249,242)]
+
 Poly.reverse(); 
 P = Poly; AP = P; P.append(P[0])
 
@@ -97,8 +111,8 @@ def point_of_intersection(line1, line2):
     return x, y
 def shrink(Poly):
 # how much the coordinates are moved as an absolute value
-    shrink_x = 0.2
-    shrink_y = 0.2
+    shrink_x = 10
+    shrink_y = 10
 # coords must be clockwise
     lines = [[Poly[i-1], Poly[i]] for i in range(len(Poly))]
     new_lines = []
@@ -125,17 +139,17 @@ Start = time.time() #starting the time
 Pc.append(Pc[0])
 
 ''' Pl is the list of vertices of the polygon and the points equally spaced between them'''
-def sampling_points(Pc):
-    Pl = []
-    for i in range(len(Pc)-1):
-        a = np.linspace(Pc[i], Pc[i+1], num=100)
-        for j in a:
-            if (j[0],j[1]) not in Pl:
-                Pl.append((j[0],j[1]))
-    Pl.append(Pl[0])
-    return Pl
+# def sampling_points(Pc):
+#     Pl = []
+#     for i in range(len(Pc)-1):
+#         a = np.linspace(Pc[i], Pc[i+1], num=10)
+#         for j in a:
+#             if (j[0],j[1]) not in Pl:
+#                 Pl.append((j[0],j[1]))
+#     Pl.append(Pl[0])
+#     return Pl
 
-Pc = sampling_points(Pc)
+# Pc = sampling_points(Pc)
 AAP = Pc
 
 def Sorting(lst): 
@@ -375,7 +389,7 @@ def plt_plot(P,Yn):
     plt.scatter(Sx,Sy,s = 150,marker = '.',color = 'k')
     End = time.time()
     return plt.show(), print("The End time is:",End),print("The runtime is:",(End-Start))
-plt_plot(P,Yn)
+# plt_plot(P,Yn)
 
 
 
