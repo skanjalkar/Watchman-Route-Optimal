@@ -15,16 +15,27 @@ P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
 P = [(4,4),(8,4),(8,0),(14,-5),(20,0),(20,6),(15,6),(15,10),\
     (20,10),(20,14),(16,14),(16,16),(10,16),(10,14),(6,14),(6,16),(2,16),\
     (2,14),(0,14),(-5,7),(0,0),(2,-2),(4,0)]
-a = [];b = []
-for i in range(0,25):
-    a = []
-    for j in range(0,24):
-        if Polygon(P).contains(Point(j,i)):
-            a.append(0)
-        else:
-            a.append(1)
-    b.append(a)
-# print(b)
+# a = [];b = []
+# for i in range(0,25):
+#     a = []
+#     for j in range(0,24):
+#         if Polygon(P).contains(Point(j,i)):
+#             a.append(0)
+#         else:
+#             a.append(1)
+#     b.append(a)
+# # print(b)
+
+import matplotlib.pyplot as plt
+x=[[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]]
+y=[[1,2,3,4],[1,6,3,4],[1,2,9,4],[1,2,0,4]]
+for i in range(len(x)):
+    plt.figure(1)
+    plt.plot(x[i],y[i])
+    # Show/save figure as desired.
+    # plt.show()
+# Can show all four figures at once by calling plt.show() here, outside the loop.
+plt.show()
 
 
 '''grid = [[1,1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
