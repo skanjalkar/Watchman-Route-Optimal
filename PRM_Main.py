@@ -48,14 +48,14 @@ if __name__ == "__main__":
         map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Robot-Motion-Planning-for-an-optimal-Watchman-Route\Colored Polygons\GS3.jpeg",1)
         RRT_planner = RRT(map_array, start, goal)
         PRM_planner = PRM(map_array)
-        PRM_planner.sample(n_pts=1000, sampling_method="uniform")
+        PRM_planner.sample(n_pts=800, sampling_method="uniform")
         PRM_planner.search(start, goal)
         PRM_planner.sample(n_pts=1000, sampling_method="random")
         PRM_planner.search(start, goal)
-        PRM_planner.sample(n_pts=20000, sampling_method="gaussian")
+        PRM_planner.sample(n_pts=10000, sampling_method="gaussian")
         PRM_planner.search(start, goal)
-        PRM_planner.sample(n_pts=20000, sampling_method="bridge")
-        PRM_planner.search(start, goal)
+        # PRM_planner.sample(n_pts=10000, sampling_method="bridge")
+        # PRM_planner.search(start, goal)
 
     # Search with RRT and RRT*
     # RRT_planner.RRT(n_pts=1000)
