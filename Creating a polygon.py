@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 Dy = list()
-P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
+'''P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
     ,(25785,41415),(16740,41415),(16740,39400),(10060,39400),(10060,41415)\
@@ -42,7 +42,21 @@ P = [(4,4),(8,4),(8,0),(14,-5),(20,0),(20,6),(15,6),(15,10),\
        ,(2,14),(0,14),(-5,7),(0,0),(2,-2),(4,0),(4,4)]
 P = [(4000,4000),(8000,4000),(8000,0),(14000,-5000),(20000,0),(20000,6000),(15000,6000),(15000,10000),\
     (20000,10000),(20000,14000),(16000,14000),(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000),\
-    (2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0),(4000,4000)]
+    (2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0),(4000,4000)]'''
+
+P = [(250,190),(236,192),(207,221),(227,241),(193,275)\
+    ,(173,255),(155,272),(155,302),(164,302),(164,315)\
+    ,(206,315),(206,337),(233,337),(233,311),(257,311)\
+    ,(257,414),(167,414),(167,394),(100,394),(100,414)\
+    ,(43,414),(43,394),(13,394),(13,313),(35,313)\
+    ,(35,343),(62,343),(62,290),(47,290),(47,265)\
+    ,(20,265),(20,286),(0,286),(0,211),(119,211),(124,216)\
+    ,(168,172),(146,149),(164,131),(144,112),(126,130)\
+    ,(90,94),(114,70),(114,48),(195,48),(195,92),(262,92)\
+    ,(262,70),(320,70),(320,97),(365,97),(365,150)\
+    ,(343,150),(343,128),(314,128),(314,192),(343,192)\
+    ,(343,170),(374,170),(374,234),(343,234),(343,260)\
+    ,(283,260),(283,242),(249,242)]
 def Plot_Polygon(P):
     plt.title('Polygon')
     for i in range(len(P)):
@@ -70,15 +84,15 @@ Plot_Polygon(P)
 
 ''' Grayscale Image and Binarizing the Image'''
 
-image=Image.open('D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Robot-Motion-Planning-for-an-optimal-Watchman-Route\Colored Polygons\P10.png')
-gray_image=image.convert('L')
-gray_image_array=np.asarray(gray_image)
+# image=Image.open('D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Robot-Motion-Planning-for-an-optimal-Watchman-Route\Colored Polygons\P10.png')
+# gray_image=image.convert('L')
+# gray_image_array=np.asarray(gray_image)
 
-threshold = 200
-gray_image = gray_image_array.copy()
-gray_image[gray_image_array > threshold] = 0
-gray_image[gray_image_array <= threshold] = 255
+# threshold = 200
+# gray_image = gray_image_array.copy()
+# gray_image[gray_image_array > threshold] = 0
+# gray_image[gray_image_array <= threshold] = 255
 
 
-plt.imshow(gray_image,cmap='gray', vmin = 0, vmax = 255)
-plt.show()
+# plt.imshow(gray_image,cmap='gray', vmin = 0, vmax = 255)
+# plt.show()
