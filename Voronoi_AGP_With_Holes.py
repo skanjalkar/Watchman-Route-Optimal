@@ -11,29 +11,29 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
      (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
      (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
      (23600,16045),(24970,16045)]
-'Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
-    ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
-    ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
-    ,(25785,41415),(16740,41416),(16740,39400),(10060,39400),(10060,41415)\
-    ,(4315,41415),(4315,39400),(1300,39400),(1300,31300),(3545,31300)\
-    ,(3545,34300),(6245,34300),(6245,29085),(4785,29085),(4785,26570)\
-    ,(2085,26570),(2085,28615),(0,28615),(0,21110),(11925,21110),(12445,21630)\
-    ,(16865,17210),(14600,14946),(16407,13139),(14498,11230),(12691,13036)\
-    ,(9085,9430),(11430,7085),(11430,4800),(19590,4800),(19590,9250),(26255,9250)\
-    ,(26255,7085),(32000,7085),(32000,9720),(36510,9720),(36510,15050)\
-    ,(34330,15050),(34330,12850),(31430,12850),(31430,19250),(34330,19250)\
-    ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
-    ,(28385,26060),(28385,24260),(24970,24260)]'
-'Poly = [(4000,4000),(8000,4000),(8000,0000),(14000,-5000),(20000,0),(20000,6000)\
-    ,(15000,6000),(15000,10000),(20000,10000),(20000,14000),(16000,14000)\
-    ,(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000)\
-    ,(2000,16000),(2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0)]'
+'''# Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
+#     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
+#     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
+#     ,(25785,41415),(16740,41416),(16740,39400),(10060,39400),(10060,41415)\
+#     ,(4315,41415),(4315,39400),(1300,39400),(1300,31300),(3545,31300)\
+#     ,(3545,34300),(6245,34300),(6245,29085),(4785,29085),(4785,26570)\
+#     ,(2085,26570),(2085,28615),(0,28615),(0,21110),(11925,21110),(12445,21630)\
+#     ,(16865,17210),(14600,14946),(16407,13139),(14498,11230),(12691,13036)\
+#     ,(9085,9430),(11430,7085),(11430,4800),(19590,4800),(19590,9250),(26255,9250)\
+#     ,(26255,7085),(32000,7085),(32000,9720),(36510,9720),(36510,15050)\
+#     ,(34330,15050),(34330,12850),(31430,12850),(31430,19250),(34330,19250)\
+#     ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
+#     ,(28385,26060),(28385,24260),(24970,24260)]
+# 'Poly = [(4000,4000),(8000,4000),(8000,0000),(14000,-5000),(20000,0),(20000,6000)\
+#     ,(15000,6000),(15000,10000),(20000,10000),(20000,14000),(16000,14000)\
+#     ,(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000)\
+#     ,(2000,16000),(2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0)]'
 #Poly = [(0,0),(2000,-3000),(5000,-3000),(7000,-1000),(6000,2000),(7000,4000)\
 #        ,(4000,6000),(3000,6000),(-3000,4000),(1000,2000)] #$
 #Poly = [(8,8),(9,6),(11,8),(10,10),(9,12),(6,12),(5,16),(3,13),(0,13),(4,10)\
 #        ,(0,0),(5,0),(8,2),(6,5),(7,7)]
-Poly = [(-3,6),(-2,3),(3,0),(5,2),(8,0),(14,0),(16,2),(15,8),(13,7),(12,3),(7.8,8),(14,8)\
-     ,(9,11),(4,8),(5.2,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6)]
+# Poly = [(-3,6),(-2,3),(3,0),(5,2),(8,0),(14,0),(16,2),(15,8),(13,7),(12,3),(7.8,8),(14,8)\
+#      ,(9,11),(4,8),(5.2,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6)]
 #Poly = [(0,6),(1,1),(3,0),(7,2),(5,4),(7,5),(6,8),(4,7),(2,11)]
 #Poly = [(10,10),(20,20),(10,50),(40,30),(50,70),(50,50),(100,100)\
 #        ,(100,-50),(60,-10),(30,-30)]
@@ -43,18 +43,19 @@ Poly = [(-3,6),(-2,3),(3,0),(5,2),(8,0),(14,0),(16,2),(15,8),(13,7),(12,3),(7.8,
 #Poly = [(0,0),(2,2),(0,4),(3,4),(3,0)]
 #Poly = [(0,0),(0,40),(40,40),(40,0)]
 #Poly = [(1,2),(0,0),(2,-3),(5,-3),(7,-1),(6,2),(7,4),(4,6),(3,6),(-3,4)]
-Holes = [[(16000,20000),(19000,22000),(19000,24000),(15750,23200)]]
-#Holes = [[(9000,27000),(13000,27000),(13000,33000),(9000,33000)],\
+# Holes = [[(16000,20000),(19000,22000),(19000,24000),(15750,23200)]]
+# Holes = [[(9000,27000),(13000,27000),(13000,33000),(9000,33000)],\
 #         [(20000,12000),(24000,12000),(24000,15000),(20000,15000)]]
 #Holes = [[(4000,7000),(10000,6000),(10000,10000),(4000,11000)]] #^
 #Holes = [[(2000,8000),(6000,8000),(6000,10000),(2000,10000)]] #^
 #Holes = [[(4,6),(7,9),(5,12)]]
-Holes = [[(1.5,3.75),(4,4),(4,5),(1.5,4.75)],[(8.5,2),(10,2),(10,4),(8.5,4)]]
+# Holes = [[(1.5,3.75),(4,4),(4,5),(1.5,4.75)],[(8.5,2),(10,2),(10,4),(8.5,4)]]
 #Holes = [[(30,-10),(35,-10),(35,10),(30,10)],[(70,-10),(80,-10),(80,10),(70,10)]]
 #Holes = [[(12,10),(18,10),(18,20),(12,20)]]
 #Holes = [[35,60],[50,60],[55,70],[40,70]] #*
 #Holes = [[(3000,0),(4000,0),(4000,750),(3000,750)],[(3000,3000),(4000,3000),\
-#                                                    (4000,4000),(3000,4000)]]
+#                                                    (4000,4000),(3000,4000)]]'''
+Holes = [[(16000,20000),(19000,22000),(16000,23000)],[(14000,27000),(15000,28000),(14000,29000)]] #Hallway
 H = Holes
 
 def points_to_voronoi(Poly,Holes):
@@ -68,7 +69,6 @@ def points_to_voronoi(Poly,Holes):
 Vorpoints = np.array(points_to_voronoi(Poly,Holes))
 #print("The vorpoints are:",Vorpoints)
 
-
 Hs = []
 for i in range(len(H)):
     for j in range(len(H[i])):
@@ -79,13 +79,10 @@ for i in range(len(H)):
     H[i].append(H[i][0])
 #print("The holes are:",H)
 
-
 P = Poly
 AP = P
 P.append(P[0])
-
 vor = Voronoi(Vorpoints)
-
 
 def voronoi_finite_polygons_2d(vor, radius=None):
     """
@@ -171,8 +168,6 @@ regions, vertices = voronoi_finite_polygons_2d(vor)
 
 polygons = []
 
-#print("The vertices are:",vertices)
-
 fig = voronoi_plot_2d(vor)
 
 vert = []
@@ -184,31 +179,14 @@ for i in range(len(vertices)):
     vert.append(V)
 print ("The vert are:",vert)
 
-
-#use this only if required
-'''v = vert   
-for i in range(len(v)-1):
-    mpvorx = (v[i][0]+v[i+1][0])/2
-    mpvory = (v[i][1]+v[i+1][1])/2
-    mpvor = (mpvorx,mpvory)
-    vert.append(mpvor)
-print(" Now the vert are:",vert)'''
-
-
 Pc = vert
-
-
 AAP = Pc
 Ac = Pc
 Ac.append(Ac[0])
-#print("The Ac:",Ac)
-
 
 def Sorting(lst):
     lst2 = sorted(lst, key=len, reverse = True)
     return lst2
-
-
 ''' orientation function: To check the orientation on points (x1,y1),(x2,y2),(x3,y3)'''
 def orientation(x1,y1,x2,y2,x3,y3):
         val = (float((y2-y1)*(x3-x2)))-(float((x2-x1)*(y3-y2)))
@@ -218,16 +196,12 @@ def orientation(x1,y1,x2,y2,x3,y3):
             return 2 #counterclockwise
         else:
             return 0 #collinear
-
-
 ''' point_in_seg_area function: To check if the point lies in segment area'''
 def point_in_seg_area(x1,y1,x2,y2,x3,y3):
         if ((x2<=max(x1,x3)) and (x2>=min(x1,x3))\
                 and (y2<=max(y1,y3)) and (y2>=min(y1,y3))):
             return True
         return False
-
-
 ''' check_intersection function: To check if the line formed by points (x1,y1) and (x2,y2) intersects line
       formed by (x3,y3) and (x4,y4)'''
 def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
@@ -247,7 +221,6 @@ def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
             return True
         return  False
 
-
 def create_point_pair(P):
     Pb = []
     for i in range(len(P)-1):
@@ -258,21 +231,16 @@ def create_point_pair(P):
     return Pb
 Pb = create_point_pair(P)
 
-
 '''Making pair of the vertices of the holes to make edges'''
 Hb = []
 for i in range(len(H)):
     Hp = create_point_pair(H[i])
     for i in range(len(Hp)):
         Hb.append(Hp[i])
-#print("The Hb is:",Hb)
-
 
 '''Combining holes' edges with polygon edges'''
 for i in range(len(Hb)):
     Pb.append(Hb[i])
-#print("The edges are:",Pb)
-
 
 Pf = []
 for i in range(len(P)-1):
@@ -280,8 +248,6 @@ for i in range(len(P)-1):
 for i in range(len(H)):
     for j in range(len(H[i])-1):
         Pf.append(H[i][j])
-#print("The list of all points to be covered",Pf)
-
 
 def non_intersecting_diag(Pc,P,Pf,Pb,Hs):
     Yx = [];Zn = []
@@ -341,11 +307,7 @@ def non_intersecting_diag(Pc,P,Pf,Pb,Hs):
             if Pout[n] in Yx:
                 Yx.remove(Pout[n])
     return Yx
-
 Yx = non_intersecting_diag(Pc,P,Pf,Pb,Hs)
-#print("The non intersecting diagonals are:",Yx)
-
-
 
 def mini_chk_pts(Ac,Pc,P,Yx,H,Pb):
     Yn=[];M=[];Ys1=[];Ys2=[];Yk1=[];Yy1=[];Yf1 = [];Ye1 = []; R = []
@@ -440,25 +402,27 @@ def mini_chk_pts(Ac,Pc,P,Yx,H,Pb):
         F = F2
         #print("The F is:",F)
     return Yn
-Pfinal = mini_chk_pts(Ac,Pc,P,Yx,H,Pb)
-final = []
-R = []
-for i in Pfinal:
-    if not i in final:
-       final.append(i)
-r = []
-for p in range(len(final)): #solution for adjecent points
-    for q in range(len(final)): #this is a big change!!!!!!!!!
-        for r in range(len(Pc)-1):
-            if (final[p][0][0] or final[p][1][0]) == Pc[r]:
-                if (Pc[r+1] or Pc[r-1])==(final[q][0][1] or final[q][1][1]):
-                    R.append(final[q])
-#print("Bro R is:",R)
-for r in range(len(R)):
-    if R[r] in final:
-       final.remove(R[r])
-Yn = final
-#print("The co-ordinates are:",Yn)
+Yn = mini_chk_pts(Ac,Pc,P,Yx,H,Pb)
+
+def clean_up_final(Yn):
+    final = []; R = []; r = []
+    for i in Yn:  #avoiding repetition
+        if not i in final:
+            final.append(i)
+    for p in range(len(final)): #solution for adjecent points
+        for q in range(len(final)): #this is a big change!!!!!!!!!
+            for r in range(len(Pc)-1):
+                if (final[p][0][0] or final[p][1][0]) == Pc[r]:
+                    if (Pc[r+1] or Pc[r-1])==(final[q][0][1] or final[q][1][1]):
+                        R.append(final[q])
+    for r in range(len(R)):
+        if R[r] in final:
+            final.remove(R[r])
+    Yn = final
+    return Yn
+Final_Diagonals = clean_up_final(Yn) 
+Yn = Final_Diagonals
+
 def plt_plot(P,Yn,H):
     Hx = [] ; Hy = [];Hsx = []; Hsy = []
     Px = [];Py = [];Dx = [];Dy = [];Sx = [];Sy = [];APx = [];APy = []
@@ -485,7 +449,7 @@ def plt_plot(P,Yn,H):
             Hy.append(H[a][b][1])
         plt.plot(Hx,Hy,color = 'r')
     plt.plot(Px,Py,color = 'b')
-    plt.plot(APx,APy,color = 'r')
+    # plt.plot(APx,APy,color = 'r')
     plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     return plt.show()
 

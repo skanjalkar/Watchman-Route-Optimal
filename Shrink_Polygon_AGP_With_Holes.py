@@ -22,7 +22,7 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
     ,(34330,15050),(34330,12850),(31430,12850),(31430,19250),(34330,19250)\
     ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
     ,(28385,26060),(28385,24260),(24970,24260)]   # 65 edges polygon'''
-# Poly = [(4000,4000),(8000,4000),(8000,0000),(14000,-5000),(20000,0),(20000,6000)\
+'''# Poly = [(4000,4000),(8000,4000),(8000,0000),(14000,-5000),(20000,0),(20000,6000)\
 #     ,(15000,6000),(15000,10000),(20000,10000),(20000,14000),(16000,14000)\
 #     ,(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000)\
 #     ,(2000,16000),(2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0)]
@@ -36,15 +36,15 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
         # ,(100,-50),(60,-10),(30,-30)]
 #Poly = [(0,0),(2,2),(0,4),(3,4),(3,0)]
 #Poly = [(0,0),(0,40),(40,40),(40,0)]
-#Poly = [(1,2),(0,0),(2,-3),(5,-3),(7,-1),(6,2),(7,4),(4,6),(3,6),(-3,4)]
+#Poly = [(1,2),(0,0),(2,-3),(5,-3),(7,-1),(6,2),(7,4),(4,6),(3,6),(-3,4)]'''
 Holes = [[(16000,20000),(19000,22000),(16000,23000)],[(14000,27000),(15000,28000),(14000,29000)]] #Hallway
 '''Holes = [[(9000,27000),(13000,27000),(13000,33000),(9000,33000)],\
         [(20000,12000),(24000,12000),(24000,15000),(20000,15000)]] # 65 edges polygon'''
-#Holes = [[(0000,7000),(10000,6000),(12000,10000),(3000,11000)]]
+'''#Holes = [[(0000,7000),(10000,6000),(12000,10000),(3000,11000)]]
 #Holes = [[(4000,6000),(7000,9000),(5000,12000)]]
 #Holes = [[(1.5,3),(3.5,3),(3.5,5),(1.5,5)],[(8.5,2),(10,2),(10,4),(8.5,4)]]
 # Holes = [[(30,-10),(35,-10),(35,10),(30,10)],[(70,-10),(80,-10),(80,10),(70,10)]]
-#Holes = [[(12,10),(18,10),(18,20),(12,20)]]
+#Holes = [[(12,10),(18,10),(18,20),(12,20)]]'''
 H = Holes
 
 Hs = []
@@ -131,21 +131,21 @@ def expand(Poly):
     return new_polygon
 
 Pc = shrink(Poly)
-#Pc.append(Pc[0])  #''' Check this if any further error occurs!!!!!!'''
+# Pc.append(Pc[0])  #''' Check this if any further error occurs!!!!!!'''
 
 AAP = Pc
 Ac = Pc
 Ac.append(Ac[0])
-#print("The Ac:",Ac)
 
 Hc = []
 for i in range(len(H)):
     Hc.append(expand(H[i]))
-print("The Hc is:",Hc)
+# print("The Hc is:",Hc)
 
 Bc = Hc
 for i in range(len(Bc)):
     Bc[i].append(Bc[i][0])
+# print(Bc)
 
 '''Now put all the vertices of the Hc in Pc'''
 for i in range(len(Pc)-1):
@@ -157,8 +157,6 @@ for i in range(len(Hc)):
 def Sorting(lst):
     lst2 = sorted(lst, key=len, reverse = True)
     return lst2
-
-
 ''' orientation function: To check the orientation on points (x1,y1),(x2,y2),(x3,y3)'''
 def orientation(x1,y1,x2,y2,x3,y3):
         val = (float((y2-y1)*(x3-x2)))-(float((x2-x1)*(y3-y2)))
@@ -193,7 +191,6 @@ def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
             return True
         return  False
 
-
 def create_point_pair(P):
     Pb = []
     for i in range(len(P)-1):
@@ -204,20 +201,16 @@ def create_point_pair(P):
     return Pb
 Pb = create_point_pair(P)
 
-
 '''Making pair of the vertices of the holes to make edges'''
 Hb = []
 for i in range(len(H)):
     Hp = create_point_pair(H[i])
     for i in range(len(Hp)):
         Hb.append(Hp[i])
-#print("The Hb is:",Hb)
-
 
 '''Combining holes' edges with polygon edges'''
 for i in range(len(Hb)):
     Pb.append(Hb[i])
-#print("The edges are:",Pb)
 
 Pf = []
 for i in range(len(P)-1):
@@ -225,7 +218,6 @@ for i in range(len(P)-1):
 for i in range(len(H)):
     for j in range(len(H[i])-1):
         Pf.append(H[i][j])
-#print("The list of all points to be covered",Pf)
 
 def non_intersecting_diag(Zc,P,Pf,Pb,Hs):
     Yx = [];Zn = []
@@ -286,7 +278,6 @@ def non_intersecting_diag(Zc,P,Pf,Pb,Hs):
                 Yx.remove(Pout[n])
     return Yx
 Yx = non_intersecting_diag(Zc,P,Pf,Pb,Hs)
-#print("The non intersecting diagonals are:",Yx)
 
 def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
     Yn=[];M=[];Ys1=[];Ys2=[];Yk1=[];Yy1=[];Yf1 = [];Ye1 = []; R = []
@@ -355,6 +346,38 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
             if not Yy == []:
                    Ys.append(Yy)
         Yf2 = Sorting(Ys)
+
+        '''...........................................................'''
+        '''This part of code compares the distances of the guards with the previous guards, in the hope of binding them closer'''
+
+
+        # Yf2_len = []
+        # for i in Yf2:
+        #     Yf2_len.append(len(i))
+        # # print(Yf2_len)
+        
+        # high = []
+        # for i in Yf2:
+        #     if len(i) == len(Yf2[0]):
+        #         high.append(Yf2.index(i))
+       
+        # Dist = []
+        # for i in high:
+        #     if Yn == []:
+        #         continue
+        #     else: 
+        #         a = Yn[len(Yn)-1][0][0]    # Because the first element has no one to compare with
+        #         b = Yf2[i][0][0][0]        # current elements list
+        #         dist = math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
+        #         Dist.append(dist)
+           
+        # '''..........................................................'''
+        # if not Yf2 == []:
+        #     if Yn == []:
+        #         A2 = Yf2[0]
+        #     else:
+        #         A2 = Yf2[Dist.index(min(Dist))]
+
         #print("Yf2:",Yf2)
         if not Yf2 == []:
                A2 = Yf2[0]
@@ -376,32 +399,33 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
         Yf1 = Yf2
         F = F2
     return Yn
-Pfinal = mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H)
-final = []
-R = []
-for i in Pfinal:
-    if not i in final:
-       final.append(i)
-r = []
-for p in range(len(final)): #solution for adjecent points
-    for q in range(len(final)): #this is a big change!!!!!!!!!
-        for r in range(len(Pc)-1):
-            if (final[p][0][0] or final[p][1][0]) == Pc[r]:
-                if (Pc[r+1] or Pc[r-1])==(final[q][0][1] or final[q][1][1]):
-                    R.append(final[q])
-#print("Bro R is:",R)
-for r in range(len(R)):
-    if R[r] in final:
-       final.remove(R[r])
-Yn = final
-#print("The co-ordinates are:",Yn)
+Yn = mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H)
+
+def clean_up_final(Yn):
+    final = []; R = []; r = []
+    for i in Yn:  #avoiding repetition
+        if not i in final:
+            final.append(i)
+    for p in range(len(final)): #solution for adjecent points
+        for q in range(len(final)): #this is a big change!!!!!!!!!
+            for r in range(len(Pc)-1):
+                if (final[p][0][0] or final[p][1][0]) == Pc[r]:
+                    if (Pc[r+1] or Pc[r-1])==(final[q][0][1] or final[q][1][1]):
+                        R.append(final[q])
+    for r in range(len(R)):
+        if R[r] in final:
+            final.remove(R[r])
+    Yn = final
+    return Yn
+Final_Diagonals = clean_up_final(Yn) 
+Yn = Final_Diagonals
 
 def plt_plot(P,Yn,H,Hc):
     Hx = [] ; Hy = [];Hsx = []; Hsy = []
     Px = [];Py = [];Dx = [];Dy = [];Sx = [];Sy = [];APx = [];APy = []
-    for h in range(len(AAP)):
-        APx.append(AAP[h][0])
-        APy.append(AAP[h][1])
+    # for h in range(len(AAP)):
+    #     APx.append(AAP[h][0])
+    #     APy.append(AAP[h][1])
     for i in range(len(P)):
         Px.append(P[i][0])
         Py.append(P[i][1])
@@ -409,7 +433,7 @@ def plt_plot(P,Yn,H,Hc):
         for d in range(len(Hc[c])):
             Hsx.append(Hc[c][d][0])
             Hsy.append(Hc[c][d][1])
-          #  plt.plot(Hsx,Hsy,color = 'r')
+            #plt.plot(Hsx,Hsy,color = 'r')
     for j in range(len(Yn)):
         Dx=[];Dy=[]
         Dx.append(Yn[j][0][0][0])
@@ -430,51 +454,8 @@ def plt_plot(P,Yn,H,Hc):
             Hy.append(H[a][b][1])
         plt.plot(Hx,Hy,color = 'r')
     plt.plot(Px,Py,color = 'b')
-    #plt.plot(APx,APy,color = 'b')
+    # plt.plot(APx,APy,color = 'b')
     plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     return plt.show()
 
 plt_plot(P,Yn,H,Hc)
-
-
-
-#    for s in range(len(Yx)):
-#        Yy1 = []
-#        for r in range(len(Ac)):
-#            if Ac[r] == Yx[s][0]:
-#                Yy1.append(Yx[s])
-#        for t in range(len(Bc)):
-#            if Bc[t] == Yx[t][0]:
-#                Yy1.append(Yx[t])
-#        Ys1.append(Yy1)
-#    Yk1 = Sorting(Ys1)
-#    for t in range(len(Bc)):#this is important for arranging the diagonals.
-#        Yy1 = []
-#        for s in range(len(Yx)):
-#            if Bc[t] == Yx[s][0]:
-#               Yy1.append(Yx[s])
-#        Ys1.append(Yy1)
-      #sorting in descending order of  length of sub-list.
-
-'''            Z = []
-            if len(Zn) == 2*(len(Hs)): #no intersection with any hole side
-               Z.append(Zn[0])
-               Z.append(Zn[1])
-            if Z == []:
-                continue
-            else:
-                Yx.append(Z)'''
-
-'''    for t in range(len(Bc)):
-        for w in range(len(Bc[t])-1):
-            Yy2 = []
-            for s in range(len(Yx)):
-                if Bc[t][w] == Yx[s][0]:
-                    Yy2.append(Yx[s])
-            if not Yy2 == []:
-                   Yy2.append(Yy2[0])
-            Ys2.append(Yy2)
-    print("Ys2 is:",Ys2)
-    for i in range(len(Ys1)):
-        for j in range(len(Ys2[i])):
-            Ys1[i].append(Ys2[i][j])'''
