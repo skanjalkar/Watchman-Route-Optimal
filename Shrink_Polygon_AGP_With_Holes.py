@@ -212,6 +212,7 @@ for i in range(len(H)):
 for i in range(len(Hb)):
     Pb.append(Hb[i])
 
+
 Pf = []
 for i in range(len(P)-1):
     Pf.append(P[i])
@@ -291,7 +292,6 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
         if not Yy1 == []:
                Yy1.append(Yy1[0])
         Ys1.append(Yy1)
-    #print("Ys1 is:",Ys1)
     for r in range(len(Zc)):#this is important for arranging the diagonals.
         Yy2 = []
         for s in range(len(Yx)):  #you have to separate it
@@ -334,7 +334,10 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
     Yf1 = Sorting(Ye1)
     F = Pb
     Yf2 = []
+
+    ''' Make changes in the algorithm for the triangles' case'''
     while F != []:
+        # print(F)
         Yy = []; Ys = []; M = []
         for a in range(len(Yf1)):
             Yy = []
@@ -349,7 +352,6 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
 
         '''...........................................................'''
         '''This part of code compares the distances of the guards with the previous guards, in the hope of binding them closer'''
-
 
         # Yf2_len = []
         # for i in Yf2:
