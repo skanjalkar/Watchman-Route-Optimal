@@ -7,6 +7,6 @@ class Node:
         self.y = y
         self.inside = inside
         self.h = h
-        self.g = 0
-        self.cost = math.inf
+        self.g = math.inf
+        self.cost = None
         self.parent = None

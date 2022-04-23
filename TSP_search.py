@@ -1,6 +1,7 @@
 import sys
 import itertools
 global answer
+import time
 answer = []
 
 
@@ -17,6 +18,8 @@ def TSP(graph, v, current_pos, num_nodes, count, cost):   # brute force with rec
 
 
 def brute_force(graph):   # naive brute force
+
+    s = time.time()
     vertex = []
     for i in range(len(graph)):
         if i != 0:
@@ -38,6 +41,8 @@ def brute_force(graph):   # naive brute force
 
         min_path = min(min_path, current_length)
 
+    e = time.time()
+    print(f'The time for brute force is {e-s}')
     return min_path
 
 
@@ -52,6 +57,7 @@ def held_karp(dists):
     Returns:
         A tuple, (cost, path).
     """
+    s = time.time()
     n = len(dists)
 
     # Maps each subset of the nodes to the cost to reach that subset, as well
@@ -102,7 +108,9 @@ def held_karp(dists):
 
     # Add implicit start state
     path.append(0)
-    return opt, list(reversed(path))
+    e = time.time()
+    print(f'Time for held karp is {e-s}')
+    return opt, list(reversed(path)), e-s
 
 def TSP_SA(graph):
     s = list(range(graph))

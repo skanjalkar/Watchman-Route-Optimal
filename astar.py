@@ -2,7 +2,7 @@ from node import Node
 from environment import *
 
 
-def astar(grid, start, goal, poly):
+def astar(grid, start, goal):
     path = []
     node = []
     for i, row in enumerate(grid):
@@ -13,7 +13,7 @@ def astar(grid, start, goal, poly):
 
     for i in range(len(node)):
         for j in range(len(node[i])):
-            node[i][j].h = abs(goal[0] - node[i][j].x) + abs(goal[1] - node[i][j].y)  # h value for each node
+            node[i][j].h = math.hypot(goal[0]-node[i][j].x, goal[1]-node[i][j].y)  # h value for each node
 
     seen = [[False for _ in range(len(node))]
             for _ in range(len(grid))]
@@ -24,10 +24,11 @@ def astar(grid, start, goal, poly):
     current_node = not_seen_min_cost(node, seen)
     seen[current_node.x][current_node.y] = True
     path_length = 0
-
+    print(start, goal)
     while current_node:
         # goal condition
         if current_node.x == goal[0] and current_node.y == goal[1]:
+
             path.append(goal)
             while path[-1] != start:
                 path_length += distance(current_node, current_node.parent)
@@ -47,6 +48,7 @@ def astar(grid, start, goal, poly):
                 node[neighbor[0]][neighbor[1]].parent = current_node
         current_node = not_seen_min_cost(node, seen)
         # if no path exists
+
         if current_node is None:
             break
         seen[current_node.x][current_node.y] = True  # won't visit this node again

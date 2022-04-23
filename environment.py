@@ -3,9 +3,9 @@ from shapely.geometry import Point
 
 def grid(limx, limy, polygon):
     grid = []
-    for i in range(0, limx+1):
+    for i in range(-30, limx+1):
         row = []
-        for j in range(0, limy+1):
+        for j in range(-30, limy+1):
             if polygon.contains(Point(i, j)):
                 row.append(1)
             else:
@@ -14,16 +14,13 @@ def grid(limx, limy, polygon):
     return grid
 
 
-def mark_visited(neighbours, visited):
-    for (x, y) in neighbours:
-        visited[x][y] = True
-
 
 def valid(x, y, grid, visited):
     if (x >= 0 and y >= 0) and (x < len(grid) and y < len(grid[0])):
         if grid[x][y]==1 and visited[x][y] is False:
             return True
     return False
+
 
 def travel(node, grid, visited):
     possible_travel = []

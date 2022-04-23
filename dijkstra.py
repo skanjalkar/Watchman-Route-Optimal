@@ -50,3 +50,4 @@ def search(grid, start, goal, poly):
             break
         seen[current_node.x][current_node.y] = True  # won't visit this element again
 
+    return path, path_length
