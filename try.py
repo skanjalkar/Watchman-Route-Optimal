@@ -61,3 +61,22 @@ P = Polygon(P)
 print(P.contains(Point(49.6, 52.8)))
 print(rotatePolygon(P, math.pi/2))
 
+
+''' 
+This code is used for random polygon testing
+    # P = draw_polygon(ax, 8, lim_x,  lim_y)
+    # vor = Voronoi(P)
+    # for i in vor.vertices:
+    #     if i[0] < 0 or i[1] < 0 or i[0] > lim_x or i[1] > lim_y:
+    #         continue
+    #     x = int(i[0])
+    #     y = int(i[1])
+    #     vor_int.append((x, y))
+'''
+
+# print(track)
+    # print()
+    # print(back_track)
+    # print(time.time()-s)
+    # point_list = [i for i in combinations(watchman_route_pts, 2)]
+    # print(point_list)

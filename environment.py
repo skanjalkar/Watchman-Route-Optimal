@@ -11,7 +11,6 @@ def grid(limx, limy, polygon):
             else:
                 row.append(0)
         grid.append(row)
-    print(len(grid), len(grid[0]))
     return grid
 
 
@@ -19,14 +18,12 @@ def grid(limx, limy, polygon):
 def valid(x, y, grid, visited):
     if (x >= 0 and y >= 0) and (x < len(grid) and y < len(grid[0])):
         if grid[x][y] == 1 and visited[x][y] is False:
-            print(f'Is valid{x, y}')
             return True
-    # print(f'Invalid {x, y}, {grid[x][y]}')
     return False
 
 
 def travel(node, grid, visited):
-    # print(grid)
+
     possible_travel = []
     if valid(node.x, node.y+1, grid, visited):
         possible_travel.append([node.x, node.y+1])

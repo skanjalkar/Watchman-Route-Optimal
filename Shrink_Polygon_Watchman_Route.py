@@ -55,8 +55,6 @@ def shrink():
     Yn = SP.mini_chk_pts(Pb,points,P,Yx)
     Final_Diagonals = SP.clean_up_final(Yn)
     Guards = SP.Guards(Final_Diagonals)
-    print(f'These are the guards {Guards}')
     return Guards, P
 
-shrink()
 

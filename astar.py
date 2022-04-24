@@ -24,7 +24,7 @@ def astar(grid, start, goal):
     current_node = not_seen_min_cost(node, seen)
     seen[current_node.x][current_node.y] = True
     path_length = 0
-    print(start, goal)
+
     while current_node:
         # goal condition
         if current_node.x == goal[0] and current_node.y == goal[1]:
@@ -34,17 +34,12 @@ def astar(grid, start, goal):
                 path_length += distance(current_node, current_node.parent)
                 path.append((current_node.parent.x, current_node.parent.y))
                 current_node = current_node.parent
-            # print(path, path_length)
             path.reverse()
             break
-        # print("-------------------")
-        # print(current_node.x, current_node.y)
 
         neighbor_locations = travel(current_node, grid, seen)
-        print(len(neighbor_locations))
         for neighbor in neighbor_locations:
             # check f value
-            # print(f'This is neighbor {neighbor.x, neighbor.y}')
             if node[neighbor[0]][neighbor[1]].cost is None or \
                     node[neighbor[0]][neighbor[1]].cost > current_node.g + distance(current_node, node[neighbor[0]][neighbor[1]]) + node[neighbor[0]][neighbor[1]].h:
                 node[neighbor[0]][neighbor[1]].g = current_node.g + distance(current_node, node[neighbor[0]][neighbor[1]])
@@ -53,9 +48,7 @@ def astar(grid, start, goal):
                 node[neighbor[0]][neighbor[1]].parent = current_node
         current_node = not_seen_min_cost(node, seen)
         # if no path exists
-        # print(current_node.x, current_node.y)
         if current_node is None:
-            # print(f'imhere')
             break
 
         seen[current_node.x][current_node.y] = True  # won't visit this node again
