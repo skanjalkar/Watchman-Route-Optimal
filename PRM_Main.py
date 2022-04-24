@@ -40,23 +40,23 @@ if __name__ == "__main__":
     # RRT_planner = RRT(map_array, start, goal)
 
     # Search with PRM
-    points = [(63,159),(121,220),(273,324)]
+    points = [(63,159),(121,220),(273,324),(63,159)]
     print(points)
     for i in range(len(points)-1):
         start = points[i]
         goal = points[i+1]
-        map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Robot-Motion-Planning-for-an-optimal-Watchman-Route\Colored Polygons\GS3.jpeg",1)
-        RRT_planner = RRT(map_array, start, goal)
+        map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Colored Polygons\GS3.jpeg",1)
+        # RRT_planner = RRT(map_array, start, goal)
         PRM_planner = PRM(map_array)
-        PRM_planner.sample(n_pts=800, sampling_method="uniform")
+        PRM_planner.sample(n_pts=1000, sampling_method="uniform")
         PRM_planner.search(start, goal)
-        PRM_planner.sample(n_pts=1000, sampling_method="random")
-        PRM_planner.search(start, goal)
-        PRM_planner.sample(n_pts=10000, sampling_method="gaussian")
-        PRM_planner.search(start, goal)
+        # PRM_planner.sample(n_pts=1000, sampling_method="random")
+        # PRM_planner.search(start, goal)
+        # PRM_planner.sample(n_pts=10000, sampling_method="gaussian")
+        # PRM_planner.search(start, goal)
         # PRM_planner.sample(n_pts=10000, sampling_method="bridge")
         # PRM_planner.search(start, goal)
-
+    plt.show()
     # Search with RRT and RRT*
     # RRT_planner.RRT(n_pts=1000)
     # RRT_planner.RRT_star(n_pts=2000)

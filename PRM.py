@@ -177,8 +177,9 @@ class PRM:
         pos['start'] = (self.samples[-2][1], self.samples[-2][0])
         pos['goal'] = (self.samples[-1][1], self.samples[-1][0])
         
+        plt.figure(1)
         # draw constructed graph
-        nx.draw(self.graph, pos, node_size=3, node_color='y', edge_color='y' ,ax=ax)
+        # nx.draw(self.graph, pos, node_size=3, node_color='y', edge_color='y' ,ax=ax)
 
         # If found a path
         if self.path:
@@ -188,13 +189,13 @@ class PRM:
             nx.draw_networkx_edges(self.graph, pos=pos, edgelist=final_path_edge, width=2, edge_color='b')
 
         # draw start and goal
-        nx.draw_networkx_nodes(self.graph, pos=pos, nodelist=['start'], node_size=12,  node_color='g')
-        nx.draw_networkx_nodes(self.graph, pos=pos, nodelist=['goal'], node_size=12,  node_color='r')
+        nx.draw_networkx_nodes(self.graph, pos=pos, nodelist=['start'], node_size=50,  node_color='r')
+        nx.draw_networkx_nodes(self.graph, pos=pos, nodelist=['goal'], node_size=50,  node_color='r')
 
         # show image
         plt.axis('on')
         ax.tick_params(left=True, bottom=True, labelleft=True, labelbottom=True)
-        plt.show()
+        # plt.show()
 
     def sample(self, n_pts=1000, sampling_method="uniform"):
         '''Construct a graph for PRM
