@@ -111,6 +111,3 @@ def held_karp(dists):
     e = time.time()
     print(f'Time for held karp is {e-s}')
     return opt, list(reversed(path)), e-s
-
-def TSP_SA(graph):
-    s = list(range(graph))
