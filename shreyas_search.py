@@ -1,15 +1,32 @@
 import itertools
-import Shrink_Polygon_AGP
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.spatial import Voronoi, voronoi_plot_2d
 from shapely.geometry.polygon import Polygon
-import Shrink_Polygon_Watchman_Route
 import time
+import Shrink_Polygon_Watchman_Route
 from matplotlib.animation import FuncAnimation
 from astar import *
 from dijkstra import *
 from TSP_search import *
+
+def get_min(polygon):
+    min_x = 0
+    min_y = 0
+
+    for x, y in polygon:
+        if x < min_x:
+            min_x = x
+        if y < min_y:
+            min_y = y
+
+    return min_x, min_y
+
+def translate_poly(polygon, min_x, min_y):
+    new_poly = []
+    for x,y in polygon:
+        new_poly.append((x+abs(min_x), y+abs(min_y)))
+    return new_poly
 
 def draw_polygon(ax, n, lim_x, lim_y):
 
@@ -44,19 +61,23 @@ def draw_polygon(ax, n, lim_x, lim_y):
 if __name__ == '__main__':
     fig, ax = plt.subplots()
     lim_x, lim_y = 150, 150
-    P = draw_polygon(ax, 10, lim_x,  lim_y)
-    vor = Voronoi(P)
+    # P = draw_polygon(ax, 8, lim_x,  lim_y)
+    # vor = Voronoi(P)
     vor_int, vor_x, vor_y, vor_inside_poly = [], [], [], []
-    for i in vor.vertices:
-        if i[0] < 0 or i[1] < 0 or i[0] > lim_x or i[1] > lim_y:
-            continue
-        x = int(i[0])
-        y = int(i[1])
-        vor_int.append((x, y))
+    # for i in vor.vertices:
+    #     if i[0] < 0 or i[1] < 0 or i[0] > lim_x or i[1] > lim_y:
+    #         continue
+    #     x = int(i[0])
+    #     y = int(i[1])
+    #     vor_int.append((x, y))
 
-    # Guards, P = Shrink_Polygon_Watchman_Route.shrink()
-    # vor_int = tuple(tuple(map(int, tup)) for tup in Guards)
+    guards, old_p = Shrink_Polygon_Watchman_Route.shrink()
+    mx, my = get_min(old_p)
+    Guards = translate_poly(guards, mx, my)
+    P = translate_poly(old_p, mx, my)
+    vor_int = tuple(tuple(map(int, tup)) for tup in Guards)
     polygon = Polygon(P)
+    print(polygon)
     grid = grid(lim_x, lim_y, polygon)
     for i in vor_int:
         if polygon.contains(Point(i)):
@@ -111,10 +132,17 @@ if __name__ == '__main__':
             x_values = [point_list[j][0][0], point_list[j][1][0]]
             y_values = [point_list[j][0][1], point_list[j][1][1]]
             plt.plot(x_values, y_values, c='grey')
-    # ani = FuncAnimation(fig, animate(back_track), frames=30, interval=500, repeat=False)
+    x, y = zip(*P)
+
+    plt.plot(x, y)
+    plt.scatter(vor_x, vor_y, c='blue')
     plt.scatter(vor_x, vor_y, c="red")
     plt.show()
 
+
+    x, y = zip(*P)
+    plt.figure()
+    plt.plot(x, y)
     plt.scatter(vor_x, vor_y, c='blue')
     # print(back_track_track)
     final_arrange = []

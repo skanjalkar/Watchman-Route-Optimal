@@ -1,5 +1,6 @@
 '''This file is for testing don't delete '''
-
+from shapely.geometry import Polygon
+from shapely.geometry import Point
 # Poly = [(4,4),(8,4),(8,0),(14,-5),(20,0),(20,6),(15,6),(15,10),\
 #     (20,10),(20,14),(16,14),(16,16),(10,16),(10,14),(6,14),(6,16),(2,16)\
 #        ,(2,14),(0,14),(-5,7),(0,0),(2,-2),(4,0)]
@@ -46,56 +47,17 @@ from environment import *
 import heapq
 
 
-def astar(grid, start, goal):
-    path, node = [], []
-    for i, row in enumerate(grid):
-        col = []
-        for j, val in enumerate(row):
-            col.append(Node(i, j, val, 0))
-        node.append(col)
+def rotatePolygon(polygon,theta):
+    """Rotates the given polygon which consists of corners represented as (x,y),
+    around the ORIGIN, clock-wise, theta degrees"""
+    theta = math.radians(theta)
+    rotatedPolygon = []
+    for corner in polygon :
+        rotatedPolygon.append(( corner[0]*math.cos(theta)-corner[1]*math.sin(theta) , corner[0]*math.sin(theta)+corner[1]*math.cos(theta)) )
+    return rotatedPolygon
 
-    for i in range(len(node)):
-        for j in range(len(node[i])):
-            node[i][j].h = math.hypot(goal[0]-node[i][j].x, goal[1]-node[i][j].y)  # h value for each node
+P = [(49, 52), (49, 56), (55, 45), (55, 36), (50, 35), (51, 41), (44, 42), (46, 30), (40, 28), (39, 10), (25, 5), (27, 18),(16, 3), (16, -11), (30, -11), (30, -5), (38, -5), (41, -11), (53, 1),(69, 1), (62, -9), (73, -9), (73, -2), (86, -2), (86, 1), (95, 1), (95, 7), (86, 7), (86, 12), (88, 15), (72, 21), (72, 27), (88, 27), (88,  33),(81, 33),(81, 37), (73, 37), (80, 40), (72, 50), (72, 44), (69, 42),  (61, 45), (61, 52)]
+P = Polygon(P)
+print(P.contains(Point(49.6, 52.8)))
+print(rotatePolygon(P, math.pi/2))
 
-    seen = [[False for _ in range(len(node))]
-            for _ in range(len(grid))]
-
-    # initialize the start
-    node[start[0]][start[1]].g = 0
-    node[start[0]][start[1]].cost = node[start[0]][start[1]].g + node[start[0]][start[1]].h
-    current_node = not_seen_min_cost(node, seen)
-    seen[current_node.x][current_node.y] = True
-    path_length = 0
-
-    while current_node:
-        # goal condition
-        if current_node.x == goal[0] and current_node.y == goal[1]:
-            path.append(goal)
-            print(f'Current goal is {goal}')
-            while path[-1] != start:
-                print(f'Im here {current_node.x, current_node.y}')
-                path_length += distance(current_node, current_node.parent)
-                path.append((current_node.parent.x, current_node.parent.y))
-                current_node = current_node.parent
-            path.reverse()
-            break
-
-        neighbor_locations = travel(current_node, grid, seen)
-        for neighbor in neighbor_locations:
-            # check f value
-            if node[neighbor[0]][neighbor[1]].g is None:
-                node[neighbor[0]][neighbor[1]].g = math.inf
-            temp_g = current_node.g + distance(current_node, node[neighbor[0]][neighbor[1]])
-            if temp_g < node[neighbor[0]][neighbor[1]].g:
-                node[neighbor[0]][neighbor[1]].parent = current_node
-                node[neighbor[0]][neighbor[1]].g = temp_g
-                node[neighbor[0]][neighbor[1]].cost = node[neighbor[0]][neighbor[1]].g + node[neighbor[0]][
-                    neighbor[1]].h
-        current_node = not_seen_min_cost(node, seen)
-        # if no path exists
-        if current_node is None:
-            break
-        seen[current_node.x][current_node.y] = True  # won't visit this node again
-
-    return path, path_length
