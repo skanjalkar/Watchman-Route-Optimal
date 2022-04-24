@@ -316,9 +316,9 @@ class RRT:
         if self.found:
             cur = self.goal
             while cur.col != self.start.col or cur.row != self.start.row:
-                plt.plot([cur.col, cur.parent.col], [cur.row, cur.parent.row], color='b',linewidth=2)
+                plt.plot([cur.col, cur.parent.col], [cur.row, cur.parent.row], color='r',linewidth=2)
                 cur = cur.parent
-                plt.plot(cur.col, cur.row, markersize=3, marker='o', color='b')
+                plt.plot(cur.col, cur.row, markersize=3, marker='o', color='r')
 
         # Draw start and goal
         plt.plot(self.start.col, self.start.row, markersize=10, marker='o', color='r')
