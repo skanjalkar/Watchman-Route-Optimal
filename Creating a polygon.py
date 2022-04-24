@@ -44,19 +44,22 @@ P = [(4000,4000),(8000,4000),(8000,0),(14000,-5000),(20000,0),(20000,6000),(1500
     (20000,10000),(20000,14000),(16000,14000),(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000),\
     (2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0),(4000,4000)]'''
 
-P = [(250,190),(236,192),(207,221),(227,241),(193,275)\
-    ,(173,255),(155,272),(155,302),(164,302),(164,315)\
-    ,(206,315),(206,337),(233,337),(233,311),(257,311)\
-    ,(257,414),(167,414),(167,394),(100,394),(100,414)\
-    ,(43,414),(43,394),(13,394),(13,313),(35,313)\
-    ,(35,343),(62,343),(62,290),(47,290),(47,265)\
-    ,(20,265),(20,286),(0,286),(0,211),(119,211),(124,216)\
-    ,(168,172),(146,149),(164,131),(144,112),(126,130)\
-    ,(90,94),(114,70),(114,48),(195,48),(195,92),(262,92)\
-    ,(262,70),(320,70),(320,97),(365,97),(365,150)\
-    ,(343,150),(343,128),(314,128),(314,192),(343,192)\
-    ,(343,170),(374,170),(374,234),(343,234),(343,260)\
-    ,(283,260),(283,242),(249,242)]
+# P = [(25,19),(23,19),(21,22),(23,24),(19,28)\
+#     ,(17,26),(16,27),(16,30),(16,30),(16,32)\
+#     ,(21,32),(21,34),(23,34),(23,31),(26,31)\
+#     ,(26,41),(17,41),(17,39),(10,39),(10,41)\
+#     ,(4,41),(4,39),(1,39),(1,31),(3,31)\
+#     ,(3,34),(6,34),(6,29),(5,29),(5,27)\
+#     ,(2,27),(2,29),(0,29),(0,21),(11,21),(12,22)\
+#     ,(17,17),(15,15),(16,13),(14,11),(13,13)\
+#     ,(9,9),(11,7),(11,5),(20,5),(20,9),(26,9)\
+#     ,(26,7),(32,7),(32,10),(37,10),(37,15)\
+#     ,(34,15),(34,13),(31,13),(31,19),(34,19)\
+#     ,(34,17),(37,17),(37,23),(34,23),(34,26)\
+#     ,(28,26),(28,24),(25,24)]
+
+P = [(12,3),(8,8),(14,8),(9,11),(4,8),(6,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6),(-3,6),(-2,3),(3,0),(4,2),(8,0),(14,0),(16,2),(15,8),(13,7)]
+
 def Plot_Polygon(P):
     plt.title('Polygon')
     for i in range(len(P)):
@@ -79,20 +82,20 @@ while True:
     try: Vy = float(Vy)
     except: print("Invalid Input");continue
     Y.append(Vy)
-P = [(X[i],Y[i]) for i in range(0,len(X))]'''
-Plot_Polygon(P)
+ P = [(X[i],Y[i]) for i in range(0,len(X))]'''
+# Plot_Polygon(P)
 
 ''' Grayscale Image and Binarizing the Image'''
 
-# image=Image.open('D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Robot-Motion-Planning-for-an-optimal-Watchman-Route\Colored Polygons\P10.png')
-# gray_image=image.convert('L')
-# gray_image_array=np.asarray(gray_image)
+image=Image.open('D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Colored Polygons\PH1.png')
+gray_image=image.convert('L')
+gray_image_array=np.asarray(gray_image)
 
-# threshold = 200
-# gray_image = gray_image_array.copy()
-# gray_image[gray_image_array > threshold] = 0
-# gray_image[gray_image_array <= threshold] = 255
+threshold = 200
+gray_image = gray_image_array.copy()
+gray_image[gray_image_array > threshold] = 0
+gray_image[gray_image_array <= threshold] = 255
 
 
-# plt.imshow(gray_image,cmap='gray', vmin = 0, vmax = 255)
-# plt.show()
+plt.imshow(gray_image,cmap='gray', vmin = 0, vmax = 255)
+plt.show()
