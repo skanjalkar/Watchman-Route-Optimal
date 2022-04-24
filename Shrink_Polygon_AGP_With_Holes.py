@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import math
 import pyclipper
 from shapely.geometry import Point,Polygon #used to chk pt in or out of poly
-
+import numpy as np
 X = [];Y = [];Pi = [];PS = [];Xn = []; S = [];Yx = [];Yn = []; Yy = []; Pout = []
 MP = []; Ym = [];Yp = [];Poly = []; YN = [];m = []; Zc = []
 Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
@@ -37,14 +37,26 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
 #Poly = [(0,0),(2,2),(0,4),(3,4),(3,0)]
 #Poly = [(0,0),(0,40),(40,40),(40,0)]
 #Poly = [(1,2),(0,0),(2,-3),(5,-3),(7,-1),(6,2),(7,4),(4,6),(3,6),(-3,4)]'''
-Holes = [[(16000,20000),(19000,22000),(16000,23000)],[(14000,27000),(15000,28000),(14000,29000)]] #Hallway
+# Holes = [[(16000,20000),(19000,22000),(16000,23000),(15500,21500)],[(14500,27000),(15000,28000),(14000,29000)]] #Hallway
+# Holes = [[(16000,20000),(19000,22000),(16000,23000),(15500,21500)]] #Hallway
 '''Holes = [[(9000,27000),(13000,27000),(13000,33000),(9000,33000)],\
         [(20000,12000),(24000,12000),(24000,15000),(20000,15000)]] # 65 edges polygon'''
 '''#Holes = [[(0000,7000),(10000,6000),(12000,10000),(3000,11000)]]
 #Holes = [[(4000,6000),(7000,9000),(5000,12000)]]
-#Holes = [[(1.5,3),(3.5,3),(3.5,5),(1.5,5)],[(8.5,2),(10,2),(10,4),(8.5,4)]]
+# Holes = [[(1.5,3),(3.5,3),(3.5,5),(1.5,5)],[(8.5,2),(10,2),(10,4),(8.5,4)]]
 # Holes = [[(30,-10),(35,-10),(35,10),(30,10)],[(70,-10),(80,-10),(80,10),(70,10)]]
 #Holes = [[(12,10),(18,10),(18,20),(12,20)]]'''
+
+Poly = [(-3,6),(-2,3),(3,0),(5,2),(8,0),(14,0),(16,2),(15,8),(13,7),(12,3),(8,8),(14,8)\
+    ,(9,11),(4,8),(5,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6)]
+Holes = [[(1.5,3),(3.5,3),(3.5,4.75),(1.5,4.75)],[(8.5,3),(7.5,2),(10,2),(10,4),(8.5,4)]]
+
+
+Poly = [(10,10),(20,20),(10,50),(40,30),(50,70),(50,50),(100,100),(90,20)\
+        ,(90,-30),(60,-10),(30,-30)]
+Holes = [[(30,-10),(40,-10),(50,5),(35,10),(32,15)],[(70,-15),(80,-10),(85,10),(75,40),(70,10)]]
+        # ,[(55,20),(60,15),(65,30)]]
+
 H = Holes
 
 Hs = []
@@ -57,7 +69,7 @@ for i in range(len(H)):
     H[i].append(H[i][0])
 #print("The holes are:",H)
 
-Poly.reverse()
+# Poly.reverse()
 for i in range(len(H)):
     H[i].reverse()
 #print("Holes are",H)
@@ -133,6 +145,18 @@ def expand(Poly):
 Pc = shrink(Poly)
 # Pc.append(Pc[0])  #''' Check this if any further error occurs!!!!!!'''
 
+def sampling_points(Pc):
+    Pl = []
+    for i in range(len(Pc)-1):
+        a = np.linspace(Pc[i], Pc[i+1], num=50)
+        for j in a:
+            if (j[0],j[1]) not in Pl:
+                Pl.append((j[0],j[1]))
+    Pl.append(Pl[0])
+    return Pl
+
+# Pc = sampling_points(Pc)
+
 AAP = Pc
 Ac = Pc
 Ac.append(Ac[0])
@@ -142,17 +166,19 @@ for i in range(len(H)):
     Hc.append(expand(H[i]))
 # print("The Hc is:",Hc)
 
+# Try to sample points on holes as well
+
 Bc = Hc
 for i in range(len(Bc)):
     Bc[i].append(Bc[i][0])
 # print(Bc)
 
 '''Now put all the vertices of the Hc in Pc'''
-for i in range(len(Pc)-1):
-    Zc.append(Pc[i])
-for i in range(len(Hc)):
-    for j in range(len(Hc[i])-1):
-        Zc.append(Hc[i][j])
+for i in range(len(Ac)-1):
+    Zc.append(Ac[i])
+for i in range(len(Bc)):
+    for j in range(len(Bc[i])-1):
+        Zc.append(Bc[i][j])
 
 def Sorting(lst):
     lst2 = sorted(lst, key=len, reverse = True)
@@ -212,7 +238,6 @@ for i in range(len(H)):
 for i in range(len(Hb)):
     Pb.append(Hb[i])
 
-
 Pf = []
 for i in range(len(P)-1):
     Pf.append(P[i])
@@ -220,7 +245,7 @@ for i in range(len(H)):
     for j in range(len(H[i])-1):
         Pf.append(H[i][j])
 
-def non_intersecting_diag(Zc,P,Pf,Pb,Hs):
+def non_intersecting_diag(Zc,P,Pf):
     Yx = [];Zn = []
     for i in range(len(Zc)):
         S = []
@@ -278,7 +303,7 @@ def non_intersecting_diag(Zc,P,Pf,Pb,Hs):
             if Pout[n] in Yx:
                 Yx.remove(Pout[n])
     return Yx
-Yx = non_intersecting_diag(Zc,P,Pf,Pb,Hs)
+Yx = non_intersecting_diag(Zc,P,Pf)
 
 def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
     Yn=[];M=[];Ys1=[];Ys2=[];Yk1=[];Yy1=[];Yf1 = [];Ye1 = []; R = []
@@ -334,7 +359,8 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
     Yf1 = Sorting(Ye1)
     F = Pb
     Yf2 = []
-
+    # print(Yf1)
+    # print(Pb)
     ''' Make changes in the algorithm for the triangles' case'''
     while F != []:
         # print(F)
@@ -345,13 +371,14 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
                 for c in range(len(F)):
                     if (F[c][0] in Yf1[a][b][0]) and (F[c][1] in Yf1[a][b][1])\
                        and (Yf1[a][b][0][1] in F[c]) and Yf1[a][b][1][1] in F[c]:
+                    #  This is not that easy, think about the shrink polygon vertex, it might still connect
                         Yy.append(Yf1[a][b])
             if not Yy == []:
                    Ys.append(Yy)
         Yf2 = Sorting(Ys)
 
-        '''...........................................................'''
-        '''This part of code compares the distances of the guards with the previous guards, in the hope of binding them closer'''
+        # '''...........................................................'''
+        # '''This part of code compares the distances of the guards with the previous guards, in the hope of binding them closer'''
 
         # Yf2_len = []
         # for i in Yf2:
@@ -380,7 +407,7 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
         #     else:
         #         A2 = Yf2[Dist.index(min(Dist))]
 
-        #print("Yf2:",Yf2)
+        # #print("Yf2:",Yf2)
         if not Yf2 == []:
                A2 = Yf2[0]
         for i in range(len(Yf2[0])):
@@ -402,7 +429,7 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
         F = F2
     return Yn
 Yn = mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H)
-
+# print(Yn)
 def clean_up_final(Yn):
     final = []; R = []; r = []
     for i in Yn:  #avoiding repetition
@@ -425,9 +452,9 @@ Yn = Final_Diagonals
 def plt_plot(P,Yn,H,Hc):
     Hx = [] ; Hy = [];Hsx = []; Hsy = []
     Px = [];Py = [];Dx = [];Dy = [];Sx = [];Sy = [];APx = [];APy = []
-    # for h in range(len(AAP)):
-    #     APx.append(AAP[h][0])
-    #     APy.append(AAP[h][1])
+    for h in range(len(AAP)):
+        APx.append(AAP[h][0])
+        APy.append(AAP[h][1])
     for i in range(len(P)):
         Px.append(P[i][0])
         Py.append(P[i][1])
@@ -448,16 +475,16 @@ def plt_plot(P,Yn,H,Hc):
         Dy.append(Yn[j][1][1][1])
         Sx.append(Yn[j][0][0][0])
         Sy.append(Yn[j][0][0][1])
-        plt.plot(Dx,Dy, color = 'g')
+        # plt.plot(Dx,Dy, color = 'g')
+    plt.fill(Px,Py,color = 'r')
     for a in range(len(H)):
         Hx = [] ; Hy = []
         for b in range(len(H[a])):
             Hx.append(H[a][b][0])
             Hy.append(H[a][b][1])
-        plt.plot(Hx,Hy,color = 'r')
-    plt.plot(Px,Py,color = 'b')
+        plt.fill(Hx,Hy,color = 'w')
+    # plt.fill(Px,Py,color = 'b')
     # plt.plot(APx,APy,color = 'b')
-    plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
+    # plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     return plt.show()
-
 plt_plot(P,Yn,H,Hc)
