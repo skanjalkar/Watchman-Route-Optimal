@@ -1,12 +1,10 @@
 from matplotlib import pyplot as plt
 from shapely.geometry.polygon import Polygon
 import Shrink_Polygon_Watchman_Route
-from scipy.spatial import Voronoi
 from astar import *
 from dijkstra import *
 from TSP_search import *
-from random_polygon import draw_polygon
-import random
+from genetic_tsp import genetic_search
 
 
 def get_min(polygon):
@@ -41,55 +39,7 @@ def translate_poly(polygon, min_x, min_y):
     return new_poly
 
 
-if __name__ == '__main__':
-
-    fig, ax = plt.subplots()
-
-
-    guard_x, guard_y, watchman_route_pts = [], [], []
-    guards, old_p = Shrink_Polygon_Watchman_Route.shrink()
-    mx, my = get_min(old_p)
-    Guards = translate_poly(guards, mx, my)
-    P = translate_poly(old_p, mx, my)
-    lim_x, lim_y = get_limits(P)
-    final_guards = tuple(tuple(map(int, tup)) for tup in Guards)
-    polygon = Polygon(P)
-    grid = grid(lim_x, lim_y, polygon)
-    for i in final_guards:
-        if polygon.contains(Point(i)):
-            guard_x.append(int(i[0])), guard_y.append(int(i[1]))
-            watchman_route_pts.append(i)
-    print(f"Number of guards: {len(watchman_route_pts)}")
-    back_track, paths, back_track_track = [], [], []
-    s = time.time()
-    for i in range(len(watchman_route_pts)):
-        path_length_for_one_pt = []
-        path_for_specific_point = []
-        for j in range(len(watchman_route_pts)):
-            # path, path_length = search(grid, watchman_route_pts[i], watchman_route_pts[j], polygon)
-            path, path_length = astar(grid, watchman_route_pts[i], watchman_route_pts[j])
-            path_length_for_one_pt.append(path_length)
-            back_track.append(path)
-            path_for_specific_point.append(path)
-        back_track_track.append(path_for_specific_point)
-        paths.append(path_length_for_one_pt)
-    v = [False for i in range(len(watchman_route_pts))]
-    v[0] = True
-    for p in paths:
-        print(p)
-    '''
-    Uncomment this for recursion TSP brute force
-    # TSP(paths, v, 0, len(watchman_route_pts), 1, 0)
-    # print(answer)
-    # print(min(answer), answer.index(min(answer)))
-    '''
-
-    print(f'The path length from brute force {brute_force(paths)}')
-
-    pl, final_path, t = held_karp(paths)
-    print(f'This is the order of traversal {final_path}')
-    print(f'The path length for held-karp {pl}')
-
+def plot(back_track, P):
     for i in back_track:
         if len(i) == 1:
             continue
@@ -102,9 +52,60 @@ if __name__ == '__main__':
     x, y = zip(*P)
     plt.plot(x, y)
     plt.scatter(guard_x, guard_y, c='blue')
-    plt.scatter(guard_x, guard_y, c="red")
+    # plt.scatter(guard_x, guard_y, c="red")
     plt.show()
 
+
+if __name__ == '__main__':
+    fig, ax = plt.subplots()
+    guard_x, guard_y, watchman_route_pts = [], [], []
+    # lim_x, lim_y = 150, 150
+
+    guards, old_p = Shrink_Polygon_Watchman_Route.shrink()
+    mx, my = get_min(old_p)
+    Guards = translate_poly(guards, mx, my)
+    P = translate_poly(old_p, mx, my)
+    lim_x, lim_y = get_limits(P)
+    final_guards = tuple(tuple(map(int, tup)) for tup in Guards)
+    polygon = Polygon(P)
+    grid = grid(lim_x, lim_y, polygon)
+    for i in final_guards:
+        if polygon.contains(Point(i)):
+            guard_x.append(int(i[0])), guard_y.append(int(i[1]))
+            watchman_route_pts.append(i)
+
+    print(f"Number of guards: {len(watchman_route_pts)}")
+    back_track, paths, back_track_track = [], [], []
+    s = time.time()
+
+    for i in range(len(watchman_route_pts)):
+        path_length_for_one_pt = []
+        path_for_specific_point = []
+        for j in range(len(watchman_route_pts)):
+            # path, path_length = search(grid, watchman_route_pts[i], watchman_route_pts[j], polygon)
+            path, path_length = astar(grid, watchman_route_pts[i], watchman_route_pts[j])
+
+            path_length_for_one_pt.append(path_length)
+            back_track.append(path)
+            path_for_specific_point.append(path)
+        back_track_track.append(path_for_specific_point)
+        paths.append(path_length_for_one_pt)
+
+    print(f'This the adj matrix for path lengths')
+    print()
+    for p in paths:
+        print(p)
+    print()
+
+    genetic_search(paths)
+    print(f'The path length from brute force {brute_force(paths)}')
+    print('----------------------------------')
+    pl, final_path, t = held_karp(paths)
+    print(f'This is the order of traversal {final_path}')
+    print(f'The path length for held-karp {pl}')
+    print('----------------------------------')
+
+    plot(back_track, P)
 
     x, y = zip(*P)
     plt.figure()
@@ -117,7 +118,6 @@ if __name__ == '__main__':
         final_arrange.append(back_track_track[final_path[i]][final_path[i+1]])
 
     final_pairs = [[j for j in itertools.pairwise(final_pair)] for final_pair in final_arrange]
-
     for j in final_pairs:
         for i in range(len(j)):
             if i == len(j)-1:

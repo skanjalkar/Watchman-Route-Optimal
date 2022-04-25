@@ -2,19 +2,6 @@ import sys
 import itertools
 global answer
 import time
-answer = []
-
-
-def TSP(graph, v, current_pos, num_nodes, count, cost):   # brute force with recursion
-    if count == num_nodes and graph[current_pos][0]:
-        answer.append(cost + graph[current_pos][0])
-        return
-
-    for i in range(num_nodes):
-        if v[i] == False and graph[current_pos][i]:
-            v[i] = True
-            TSP(graph, v, i, num_nodes, count+1, cost + graph[current_pos][i])
-            v[i] = False
 
 
 def brute_force(graph):   # naive brute force
