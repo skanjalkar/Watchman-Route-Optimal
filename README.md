@@ -1,9 +1,45 @@
 # RBE550Project
-Motion Planning Group Project
 
+## Motion Planning Group Project
+### Shreyas Kanjalkar, Rutwik Bonde
 Before you run the code, to make sure you have all the requirements met do:
 
 ```pip install -r requirements.txt```
+
+## Problem Statement: 
+Try to find the Watchman Route, when the area of map is given, by using the optimal positions of static guards.
+
+## Approach
+
+For a given "realistic" polygon with or without holes, first find the ideal static guard locations by using the 
+geometry of the polygon. In this case, we check the visibility of the edges of the polygon for each vertex and 
+choose the vertex which has the highest visibility, and keep on recursively repeating this process
+till all the edges of the polygon are guarded. Here our guards are considered *Omnipotent* meaning they have 
+360 degree vision and no limit on how far they can look. There are also certain constraints where if the guard 
+can see < 10 degrees of the edge, then it is not considered to be guarded by that particular guard. Given the positions
+of these guards, if the watchman were to visit all these guard locations at least once then it would mean that the
+watchman has guarded all the edges of the polygon and thus successfully completed a watchman route. 
+
+### Travelling Salesman Problem - Watchman Route:
+Watchman Route is considered a Travelling Salesman Problem, which is defined as Given a list of cities and the distances
+between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the 
+origin city?". In our case the cities are replaced with guard locations. In normal TSP, you get the path distance between two
+cities directly by connecting them in a straight line. However, for our case, the points are constrained in the polygon
+and subsequently subjected to discretization. In order to connect the points, we used Dijkstra and A* search algorithm 
+by setting heuristic as eucledian distance between the points. Here we have to consider if a point is inside the polygon 
+or not before exploring those points.
+
+After we get the adjacency matrix of path lengths for each guard, we use them as input for the three algorithms we have 
+tried to implement: 
+1. Brute Force
+2. Held-Karp Algorithm
+3. Genetic Algorithm
+
+`python shreyas_search.py`
+
+This will print the path length for each Algorithm and the time it took for that algorithm, and the order of traversal.
+
+
 
 
 Referral Papers:
@@ -17,3 +53,5 @@ Referral Papers:
 8. https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6320878
 9. https://link.springer.com/content/pdf/10.1007/BF02574671.pdf (WRP)
 10. https://link.springer.com/content/pdf/10.1007/PL00009467.pdf (WRP)
+11. https://en.wikipedia.org/wiki/Travelling_salesman_problem
+12. https://en.wikipedia.org/wiki/Held%E2%80%93Karp_algorithm
