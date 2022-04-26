@@ -8,8 +8,8 @@ import tripy
 from shapely.geometry import Point,Polygon #used to chk pt in or out of poly
 import time
 
-#Start = time.time() #starting the time
-#print("The start time is:",Start)
+Start = time.time() #starting the time
+print("The start time is:",Start)
 
 X = [];Y = [];Pi = [];PS = [];Xn = []; S = [];Yx = [];Yn = []; Yy = []; Pout = []
 MP = []; Ym = [];Yp = [];Poly = []; YN = [];m = []; Pc = []; Pcc = [];Yx = []
@@ -89,9 +89,13 @@ P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
 '''
 # P = [(8,8),(9,6),(11,8),(10,10),(9,12),(6,12),(5,16),(3,13),(0,13),(4,10),(0,0),(5,0),(8,2),(6,6),(7,7)]
 # P = [(0,6),(1,1),(3,0),(7,2),(5,4),(7,5),(6,8),(4,7),(2,11)]
-P = [(4000,4000),(8000,4000),(8000,0),(14000,-5000),(20000,0),(20000,6000),(15000,6000),(15000,10000),\
-    (20000,10000),(20000,14000),(16000,14000),(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000),\
-    (2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0),(4000,4000)]
+# P = [(4000,4000),(8000,4000),(8000,0),(14000,-5000),(20000,0),(20000,6000),(15000,6000),(15000,10000),\
+#     (20000,10000),(20000,14000),(16000,14000),(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000),\
+#     (2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0),(4000,4000)]
+
+P = [(66, -22), (52, 4), (65, 4), (66,-1), (78, -4), (81,3), (78, 17), (89,15), (101, 20), (101, 31), (87, 35),
+         (87,45), (63,44), (75,36), (68,25), (58,45), (49,36), (54, 29), (44,29), (44,22), (60, 22),
+         (60,15), (36,15), (36, -8)]
 points = np.array(P)                             
 def voronoi_finite_polygons_2d(P, radius=None):
     """
@@ -339,24 +343,34 @@ def mini_chk_pts(Pb,Pc,P,Yx):
         for i in Yf2:
             Yf2_len.append(len(i))
         # print(Yf2_len)
-
-        Max_list = []
-        Max_list.append(Yf2_len.index(max(Yf2_len)))
-        for i in range(len(Yf2_len)):
-            if i == Yf2_len.index(max(Yf2_len)):
+        
+        high = []
+        for i in Yf2:
+            if len(i) == len(Yf2[0]):
+                high.append(Yf2.index(i))
+       
+        Dist = []
+        for i in high:
+            if Yn == []:
                 continue
-            else:
-                if Yf2_len[i] == max(Yf2_len):
-                    Max_list.append(Yf2_len.index(Yf2_len[i]))
-        Q = Max_list[0]
-
+            else: 
+                a = Yn[len(Yn)-1][0][0]    # Because the first element has no one to compare with
+                b = Yf2[i][0][0][0]        # current elements list
+                dist = math.sqrt((a[0] - b[0])**2 + (a[1] - b[1])**2)
+                Dist.append(dist)
+           
+        '''..........................................................'''
+        if Yn == []:
+            A2 = Yf2[0]
+        else:
+            A2 = Yf2[Dist.index(min(Dist))]
         '''
         This is where you make changes for optimization for guard positions
         Below, you directly choose the first sub-list in the yf2 list as you know that is the sub-list with maximum elements 
         '''
         
         # for ele in range(len(Max_list)): # You added a for loop for Max_list
-        A2 = Yf2[Q]
+        # A2 = Yf2[0]
         for i in range(len(A2)):
             Yn.append(A2[i])
         Yf2.remove(A2)
@@ -431,6 +445,6 @@ def plt_plot(P,Yn,vert):
     plt.plot(Px,Py,color = 'b')
     plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     End = time.time()
-    return plt.show(),print("The end time is:",End),print("The runtime is:",(End-Start)) 
+    return print("The end time is:",End),print("The runtime is:",(End-Start)) 
 
 plt_plot(P,Yn,Pc)

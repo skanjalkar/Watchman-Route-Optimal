@@ -55,7 +55,6 @@ Holes = [[(1.5,3),(3.5,3),(3.5,4.75),(1.5,4.75)],[(8.5,3),(7.5,2),(10,2),(10,4),
 Poly = [(10,10),(20,20),(10,50),(40,30),(50,70),(50,50),(100,100),(90,20)\
         ,(90,-30),(60,-10),(30,-30)]
 Holes = [[(30,-10),(40,-10),(50,5),(35,10),(32,15)],[(70,-15),(80,-10),(85,10),(75,40),(70,10)]]
-        # ,[(55,20),(60,15),(65,30)]]
 
 H = Holes
 
@@ -476,13 +475,13 @@ def plt_plot(P,Yn,H,Hc):
         Sx.append(Yn[j][0][0][0])
         Sy.append(Yn[j][0][0][1])
         # plt.plot(Dx,Dy, color = 'g')
-    plt.fill(Px,Py,color = 'r')
+    plt.plot(Px,Py, color = 'b')
     for a in range(len(H)):
         Hx = [] ; Hy = []
         for b in range(len(H[a])):
             Hx.append(H[a][b][0])
             Hy.append(H[a][b][1])
-        plt.fill(Hx,Hy,color = 'w')
+        plt.fill(Hx,Hy,color = 'r')
     # plt.fill(Px,Py,color = 'b')
     # plt.plot(APx,APy,color = 'b')
     # plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')

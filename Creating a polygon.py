@@ -60,12 +60,14 @@ P = [(4000,4000),(8000,4000),(8000,0),(14000,-5000),(20000,0),(20000,6000),(1500
 
 P = [(12,3),(8,8),(14,8),(9,11),(4,8),(6,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6),(-3,6),(-2,3),(3,0),(4,2),(8,0),(14,0),(16,2),(15,8),(13,7)]
 
+# P = [(10,10),(20,20),(10,50),(40,30),(50,70),(50,50),(100,100),(90,20)\
+#         ,(90,-30),(60,-10),(30,-30),(10,10)]       
 def Plot_Polygon(P):
     plt.title('Polygon')
     for i in range(len(P)):
         xlst.append(P[i][0])
         ylst.append(P[i][1])
-    plt.fill(xlst,ylst,color = 'r')
+    plt.plot(xlst,ylst,color = 'b')
     return  plt.show()
 xlst = list()
 ylst = list()
@@ -83,7 +85,7 @@ while True:
     except: print("Invalid Input");continue
     Y.append(Vy)
  P = [(X[i],Y[i]) for i in range(0,len(X))]'''
-# Plot_Polygon(P)
+Plot_Polygon(P)
 
 ''' Grayscale Image and Binarizing the Image'''
 

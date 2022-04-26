@@ -4,6 +4,7 @@ from re import A
 from PIL import Image
 import numpy as np
 from RRT import RRT
+import time
 
 import matplotlib.pyplot as plt
 
@@ -27,6 +28,8 @@ def load_map(file_path, resolution_scale):
     # Result 2D numpy array
     return map_array
 
+Start = time.time() #starting the time
+print("The start time is:",Start)
 if __name__ == "__main__":
 
     '''# Load the map
@@ -51,6 +54,7 @@ if __name__ == "__main__":
     # points = [(63,159),(121,220),(273,324),(63,159)]
     # print(points)
     # points = [(70,275),(300,445),(70,275)]
+
     points = [(147,130),(228,90),(265,322),(125,265),(147,130)] # Polygon with holes
     map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Colored Polygons\PH_BW1.png",1)
     for i in range(len(points)-1):
@@ -59,7 +63,9 @@ if __name__ == "__main__":
         RRT_planner = RRT(map_array, start, goal)
         RRT_planner.RRT(n_pts=4000)
         # RRT_planner.RRT_star(n_pts=4000)
-        # RRT_planner.informed_RRT_star(n_pts=6000)
+        # RRT_planner.informed_RRT_star(n_pts=5000)
+    End = time.time()
+    print("The End time is:",End),print("The runtime is:",(End-Start))
     plt.show()
     
     
