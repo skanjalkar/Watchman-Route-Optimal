@@ -23,7 +23,7 @@ watchman has guarded all the edges of the polygon and thus successfully complete
 ### Art Gallery Problem - Scan Locations:
 Art Gallery Problem is a problem to determine the minimum number of scan locations that are required or are sufficient to cover or see every point in the interior of an indoor environment. An indoor environment can be viewed as a polygon with or without holes with a total of n vertices; and scanners as points in the polygon, or on the vertex of the polygon. or on the edge of the polygon. Any point P in the polygon is said to be visible from a scanner G if the line segment joining P and G does not intersect the exterior of the polygon. 
 
-## Proposed Algorithm to solve the Art Gallery Problem:
+#### Proposed Algorithm to solve the Art Gallery Problem:
   1) Create a polygon
   2) Find a vertex(Vi) in the polygon which scans maximum no. of edges of the polygon
   3) Now search for edges that remain unscanned by the previous vertex (Vi)
