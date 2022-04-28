@@ -1,7 +1,7 @@
 # RBE550Project
 
 ## Motion Planning Group Project
-### Shreyas Kanjalkar, Rutwik Bonde
+### Shreyas Kanjalkar, [Rutwik Bonde](https://github.com/Rubo12345)
 Before you run the code, to make sure you have all the requirements met do:
 
 ```pip install -r requirements.txt```
@@ -20,7 +20,15 @@ can see < 10 degrees of the edge, then it is not considered to be guarded by tha
 of these guards, if the watchman were to visit all these guard locations at least once then it would mean that the
 watchman has guarded all the edges of the polygon and thus successfully completed a watchman route. 
 
-### Art Gallery Problem - Scan Location:
+### Art Gallery Problem - Scan Locations:
+Art Gallery Problem is a problem to determine the minimum number of scan locations that are required or are sufficient to cover or see every point in the interior of an indoor environment. An indoor environment can be viewed as a polygon with or without holes with a total of n vertices; and scanners as points in the polygon, or on the vertex of the polygon. or on the edge of the polygon. Any point P in the polygon is said to be visible from a scanner G if the line segment joining P and G does not intersect the exterior of the polygon. 
+
+## Proposed Algorithm to solve the Art Gallery Problem:
+  1) Create a polygon
+  2) Find a vertex(Vi) in the polygon which scans maximum no. of edges of the polygon
+  3) Now search for edges that remain unscanned by the previous vertex (Vi)
+  4) Find another vertex (Vj) on the polygon which scans maximum of the remaining unscanned edges.
+  5) Continue step 3 and 4 until all th edges are scans
 
 ### Travelling Salesman Problem - Watchman Route:
 Watchman Route is considered a Travelling Salesman Problem, which is defined as Given a list of cities and the distances
