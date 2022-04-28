@@ -20,6 +20,8 @@ can see < 10 degrees of the edge, then it is not considered to be guarded by tha
 of these guards, if the watchman were to visit all these guard locations at least once then it would mean that the
 watchman has guarded all the edges of the polygon and thus successfully completed a watchman route. 
 
+### Art Gallery Problem - Scan Location:
+
 ### Travelling Salesman Problem - Watchman Route:
 Watchman Route is considered a Travelling Salesman Problem, which is defined as Given a list of cities and the distances
 between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the 
