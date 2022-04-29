@@ -41,6 +41,8 @@ Run the following python code to get the solution for Art Gallery Problem:
 
   `Final_Voronoi_New_and_Short.py`
   
+  (The detailed instructions for the above codes are given in code itself)
+  
 ### Travelling Salesman Problem - Watchman Route:
 Watchman Route is considered a Travelling Salesman Problem, which is defined as Given a list of cities and the distances
 between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the 
