@@ -35,8 +35,10 @@ Art Gallery Problem is a problem to determine the minimum number of scan locatio
 
 Run the following python code to get the solution for Art Gallery Problem:
 - The Shrink_Polygon_AGP.py gives the output as a list of co-ordinates of the scan locations (on the vertices of the polygon)
+
   `Shrink_Polygon_AGP.py`
 - The Final_Voronoi_New_and_Short.py gives the output as a list of co-ordinates of the scan locations (on the vertices of the voronoi diagram of the polygon)
+
   `Final_Voronoi_New_and_Short.py`
   
 ### Travelling Salesman Problem - Watchman Route:
