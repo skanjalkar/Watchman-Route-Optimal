@@ -34,11 +34,11 @@ Art Gallery Problem is a problem to determine the minimum number of scan locatio
   ![Proposed Algorithm Flow](https://user-images.githubusercontent.com/79450753/166077173-88e61091-e632-4abb-84a0-ed738710028f.png)
 
 Run the following python code to get the solution for Art Gallery Problem:
-- The Shrink_Polygon_AGP.py gives the output as a list of co-ordinates of the scan locations.
-  ```
-  [Shrink_Polygon_AGP.py](https://github.com/zen1405/Watchman-Route-Optimal/blob/main/Shrink_Polygon_AGP.py)
-  ```
-
+- The Shrink_Polygon_AGP.py gives the output as a list of co-ordinates of the scan locations (on the vertices of the polygon)
+  `Shrink_Polygon_AGP.py`
+- The Final_Voronoi_New_and_Short.py gives the output as a list of co-ordinates of the scan locations (on the vertices of the voronoi diagram of the polygon)
+  `Final_Voronoi_New_and_Short.py`
+  
 ### Travelling Salesman Problem - Watchman Route:
 Watchman Route is considered a Travelling Salesman Problem, which is defined as Given a list of cities and the distances
 between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the 
@@ -57,9 +57,6 @@ tried to implement:
 `python shreyas_search.py`
 
 This will print the path length for each Algorithm and the time it took for that algorithm, and the order of traversal.
-
-
-
 
 Referral Papers:
 1. https://math.mit.edu/~apost/courses/18.204_2018/Nicole_Chesnokov_paper.pdf
