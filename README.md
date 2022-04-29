@@ -29,6 +29,9 @@ Art Gallery Problem is a problem to determine the minimum number of scan locatio
   3) Now search for edges that remain unscanned by the previous vertex (Vi)
   4) Find another vertex (Vj) on the polygon which scans maximum of the remaining unscanned edges.
   5) Continue step 3 and 4 until all th edges are scans
+  
+  The figure below gives an idea of how the algorithm works:
+  ![Algorithm Flow]("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Report Images\Proposed_Algorithm.png")
 
 ### Travelling Salesman Problem - Watchman Route:
 Watchman Route is considered a Travelling Salesman Problem, which is defined as Given a list of cities and the distances
