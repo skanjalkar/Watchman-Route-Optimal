@@ -33,6 +33,12 @@ Art Gallery Problem is a problem to determine the minimum number of scan locatio
   The figure below gives an idea of how the algorithm works:
   ![Proposed Algorithm Flow](https://user-images.githubusercontent.com/79450753/166077173-88e61091-e632-4abb-84a0-ed738710028f.png)
 
+Run the following python code to get the solution for Art Gallery Problem:
+- The Shrink_Polygon_AGP.py gives the output as a list of co-ordinates of the scan locations.
+  ```
+  [Shrink_Polygon_AGP.py](https://github.com/zen1405/Watchman-Route-Optimal/blob/main/Shrink_Polygon_AGP.py)
+  ```
+
 ### Travelling Salesman Problem - Watchman Route:
 Watchman Route is considered a Travelling Salesman Problem, which is defined as Given a list of cities and the distances
 between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the 
