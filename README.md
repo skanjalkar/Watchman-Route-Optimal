@@ -31,7 +31,7 @@ Art Gallery Problem is a problem to determine the minimum number of scan locatio
   5) Continue step 3 and 4 until all th edges are scans
   
   The figure below gives an idea of how the algorithm works:
-  ![Algorithm Flow]("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Report Images\Proposed_Algorithm.png")
+  ![Proposed Algorithm Flow](https://user-images.githubusercontent.com/79450753/166077173-88e61091-e632-4abb-84a0-ed738710028f.png)
 
 ### Travelling Salesman Problem - Watchman Route:
 Watchman Route is considered a Travelling Salesman Problem, which is defined as Given a list of cities and the distances
