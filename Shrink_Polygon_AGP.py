@@ -340,7 +340,7 @@ def plt_plot(P, Yn):
     return plt.show()
 
 
-# print(Guards(Final_Diagonals))
+print(Guards(Final_Diagonals))
 plt_plot(P, Yn)
 
 
