@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import Shrink_Polygon_AGP
 
+''' Please make sure that the polygon used here is the same as assigned to P in Shrink_Polygon_AGP.py, or else this code may give error
+    The function shrink returns scan locations (guards) and P, which is used in the shreyas_search.py'''
+    
 def shrink():
      SP = Shrink_Polygon_AGP
 
