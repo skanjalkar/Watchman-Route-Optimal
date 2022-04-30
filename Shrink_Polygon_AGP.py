@@ -8,106 +8,39 @@ from sympy import Max
 
 # Start = time.time() #starting the time
 # print("The start time is:",Start)
-X = [];
-Y = [];
-Pi = [];
-PS = [];
-Xn = [];
-S = [];
-Yx = [];
-Yn = [];
-Yy = [];
-Pout = []
-MP = [];
-Ym = [];
-Yp = [];
-Poly = [];
-YN = [];
-m = []
+X = [];Y = [];Pi = [];PS = [];Xn = [];S = [];Yx = [];Yn = [];Yy = [];Pout = [];MP = [];Ym = [];Yp = [];Poly = [];YN = [];m = []
 
-'''
-Poly = [(8,8),(9,6),(11,8),(10,10),(9,12),(6,12),(5,16),(3,13),(0,13),(4,10)\
-       ,(0,0),(5,0),(8,2),(6,5),(7,7)]
-Poly = [(-3,6),(-2,3),(3,0),(5,2),(8,0),(14,0),(16,2),(15,8),(13,7),(12,3),(8,8),(14,8)\
-       ,(9,11),(4,8),(5,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6)]
-Poly = [(8000,8000),(9000,6000),(11000,8000),(9000,12000),(6000,12000)\
-        ,(5000,16000),(3000,13000),(0,13000),(4000,10000),\
-        (0,0),(5000,0),(8000,2000),(6000,5000),(7000,7000)]
-Poly = [(0,0),(10,0),(10,1),(10,5),(9,5),(8,1),(8,5),(7,5)\
-        ,(6,1),(6,5),(5,5),(4,1),(4,5),(3,5),(2,1),(2,5),(1,5),(0,1)]
-Poly = [(0,0),(4,0),(4,4),(0,4)]
-Poly = [(10,10),(8,6),(7,8),(5,6),(4,7),(2,3)\
-       ,(0,4),(0,2),(1,1),(6,0),(8,0),(10,2),(9,4)]
-Poly = [(0,6),(1,1),(3,0),(7,2),(5,4),(7,5),(6,8),(4,7),(2,11)]
-Poly = [(1,1),(2,2),(1,5),(4,3),(5,7),(5,5),(10,10),(10,-5),(6,-1),(3,-3)]
-Poly = [(0,0),(2,2),(0,4),(3,4),(3,0)]
-Poly = [(1,2),(0,0),(2,-3),(5,-3),(7,1),(6,2),(7,4),(4,6),(3,6),(-3,4)]
-Poly = [(0,0),(10,0),(10,1),(10,5),(8,1),(8,5),(6,1),(6,5),(4,1),(4,5),(2,1),(2,5),(0,1)]
-Poly = [(1,8),(4,3),(6,0),(7,4),(8,2),(9,9),(7,6),(5,7),(5,5)]
-Poly = [(3,16),(4,13),(5,11),(6,10),(8,9),(7,7),(5,4),(6,2),(7,4),(7,0),\
-       (4,0),(1,0),(1,1),(2,1),(3,3),(2,3),(2,6),(1,3),(0,3),(1,6)]
-'''
-'''Poly = [(4000,4000),(8000,4000),(8000,0000),(14000,-5000),(20000,0),(20000,6000),(15000,6000),(15000,10000)\
-        ,(20000,10000),(20000,14000),(16000,14000),(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000)\
-       ,(2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0)]'''
-'''Poly = list();Xp = list();Yp = list()  
-while True:
-    Vx = input("Enter the x coordinates:")
-    if Vx == "done": break
-    try: Vx = float(Vx)
-    except: print("Invalid Input");continue
-    Xp.append(Vx)
-    Vy = input("Enter the y coordinates:")
-    if Vy == "done": break
-    try: Vy = float(Vy)
-    except: print("Invalid Input");continue
-    Yp.append(Vy)
-Poly = [(Xp[i],Yp[i]) for i in range(0,len(Xp))]'''
-# Poly = [(4, 4), (8, 4), (8, 0), (14, -5), (20, 0), (20, 6), (15, 6), (15, 10), \
-#         (20, 10), (20, 14), (16, 14), (16, 16), (10, 16), (10, 14), (6, 14), (6, 16), (2, 16) \
-#     , (2, 14), (0, 14), (-5, 7), (0, 0), (2, -2), (4, 0)]
+''' To find the scan locations on the vertices of the polygon, for any polygon Poly, please assign the list of co-ordinates of any polygon to a variable "Poly" as 
+    shown in the test examples below. Make sure that the list contains vertices of the polygon in anti-clockwise direction'''
 
-# Poly = [(20,140),(0,140),(-50,70),(0,0),(20,-20),(40,0),(40,40),\
-#     (40,40),(80,40),(80,0),(140,-50),(200,0),(200,60),(150,60),(150,100),\
-#         (200,100),(200,140),(160,140),(160,160),(100,160),(100,140),(60,140),(60,160),(20,160)]
-# Poly = [(1,8),(4,3),(6,0),(7,4),(8,2),(9,9),(7,6),(5,7),(5,5)]
-
-# Poly = [(120,30),(80,80),(140,80),(90,110),(40,80),\
-#            (54,56),(20,85),(40,110),(5,110),(-20,75),(20,60),(-30,60),\
-#            (-20,30),(30,0),(40,20),(80,0),(140,0),(160,20),(150,80),(130,70)]
-
-# Poly = [(4,4),(8,4),(8,0),(14,-5),(20,0),(20,6),(15,6),(15,10),\
-#         (20,10),(20,14),(16,14),(16,16),(10,16),(10,14),(6,14),(6,16),(2,16)\
-#            ,(2,14),(0,14),(-5,7),(0,0),(2,-2),(4,0)]
-
-
-# Poly = [(10, 36), (10, 31), (16, 29), (15, 22), (9, 22), (9, 13), (14, 9), (14, 13), (22, 13), (22, 4), (31, 5),
-#         (25, 13), (25, 17), (35, 17), (35, 12), (30, 13), (34, 4), (42, 4), (42, -2), (48, -2), (48, 3), (54, 5),
-#         (54, 15), (50, 15), (50, 22), (58, 22), (58, 33), (55, 33), (55, 29), (49, 37), (42, 30), (36, 30), (36, 36),
-#         (41, 36), (40, 43), (31, 43), (31, 37), (16, 37), (16,31)]
+''' Following are the 4 interesting test example polygons'''
+Poly = [(10, 36), (10, 31), (16, 29), (15, 22), (9, 22), (9, 13), (14, 9), (14, 13), (22, 13), (22, 4), (31, 5),
+        (25, 13), (25, 17), (35, 17), (35, 12), (30, 13), (34, 4), (42, 4), (42, -2), (48, -2), (48, 3), (54, 5),
+        (54, 15), (50, 15), (50, 22), (58, 22), (58, 33), (55, 33), (55, 29), (49, 37), (42, 30), (36, 30), (36, 36),
+        (41, 36), (40, 43), (31, 43), (31, 37), (16, 37), (16,31)]
 
 Poly = [(66, -22), (52, 4), (65, 4), (66, -1), (78, -4), (81, 3), (78, 17), (89, 15), (101, 20), (101, 31), (87, 35),
      (87, 45), (63, 44), (75, 36), (68, 25), (58, 45), (49, 36), (54, 29), (44, 29), (44, 22), (60, 22), (60, 15),
      (36, 15), (36, -8)]
-#
-# Poly = [(72 ,-13), (90 ,-27) ,(122 ,-36),(126 ,-20),(109 ,-21),(97 ,-2),(116 ,-2),(116 ,13),(134 ,13),(128 ,-7),
-#         (150 ,-7),(150 ,6),(167 ,6),(167 ,20),(153 ,20),(132 ,30),(132 ,40),(153 ,40),(153 ,51),(140 ,51),(140 ,69),
-#         (109, 69),(99 ,55),(110 ,55),(110 ,30),(98 ,25),(98 ,36),(84 ,36),(84 ,23),(75 ,23),(75 ,6)]
-#
-# Poly = [(97, 80), (54, 80), (54, 40), (38, 40), (38 ,51), (10, 51), (10, 30), (25, 30), (26, 12), (2, 17), (2, 0),
-#         (19, -3), (34, -3), (29, -14), (54, -14), (54, -2), (76, -2), (76, -14), (110, -14), (110, -3), (88, 10),
-#         (88, 22), (119, 22), (119, 45), (86, 45), (86, 67), (116, 67), (116, 87), (97, 89)]
 
-Poly.reverse();
-P = Poly;
-AP = P;
-P.append(P[0])
+Poly = [(72 ,-13), (90 ,-27) ,(122 ,-36),(126 ,-20),(109 ,-21),(97 ,-2),(116 ,-2),(116 ,13),(134 ,13),(128 ,-7),
+        (150 ,-7),(150 ,6),(167 ,6),(167 ,20),(153 ,20),(132 ,30),(132 ,40),(153 ,40),(153 ,51),(140 ,51),(140 ,69),
+        (109, 69),(99 ,55),(110 ,55),(110 ,30),(98 ,25),(98 ,36),(84 ,36),(84 ,23),(75 ,23),(75 ,6)]
 
+Poly = [(97, 80), (54, 80), (54, 40), (38, 40), (38 ,51), (10, 51), (10, 30), (25, 30), (26, 12), (2, 17), (2, 0),
+        (19, -3), (34, -3), (29, -14), (54, -14), (54, -2), (76, -2), (76, -14), (110, -14), (110, -3), (88, 10),
+        (88, 22), (119, 22), (119, 45), (86, 45), (86, 67), (116, 67), (116, 87), (97, 89)]
 
-def det(a, b):  # readymade function taken from the net
+''' Only reverse the poly if the polygon is in anti-clockwise direction'''
+Poly.reverse()  
+P = Poly; AP = P; P.append(P[0])
+
+''' The function det calculates the determinant'''
+def det(a, b):  
     return a[0] * b[1] - a[1] * b[0]
 
 
+''' The function point_of_intersection find the point of intersection between the two given lines'''
 def point_of_intersection(line1, line2):
     xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
     ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])  # Typo was here
@@ -120,10 +53,11 @@ def point_of_intersection(line1, line2):
     return x, y
 
 
+''' The function shrink scales down the polygon by shrink_x and shrink_y factor'''
 def shrink(Poly):
     # how much the coordinates are moved as an absolute value
-    shrink_x = 1
-    shrink_y = 1
+    shrink_x = 0.1
+    shrink_y = 0.1
     # coords must be clockwise
     lines = [[Poly[i - 1], Poly[i]] for i in range(len(Poly))]
     new_lines = []
@@ -148,19 +82,16 @@ def shrink(Poly):
 
 Pc = shrink(Poly)
 Start = time.time()  # starting the time
-# print("The start time is:",Start)
 Pc.append(Pc[0])
 AAP = Pc
 
-
+''' The function Sorting sorts the list'''
 def Sorting(lst):
     lst2 = sorted(lst, key=len, reverse=True)
     return lst2
 
 
 ''' orientation function: To check the orientation on points (x1,y1),(x2,y2),(x3,y3)'''
-
-
 def orientation(x1, y1, x2, y2, x3, y3):
     val = (float((y2 - y1) * (x3 - x2))) - (float((x2 - x1) * (y3 - y2)))
     if (val > 0):
@@ -172,8 +103,6 @@ def orientation(x1, y1, x2, y2, x3, y3):
 
 
 ''' point_in_seg_area function: To check if the point lies in segment area'''
-
-
 def point_in_seg_area(x1, y1, x2, y2, x3, y3):
     if ((x2 <= max(x1, x3)) and (x2 >= min(x1, x3)) \
             and (y2 <= max(y1, y3)) and (y2 >= min(y1, y3))):
@@ -183,8 +112,6 @@ def point_in_seg_area(x1, y1, x2, y2, x3, y3):
 
 ''' check_intersection function: To check if the line formed by points (x1,y1) and (x2,y2) intersects line
       formed by (x3,y3) and (x4,y4)'''
-
-
 def check_intersection(x1, y1, x2, y2, x3, y3, x4, y4):
     o1 = orientation(x1, y1, x2, y2, x3, y3)
     o2 = orientation(x1, y1, x2, y2, x4, y4)
@@ -204,6 +131,7 @@ def check_intersection(x1, y1, x2, y2, x3, y3, x4, y4):
     return False
 
 
+'''The function create_point_pair creates edges from points'''
 def create_point_pair(P):
     Pb = []
     for i in range(len(P) - 1):
@@ -212,15 +140,11 @@ def create_point_pair(P):
         Pa.append(P[i + 1])
         Pb.append(Pa)
     return Pb
-
-
-# Code perfect................................................#
 Pb = create_point_pair(P)
-# print("The pair of points are:",create_point_pair(P))
-Yx = []
 
 
-# Code perfect................................................#
+''' The function non_intersecting_diag creates non intersecting diagonals in the polygon. 
+    Non intersecting diagonals do not intersect with the exterior of the polygon'''
 def non_intersecting_diag(Pc, P, Pb):
     for i in range(len(Pc) - 1):
         S = []
@@ -249,7 +173,6 @@ def non_intersecting_diag(Pc, P, Pb):
                 continue
             else:
                 Yx.append(Y)
-    # print("Yx is:",Yx)
     for m in range(len(Yx)):
         px = float((Yx[m][0][0] + Yx[m][1][0]) / 2)
         py = float((Yx[m][0][1] + Yx[m][1][1]) / 2)
@@ -257,26 +180,16 @@ def non_intersecting_diag(Pc, P, Pb):
         if not (Point(mp).within(Polygon(AP))):  # chk point in or out
             Pout.append(Yx[m])
         MP.append(mp)
-    # print("The list of outer lines:",Pout)
     for n in range(len(Pout)):
         if Pout[n] in Yx:
             Yx.remove(Pout[n])
     return Yx
-
-
-# Code perfect................................................#
 Yx = non_intersecting_diag(Pc, P, Pb)
 
 
+''' The function mini_chk_pts implements the proposed algorithm and returns the list of the scan locations' diagonals'''
 def mini_chk_pts(Pb, Pc, P, Yx):
-    Yn = [];
-    M = [];
-    Ys1 = [];
-    Yk1 = [];
-    Yy1 = [];
-    Yf1 = [];
-    Ye1 = [];
-    R = []
+    Yn = [];M = [];Ys1 = [];Yk1 = [];Yy1 = [];Yf1 = [];Ye1 = [];R = []
     for r in range(len(Pc) - 1):  # this is important for arranging the diagonals.
         Yy1 = []
         for s in range(len(Yx)):
@@ -303,9 +216,7 @@ def mini_chk_pts(Pb, Pc, P, Yx):
     Yf2 = []
 
     while F != []:
-        Yy = [];
-        Ys = [];
-        M = []
+        Yy = [];Ys = [];M = []
 
         for a in range(
                 len(Yf1)):  # So this loop is find the guards which guard maximum of the unguarded edges (first case is similar to yf1)
@@ -367,17 +278,12 @@ def mini_chk_pts(Pb, Pc, P, Yx):
         Yf1 = Yf2
         F = F2
     return Yn
-
-
-# Code perfect................................................#
 Yn = mini_chk_pts(Pb, Pc, P, Yx)
-# print(Yn)
 
 
+''' The function Guards given the final list of the scan locations '''
 def clean_up_final(Yn):
-    final = [];
-    R = [];
-    r = []
+    final = [];R = [];r = []
     for i in Yn:  # avoiding repetition
         if not i in final:
             final.append(i)
@@ -392,13 +298,11 @@ def clean_up_final(Yn):
             final.remove(R[r])
     Yn = final
     return Yn
-
-
-# Code perfect................................................#
 Final_Diagonals = clean_up_final(Yn)
 Yn = Final_Diagonals
 
 
+''' The function Guards given the final list of the scan locations '''
 def Guards(Final_Diagonals):
     Guards = []
     for i in range(len(Final_Diagonals)):
@@ -407,18 +311,9 @@ def Guards(Final_Diagonals):
     return Guards
 
 
-# print(Guards(Final_Diagonals))
-# print("The co-ordinates are:",Yn)
-# Code perfect................................................#
+''' The function plt_plot plots the polygon and scan locations with diagonals'''
 def plt_plot(P, Yn):
-    Px = [];
-    Py = [];
-    Dx = [];
-    Dy = [];
-    Sx = [];
-    Sy = [];
-    APx = [];
-    APy = []
+    Px = [];Py = [];Dx = [];Dy = [];Sx = [];Sy = [];APx = [];APy = []
     for h in range(len(AAP)):
         APx.append(AAP[h][0])
         APy.append(AAP[h][1])
@@ -426,8 +321,7 @@ def plt_plot(P, Yn):
         Px.append(P[i][0])
         Py.append(P[i][1])
     for j in range(len(Yn)):
-        Dx = [];
-        Dy = []
+        Dx = [];Dy = []
         Dx.append(Yn[j][0][0][0])
         Dy.append(Yn[j][0][0][1])
         Dx.append(Yn[j][0][1][0])
@@ -443,9 +337,10 @@ def plt_plot(P, Yn):
     # plt.plot(APx, APy, color='r')
     plt.scatter(Sx, Sy, s=700, marker='.', color='k')
     End = time.time()
-    # return plt.show(), print("The End time is:", End), print("The runtime is:", (End - Start))
+    return plt.show()
 
 
+print(Guards(Final_Diagonals))
 plt_plot(P, Yn)
 
 
