@@ -1,26 +1,20 @@
 import matplotlib.pyplot as plt
 from scipy.spatial import  Voronoi, voronoi_plot_2d
 import numpy as np
-import math
-import pyclipper
-import tripy
 from shapely.geometry import Point,Polygon #used to chk pt in or out of poly
 import time
-
-#Start = time.time() #starting the time
-#print("The start time is:",Start)
 
 X = [];Y = [];Pi = [];PS = [];Xn = []; S = [];Yx = [];Yn = []; Yy = []; Pout = []
 MP = []; Ym = [];Yp = [];Poly = []; YN = [];m = []; Pc = []; Pcc = [];Yx = []
 
-#points = np.array([(1,8),(4,3),(6,0),(7,4),(8,2),(9,9),(7,6),(5,7),(5,5),(1,8)])
-#points = np.array([(1,1),(2,2),(1,5),(4,3),(5,7),(5,5),(10,10)\
-#          ,(10,-5),(6,-1),(3,-3),(1,1)])
+''' To find the scan locations on the voronoi diagram for any polygon P, please assign the list of co-ordinates of any polygon to a variable "P" as 
+    shown in the test examples below'''
+
+''' Following are the two test example polygons'''
 P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
      (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
      (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
      (23600,16045),(24970,16045)]
-
 P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
@@ -35,36 +29,9 @@ P = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
     ,(28385,26060),(28385,24260),(24970,24260)]
 
-'''
-#P = [(8,8),(9,6),(11,8),(10,10),(9,12),(6,12),(5,16),(3,13),(0,13),(4,10)\
-#        ,(0,0),(5,0),(8,2),(6,6),(7,7)]
-#P = [(12,3),(8,8),(14,8),(9,11),(4,8),\
-#        (6,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6),(-3,6),\
-#        (-2,3),(3,0),(4,2),(8,0),(14,0),(16,2),(15,8),(13,7)]
-# P = [(0,0),(100,0),(100,10),(100,50),(90,50),(90,10),(80,10),(80,50),(70,50)\
-#         ,(70,10),(60,10),(60,50),(50,50),(50,10),(40,10),(40,50)\
-#         ,(30,50),(30,10),(20,10),(20,50),(10,50),(10,10),(0,10)]
-#points = np.array([(0,0),(4,0),(4,4),(0,4),(0,0)])
-#points = np.array([(10,10),(8,6),(7,8),(5,6),(4,7),(2,3)\
-#        ,(0,4),(0,2),(1,1),(6,0),(8,0),(10,2),(9,4),(10,10)])
-#points = np.array([(0,6),(1,1),(3,0),(7,2),(5,4),(7,5),(6,8),(4,7),(2,11),(0,6)])
-#points = np.array([(1,1),(2,2),(1,5),(4,3),(5,7),(5,5),(10,10),(10,-5),(6,-1),(3,-3)])
-#points = np.array([(0,0),(2,2),(0,4),(3,4),(3,0),(0,0)])
-#P = [(1,2),(0,0),(2,-3),(5,-3),(7,-1),(6,2),(7,4),(4,6),(3,6),(-3,4)]
-#points = np.array([(0,0),(10,0),(10,1),(10,5),(9,5),(8,1),(8,5),(7,5)\
-#         ,(6,1),(6,5),(5,5),(4,1),(4,5),(3,5),(2,1),(2,5),(1,5),(0,1),(0,0)])
-#points = np.array([(1,8),(4,3),(6,0),(7,4),(8,2),(9,9),(7,6),(5,7),(5,5)])
-#P = [(3,16),(4,13),(5,11),(6,10),(8,9),(7,7),(5,4),(6,2),(7,4),(7,0),\
-#        (4,0),(1,0),(1,1),(2,1),(3,3),(2,3),(2,6),(1,3),(0,3),(1,6)]
-# P = [(4,4),(8,4),(8,0),(14,-5),(20,0),(20,6),(15,6),(15,10),\
-#     (20,10),(20,14),(16,14),(16,16),(10,16),(10,14),(6,14),(6,16),(2,16)\
-#        ,(2,14),(0,14),(-5,7),(0,0),(2,-2),(4,0),(4,4)]
-# P = [(4000,4000),(8000,4000),(8000,0),(14000,-5000),(20000,0),(20000,6000),(15000,6000),(15000,10000),\
-#     (20000,10000),(20000,14000),(16000,14000),(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000),\
-#     (2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0),(4000,4000)]
-'''
+points = np.array(P)  
 
-points = np.array(P)                             
+''' The function voronoi_finite_polygons_2d gives the voronoi regions and vertices, for a given polygon'''
 def voronoi_finite_polygons_2d(P, radius=None):
     """
     Reconstruct infinite voronoi regions in a 2D diagram to finite
@@ -146,8 +113,10 @@ def voronoi_finite_polygons_2d(P, radius=None):
         # finish
         new_regions.append(new_region.tolist())
     return new_regions, np.asarray(new_vertices)
-# regions, vertices = voronoi_finite_polygons_2d(points)
-# fig = voronoi_plot_2d(Voronoi(points))
+
+fig = voronoi_plot_2d(Voronoi(points))
+
+''' The function round_off just round of the float values'''
 def round_off(P):
     points = np.array(P)
     regions, vertices = voronoi_finite_polygons_2d(points)
@@ -159,12 +128,16 @@ def round_off(P):
         V = (Vx,Vy)
         vert.append(V)
     return vert
+
 P.append(P[0]);Pc = round_off(points);Pc.append(Pc[0]);Vor_Vert = round_off(points)
 Start = time.time() #starting the time
+
+''' The function Sorting sorts the list'''
 def Sorting(lst): 
     lst2 = sorted(lst, key=len, reverse = True) 
     return lst2 
-''' orientation function: To check the orientation on points (x1,y1),(x2,y2),(x3,y3)'''
+
+''' The orientation function: To check the orientation on points (x1,y1),(x2,y2),(x3,y3)'''
 def orientation(x1,y1,x2,y2,x3,y3):
         val = (float((y2-y1)*(x3-x2)))-(float((x2-x1)*(y3-y2)))
         if (val>0):
@@ -173,12 +146,16 @@ def orientation(x1,y1,x2,y2,x3,y3):
             return 2 #counterclockwise
         else:
             return 0 #collinear
+
+
 ''' point_in_seg_area function: To check if the point lies in segment area'''
 def point_in_seg_area(x1,y1,x2,y2,x3,y3):  
         if ((x2<=max(x1,x3)) and (x2>=min(x1,x3))\
                 and (y2<=max(y1,y3)) and (y2>=min(y1,y3))):
             return True
         return False
+
+
 ''' check_intersection function: To check if the line formed by points (x1,y1) and (x2,y2) intersects line
       formed by (x3,y3) and (x4,y4)'''
 def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
@@ -197,6 +174,9 @@ def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
     if ((o1!=o2) and (o3!=o4)):
         return True
     return False
+
+
+'''The function create_point_pair creates edges from points'''
 def create_point_pair(P):
     Pb = []
     for i in range(len(P)-1):
@@ -206,9 +186,16 @@ def create_point_pair(P):
         Pb.append(Pa)
     return Pb
 Pb = create_point_pair(P)
+
+
+'''The function find_dist finds the distance between two points'''
 def find_dist(A,B,C,D):
     d = ((C-A)^2 + (D-B)^2)^(1/2)
     return d
+
+
+''' The function non_intersecting_diag creates non intersecting diagonals in the polygon. 
+    Non intersecting diagonals do not intersect with the exterior of the polygon'''
 def non_intersecting_diag(Pc,P):
     for i in range(len(Pc)-1):
         S = []
@@ -252,6 +239,9 @@ def non_intersecting_diag(Pc,P):
                 Yx.remove(Pout[n])
     return Yx
 Yx = non_intersecting_diag(Pc,P)
+
+
+''' The function mini_chk_pts implements the proposed algorithm and returns the list of the scan locations' diagonals'''
 def mini_chk_pts(Pb,Pc,P,Yx):
     Yn=[];M=[];Ys1=[];Yk1=[];Yy1=[];Yf1 = [];Ye1 = []; R = []
     for r in range(len(Pc)-1):#this is important for arranging the diagonals.
@@ -309,6 +299,8 @@ def mini_chk_pts(Pb,Pc,P,Yx):
         F = F2
     return Yn
 Yn = mini_chk_pts(Pb,Pc,P,Yx)
+
+''' The function clean_up_final cleans up the Yn list (list of the diagonals of the scan locations)'''
 def clean_up_final(Yn):
     final = [];R = [];r = []
     for i in Yn:
@@ -326,12 +318,17 @@ def clean_up_final(Yn):
     return final
 Final_Diagonals = clean_up_final(Yn) 
 Yn = Final_Diagonals
+
+''' The function Guards given the final list of the scan locations '''
 def Guards(Final_Diagonals):
     Guards = []
     for i in range(len(Final_Diagonals)):
         if not Final_Diagonals[i][0][0] in Guards:
             Guards.append(Final_Diagonals[i][0][0])
     return Guards
+
+
+''' The function plt_plot plots the polygon and scan locations with diagonals'''
 def plt_plot(P,Yn,vert):
     plot_lstx = list()
     plot_lsty = list()
@@ -359,5 +356,7 @@ def plt_plot(P,Yn,vert):
     plt.plot(Px,Py,color = 'b')
     plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     End = time.time()
-    return plt.show(),print("The end time is:",End),print("The runtime is:",(End-Start)) 
-# plt_plot(P,Yn,Vor_Vert)
+    return plt.show()
+
+print(Guards(Final_Diagonals))
+plt_plot(P,Yn,Vor_Vert)
