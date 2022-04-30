@@ -5,7 +5,14 @@ import time
 
 
 def brute_force(graph):   # naive brute force
+    '''
 
+    Args:
+        graph: which is the 2d path length matrix
+
+    Returns: optimal path between all the scan locations
+
+    '''
     s = time.time()
     vertex = []
     for i in range(len(graph)):

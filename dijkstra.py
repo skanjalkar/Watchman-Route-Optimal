@@ -3,6 +3,17 @@ from node import Node
 
 
 def search(grid, start, goal, poly):
+    '''
+
+    Args:
+        grid: grid
+        start: starting point
+        goal: goal point
+        poly: polygon
+
+    Returns: path length using dijkstra
+
+    '''
     path = []
     node = []
     path_length = 0

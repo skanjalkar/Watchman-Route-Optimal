@@ -2,6 +2,16 @@ import math
 from shapely.geometry import Point
 
 def grid(limx, limy, polygon):
+    '''
+
+    Args:
+        limx: x limit of the grid, equivalent to the largest x coordinate of polygon
+        limy: y limit of the grid, equivalent to the largest x coordinate of polygon
+        polygon: The polygon
+
+    Returns: grid with 0 and 1 depending if point is inside or outside the polygon
+
+    '''
     grid = []
     for i in range(0, limx+1):
         row = []
@@ -16,6 +26,17 @@ def grid(limx, limy, polygon):
 
 
 def valid(x, y, grid, visited):
+    '''
+
+    Args:
+        x: x coordinate of node to be visited
+        y: y coodinate of node to be visited
+        grid: the grid
+        visited: see if the node has already been visited
+
+    Returns: True or False depending on validity
+
+    '''
     if (x >= 0 and y >= 0) and (x < len(grid) and y < len(grid[0])):
         if grid[x][y] == 1 and visited[x][y] is False:
             return True
@@ -23,6 +44,16 @@ def valid(x, y, grid, visited):
 
 
 def travel(node, grid, visited):
+    '''
+
+    Args:
+        node: The current node
+        grid: the grid
+        visited: 2d visited array checking if node has already been visited
+
+    Returns: List of points to where the current node can travel
+
+    '''
 
     possible_travel = []
     if valid(node.x, node.y+1, grid, visited):
@@ -52,6 +83,15 @@ def travel(node, grid, visited):
 
 
 def not_seen_min_cost(node, seen):
+    '''
+
+    Args:
+        node: Current node
+        seen: 2d list if the node has been visited
+
+    Returns: the node with minimum f value
+
+    '''
     min_node = None  # initialize min node
     for i in range(len(node)):
         for j in range(len(node[i])):
@@ -68,6 +108,15 @@ def not_seen_min_cost(node, seen):
     return min_node
 
 def distance(start, end):
+    '''
+
+    Args:
+        start: starting point
+        end: ending point
+
+    Returns: eucledian distance
+
+    '''
     distance = math.hypot(abs(end.x-start.x), abs(end.y - start.y))
     return distance
 

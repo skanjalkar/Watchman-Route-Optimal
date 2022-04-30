@@ -3,6 +3,16 @@ from environment import *
 
 
 def astar(grid, start, goal):
+    '''
+
+    Args:
+        grid: grid
+        start: starting point
+        goal: goal point
+
+    Returns: path length between points
+
+    '''
     path = []
     node = []
     for i, row in enumerate(grid):

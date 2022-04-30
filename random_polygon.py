@@ -1,6 +1,20 @@
 import numpy as np
 
+# only done for testing, these polygons
+# are not realistic
+# but can be used to test how the Travelling salesman problem works
 def draw_polygon(ax, n, lim_x, lim_y):
+    '''
+
+    Args:
+        ax: matplot ax
+        n: number of edges of polygon
+        lim_x: x limit of grid
+        lim_y: y limit of grid
+
+    Returns: random polygon
+
+    '''
 
     x = np.random.randint(0, lim_x, n)
     y = np.random.randint(0, lim_y, n)
