@@ -58,7 +58,7 @@ tried to implement:
 2. Held-Karp Algorithm
 3. Genetic Algorithm
 
-`python shreyas_search.py`
+`python search.py`
 
 This will print the path length for each Algorithm and the time it took for that algorithm, and the order of traversal.
 
