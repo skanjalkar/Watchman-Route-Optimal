@@ -28,14 +28,7 @@ def load_map(file_path, resolution_scale):
     # Result 2D numpy array
     return map_array
 
-Start = time.time() #starting the time
-print("The start time is:",Start)
 if __name__ == "__main__":
-
-    '''# Load the map
-    # start = (200, 75)
-    # goal  = (30, 250)
-    # map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Assignments\Assignment 5\Advanced-Search-Algorithms\informed_RRT\WPI_map.jpg", 0.3)'''
 
     '''
     #Example one
@@ -43,35 +36,28 @@ if __name__ == "__main__":
     goal = (300,445)
     map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Robot-Motion-Planning-for-an-optimal-Watchman-Route\Colored Polygons\GS10.jpeg",1.5)
     '''
-    # start = (50,100)
-    # goal = (150,430)
-    # map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Robot-Motion-Planning-for-an-optimal-Watchman-Route\Colored Polygons\GS5.jpeg",1)
-    # # [(12.004002564611195, 2.6748405823643653), (1.8319882514537322, 8.381256634659618), (4.475299130777356, 8.0519414026726), (3.447646309306825, 6.967555834038162)]
+    '''
+    start = (50,100)
+    goal = (150,430)
+    map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Robot-Motion-Planning-for-an-optimal-Watchman-Route\Colored Polygons\GS5.jpeg",1)
+    # [(12.004002564611195, 2.6748405823643653), (1.8319882514537322, 8.381256634659618), (4.475299130777356, 8.0519414026726), (3.447646309306825, 6.967555834038162)]
 
-    # points = [(120.04002564611195, 26.748405823643653), (1.8319882514537322, 8.381256634659618), (4.475299130777356, 8.0519414026726), (3.447646309306825, 6.967555834038162)]
-    # points = [(88,134),(133,173),(99,191),(261,377),(88,134)]  # 4 guards polygon - zigzag
-    # points = [(105,58),(180,476)] # mega one
-    # points = [(63,159),(121,220),(273,324),(63,159)]
-    # print(points)
-    # points = [(70,275),(300,445),(70,275)]
+    points = [(120.04002564611195, 26.748405823643653), (1.8319882514537322, 8.381256634659618), (4.475299130777356, 8.0519414026726), (3.447646309306825, 6.967555834038162)]
+    points = [(88,134),(133,173),(99,191),(261,377),(88,134)]  # 4 guards polygon - zigzag
+    points = [(105,58),(180,476)] # mega one
+    points = [(63,159),(121,220),(273,324),(63,159)]
+    print(points)
+    points = [(70,275),(300,445),(70,275)]'''
 
     points = [(147,130),(228,90),(265,322),(125,265),(147,130)] # Polygon with holes
-    map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Colored Polygons\PH_BW1.png",1)
+    map_array = load_map("D:\Educational\A WPI Assignments and Materials\Motion Planning\Project\Results\Colored Polygons\PH_BW1.png",1)
     for i in range(len(points)-1):
         start = points[i]
         goal = points[i+1]
         RRT_planner = RRT(map_array, start, goal)
-        RRT_planner.RRT(n_pts=4000)
+        # RRT_planner.RRT(n_pts=4000)
         # RRT_planner.RRT_star(n_pts=4000)
-        # RRT_planner.informed_RRT_star(n_pts=5000)
-    End = time.time()
-    print("The End time is:",End),print("The runtime is:",(End-Start))
+        RRT_planner.informed_RRT_star(n_pts=5000)
+    
     plt.show()
     
-    
-    # # Planning class
-    # RRT_planner = RRT(map_array, start, goal)
-    # # Search with RRT and RRT*
-    # RRT_planner.RRT(n_pts=1000)
-    # RRT_planner.RRT_star(n_pts=2000)
-    # RRT_planner.informed_RRT_star(n_pts=2000)
