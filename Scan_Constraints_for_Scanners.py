@@ -8,10 +8,7 @@ from math import sqrt
 #print("The start time is:",Start)
 X = [];Y = [];Pi = [];PS = [];Xn = []; S = [];Yx = [];Yn = []; Yy = []; Pout = []
 MP = []; Ym = [];Yp = [];Poly = []; YN = [];m = []
-# Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
-#      (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
-#      (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
-#      (23600,16045),(24970,16045)]
+
 Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
@@ -25,50 +22,6 @@ Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
     ,(34330,15050),(34330,12850),(31430,12850),(31430,19250),(34330,19250)\
     ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
     ,(28385,26060),(28385,24260),(24970,24260)]
-# 'Poly = [(20740,22110),(22790,24160),(19395,27554)\
-#     ,(17345,25504),(15560,27289),(15560,30215),(16490,31500)\
-#     ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
-#     ,(25785,41415),(16740,41416),(16740,39400),(10060,39400),(10060,41415)\
-#     ,(4315,41415),(4315,39400),(1300,39400),(1300,31300),(3545,31300)\
-#     ,(3545,34300),(6245,34300),(6245,29085),(4785,29085),(4785,26570)\
-#     ,(2085,26570),(2085,28615),(0,28615),(0,21110),(11925,21110),(12445,21630)]'
-#Poly = [(8,8),(9,6),(11,8),(10,10),(9,12),(6,12),(5,16),(3,13),(0,13),(4,10)\
-#        ,(0,0),(5,0),(8,2),(6,5),(7,7)]
-# 'Poly = [(-3,6),(-2,3),(3,0),(5,2),(8,0),(14,0),(16,2),(15,8),(13,7),(12,3),(8,8),(14,8)\
-#      ,(9,11),(4,8),(5,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6)]'
-# 'Poly = [(8000,8000),(9000,6000),(11000,8000),(9000,12000),(6000,12000)\
-#         ,(5000,16000),(3000,13000),(0,13000),(4000,10000),\
-#         (0,0),(5000,0),(8000,2000),(6000,5000),(7000,7000)]'
-#Poly = [(0,0),(10,0),(10,1),(10,5),(9,5),(8,1),(8,5),(7,5)\
-#         ,(6,1),(6,5),(5,5),(4,1),(4,5),(3,5),(2,1),(2,5),(1,5),(0,1)]
-# 'Poly = [(0,0),(100,0),(100,10),(100,50),(90,50),(90,10),(80,10),(80,50),(70,50)\
-#         ,(70,10),(60,10),(60,50),(50,50),(50,10),(40,10),(40,50)\
-#         ,(30,50),(30,10),(20,10),(20,50),(10,50),(10,10),(0,10),(0,0)]'
-
-#Poly = [(0,0),(10000,0),(10000,10000),(0,10000)]
-
-# 'Poly = [(10000,10000),(8000,6000),(7000,8000),(5000,6000),(4000,7000),(2000,3000)\
-#         ,(0,4000),(0,2000),(1000,1000),(6000,0),(8000,0),(10000,2000)\
-#         ,(9000,4000)]'
-# 'Poly = [(10000,16000),(10000,14000),(6000,14000),(6000,16000),(2000,16000)\
-#        ,(2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0),(4000,4000),(8000,4000),(8000,0000),(14000,-5000),(20000,0),(20000,6000),(15000,6000),(15000,10000)\
-#         ,(20000,10000),(20000,14000),(16000,14000),(16000,16000)]'
-
-
-'''Poly = list();Xp = list();Yp = list()
-while True:
-    Vx = input("Enter the x coordinates:")
-    if Vx == "done": break
-    try: Vx = float(Vx)
-    except: print("Invalid Input");continue
-    Xp.append(Vx)
-    Vy = input("Enter the y coordinates:")
-    if Vy == "done": break
-    try: Vy = float(Vy)
-    except: print("Invalid Input");continue
-    Yp.append(Vy)
-Poly = [(Xp[i],Yp[i]) for i in range(0,len(Xp))]'''
-
 
 Poly.reverse()
 P = Poly
@@ -78,6 +31,8 @@ P.append(P[0])
 
 def det(a, b): #readymade function taken from the net
         return a[0] * b[1] - a[1] * b[0]
+
+
 def point_of_intersection(line1, line2):
     xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
     ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1]) #Typo was here
@@ -117,25 +72,20 @@ def shrink(Poly):
 
 Pc = shrink(Poly)
 Start = time.time() #starting the time
-print("The start time is:",Start)
 Pc.append(Pc[0])
 AAP = Pc
 
-'''for i in range(len(Pc)-1):
-    mx = (Pc[i][0]+Pc[i+1][0])/2
-    my = (Pc[i][1]+Pc[i+1][1])/2    
-    m = (mx,my)
-    Pc.append(m)
-print("Pc is :",Pc)'''
 
 def find_length(A,B):
     D = sqrt(((A[0]-B[0])**2) + ((A[1]-B[1])**2))
     return D
 
+
 def Sorting(lst):
     lst2 = sorted(lst, key=len, reverse = True)
     return lst2
-''' orientation function: To check the orientation on points (x1,y1),(x2,y2),(x3,y3)'''
+
+
 def orientation(x1,y1,x2,y2,x3,y3):
         val = (float((y2-y1)*(x3-x2)))-(float((x2-x1)*(y3-y2)))
         if (val>0):
@@ -144,14 +94,15 @@ def orientation(x1,y1,x2,y2,x3,y3):
             return 2 #counterclockwise
         else:
             return 0 #collinear
-''' point_in_seg_area function: To check if the point lies in segment area'''
+
+
 def point_in_seg_area(x1,y1,x2,y2,x3,y3):
         if ((x2<=max(x1,x3)) and (x2>=min(x1,x3))\
                 and (y2<=max(y1,y3)) and (y2>=min(y1,y3))):
             return True
         return False
-''' check_intersection function: To check if the line formed by points (x1,y1) and (x2,y2) intersects line
-      formed by (x3,y3) and (x4,y4)'''
+
+
 def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
         o1 = orientation(x1,y1,x2,y2,x3,y3)
         o2 = orientation(x1,y1,x2,y2,x4,y4)
@@ -168,6 +119,8 @@ def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
         if ((o1!=o2) and (o3!=o4)):
             return True
         return  False
+
+
 def create_point_pair(P):
     Pb = []
     for i in range(len(P)-1):
@@ -220,10 +173,8 @@ def non_intersecting_diag(Pc,P, Pb):
                 Yx.remove(Pout[n])
     return Yx
 
-
 Yx = non_intersecting_diag(Pc,P,Pb)
 Tx = Yx
-# print(Tx)
 
 
 def find_length(A,B):
@@ -253,6 +204,7 @@ def find_angle(P1,P2,P3):
     else:
         return angle
 
+
 def scan_angle(Tx,Yx,P,Pc,Pb,r):
     for i in range(len(Pb)):
         for j in Tx:
@@ -275,7 +227,6 @@ def scan_angle(Tx,Yx,P,Pc,Pb,r):
                         Yx.remove(j)  
     return Yx
 Yx = scan_angle(Tx,Yx,P,Pc,Pb,8)
-print("The non intersecting diagonals are:",Yx)
 
 
 def mini_chk_pts(Yf1,F,Yn,Pb,Pc):
@@ -312,6 +263,7 @@ def mini_chk_pts(Yf1,F,Yn,Pb,Pc):
         Yf1 = Yf2
         F = F2
     return Yn
+
 
 def chk_pts(Pc,P,Yx):
     Yn=[];m=[];Ys1=[];Yk1=[];Yy1=[];Yf1 = [];Ye1 = []; R = []
@@ -373,6 +325,15 @@ def chk_pts(Pc,P,Yx):
     return final
 
 Yn = (chk_pts(Pc,P,Yx))
+Final_Diagonals = Yn
+
+def Guards(Final_Diagonals):
+    Guards = []
+    for i in range(len(Final_Diagonals)):
+        if not Final_Diagonals[i][0][0] in Guards:
+            Guards.append(Final_Diagonals[i][0][0])
+    return Guards
+
 
 def plt_plot(P,Yn):
     Px = [];Py = [];Dx = [];Dy = [];Sx = [];Sy = [];APx = [];APy = []
@@ -399,5 +360,7 @@ def plt_plot(P,Yn):
    # plt.plot(APx,APy,color = 'r')
     plt.scatter(Sx,Sy,s = 600,marker = '.',color = 'k')
     End = time.time()
-    return plt.show(), print("The End time is:",End),print("The runtime is:",(End-Start))
+    return plt.show()
+
+print(Guards(Final_Diagonals))
 plt_plot(P,Yn)
