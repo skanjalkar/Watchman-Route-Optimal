@@ -5,55 +5,20 @@ from shapely.geometry import Point,Polygon #used to chk pt in or out of poly
 import numpy as np
 X = [];Y = [];Pi = [];PS = [];Xn = []; S = [];Yx = [];Yn = []; Yy = []; Pout = []
 MP = []; Ym = [];Yp = [];Poly = []; YN = [];m = []; Zc = []
+
+''' To find the scan locations on the vertices of the polygon, for any polygon "Poly" with holes "Holes",
+    please assign the list of co-ordinates of any polygon to a variable "Poly" and of any holes, in the given polygon, to a variable
+    "Holes" as shown in the test examples below. Make sure that the list contains vertices of the polygon in 
+    anti-clockwise direction'''
+
+''' Following are the 2 interesting test example polygons and their holes'''
 Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554),\
      (17345,25504),(15560,27289),(15560,30215),(11165,30215),(11165,27915),\
      (12435,27915),(15220,24415),(12445,21630),(16865,17210),(19650,19995),\
-     (23600,16045),(24970,16045)] #Hallway
-'''Poly = [(24970,19250),(23600,19250),(20740,22110),(22790,24160),(19395,27554)\
-    ,(17345,25504),(15560,27289),(15560,30215),(16490,30215),(16490,31500)\
-    ,(20670,31500),(20670,33700),(23370,33700),(23370,31150),(25785,31150)\
-    ,(25785,41415),(16740,41416),(16740,39400),(10060,39400),(10060,41415)\
-    ,(4315,41415),(4315,39400),(1300,39400),(1300,31300),(3545,31300)\
-    ,(3545,34300),(6245,34300),(6245,29085),(4785,29085),(4785,26570)\
-    ,(2085,26570),(2085,28615),(0,28615),(0,21110),(11925,21110),(12445,21630)\
-    ,(16865,17210),(14600,14946),(16407,13139),(14498,11230),(12691,13036)\
-    ,(9085,9430),(11430,7085),(11430,4800),(19590,4800),(19590,9250),(26255,9250)\
-    ,(26255,7085),(32000,7085),(32000,9720),(36510,9720),(36510,15050)\
-    ,(34330,15050),(34330,12850),(31430,12850),(31430,19250),(34330,19250)\
-    ,(34330,17050),(37480,17050),(37480,23430),(34330,23430),(34330,26060)\
-    ,(28385,26060),(28385,24260),(24970,24260)]   # 65 edges polygon'''
-'''# Poly = [(4000,4000),(8000,4000),(8000,0000),(14000,-5000),(20000,0),(20000,6000)\
-#     ,(15000,6000),(15000,10000),(20000,10000),(20000,14000),(16000,14000)\
-#     ,(16000,16000),(10000,16000),(10000,14000),(6000,14000),(6000,16000)\
-#     ,(2000,16000),(2000,14000),(0,14000),(-5000,7000),(0,0),(2000,-2000),(4000,0)]
-# Poly = [(8000,8000),(9000,6000),(11000,8000),(10000,10000),(9000,12000),(6000,12000),\
-#         (5000,16000),(3000,13000),(0,13000),(4000,10000)\
-#         ,(0,0),(5000,0),(8000,2000),(6000,5000),(7000,7000)]
-#Poly = [(-3,6),(-2,3),(3,0),(5,2),(8,0),(14,0),(16,2),(15,8),(13,7),(12,3),(8,8),(14,8)\
-#     ,(9,11),(4,8),(5,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6)]
-#Poly = [(0,6),(1,1),(3,0),(7,2),(5,4),(7,5),(6,8),(4,7),(2,11)]
-# Poly = [(10,10),(20,20),(10,50),(40,30),(50,70),(50,50),(100,100)\
-        # ,(100,-50),(60,-10),(30,-30)]
-#Poly = [(0,0),(2,2),(0,4),(3,4),(3,0)]
-#Poly = [(0,0),(0,40),(40,40),(40,0)]
-#Poly = [(1,2),(0,0),(2,-3),(5,-3),(7,-1),(6,2),(7,4),(4,6),(3,6),(-3,4)]'''
-# Holes = [[(16000,20000),(19000,22000),(16000,23000),(15500,21500)],[(14500,27000),(15000,28000),(14000,29000)]] #Hallway
-# Holes = [[(16000,20000),(19000,22000),(16000,23000),(15500,21500)]] #Hallway
-'''Holes = [[(9000,27000),(13000,27000),(13000,33000),(9000,33000)],\
-        [(20000,12000),(24000,12000),(24000,15000),(20000,15000)]] # 65 edges polygon'''
-'''#Holes = [[(0000,7000),(10000,6000),(12000,10000),(3000,11000)]]
-#Holes = [[(4000,6000),(7000,9000),(5000,12000)]]
-# Holes = [[(1.5,3),(3.5,3),(3.5,5),(1.5,5)],[(8.5,2),(10,2),(10,4),(8.5,4)]]
-# Holes = [[(30,-10),(35,-10),(35,10),(30,10)],[(70,-10),(80,-10),(80,10),(70,10)]]
-#Holes = [[(12,10),(18,10),(18,20),(12,20)]]'''
+     (23600,16045),(24970,16045)] 
+Holes = [[(16000,20000),(19000,22000),(16000,23000),(15500,21500)]] 
 
-Poly = [(-3,6),(-2,3),(3,0),(5,2),(8,0),(14,0),(16,2),(15,8),(13,7),(12,3),(8,8),(14,8)\
-    ,(9,11),(4,8),(5,5),(2,8.5),(4,11),(0.5,11),(-2,7.5),(2,6)]
-Holes = [[(1.5,3),(3.5,3),(3.5,4.75),(1.5,4.75)],[(8.5,3),(7.5,2),(10,2),(10,4),(8.5,4)]]
-
-
-Poly = [(10,10),(20,20),(10,50),(40,30),(50,70),(50,50),(100,100),(90,20)\
-        ,(90,-30),(60,-10),(30,-30)]
+Poly = [(30,-30),(60,-10),(90,-30),(90,20),(100,100),(50,50),(50,70),(40,30),(10,50),(20,20),(10,10)]
 Holes = [[(30,-10),(40,-10),(50,5),(35,10),(32,15)],[(70,-15),(80,-10),(85,10),(75,40),(70,10)]]
 
 H = Holes
@@ -62,24 +27,21 @@ Hs = []
 for i in range(len(H)):
     for j in range(len(H[i])):
         Hs.append(H[i][j])
-#print("The points of the Holes are:",Hs)
 
 for i in range(len(H)):
     H[i].append(H[i][0])
-#print("The holes are:",H)
 
-# Poly.reverse()
+Poly.reverse()
 for i in range(len(H)):
     H[i].reverse()
-#print("Holes are",H)
 
-P = Poly
-AP = P
-P.append(P[0])
+P = Poly; AP = P; P.append(P[0])
 
+''' The function det calculates the determinant'''
 def det(a, b): #readymade function taken from the net
-        return a[0] * b[1] - a[1] * b[0]
+    return a[0] * b[1] - a[1] * b[0]
 
+''' The function line_intersection find the point of intersection between the two given lines'''
 def line_intersection(line1, line2):
     xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
     ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1]) #Typo was here
@@ -91,6 +53,7 @@ def line_intersection(line1, line2):
     y = det(d, ydiff) / div
     return x, y
 
+''' The function shrink scales down the polygon by shrink_x and shrink_y factor'''
 def shrink(Poly):
 #how much the coordinates are moved as an absolute value
     shrink_x = 0.01
@@ -116,6 +79,7 @@ def shrink(Poly):
         new_polygon.append((line_intersection(new_lines[i-1], new_lines[i])))
     return new_polygon
 
+''' The function expand scales up the polygon by shrink_x and shrink_y factor'''
 def expand(Poly):
 # how much the coordinates are moved as an absolute value
     shrink_x = -0.01
@@ -135,14 +99,12 @@ def expand(Poly):
             new_dy = dx*shrink_y * factor
             new_lines.append([(i[0][0] + new_dx, i[0][1] - new_dy),
                             (i[1][0] + new_dx, i[1][1] - new_dy)])
-# find position of intersection of all the lines
     new_polygon = []
     for i in range(len(new_lines)):
         new_polygon.append((line_intersection(new_lines[i-1], new_lines[i])))
     return new_polygon
 
 Pc = shrink(Poly)
-# Pc.append(Pc[0])  #''' Check this if any further error occurs!!!!!!'''
 
 def sampling_points(Pc):
     Pl = []
@@ -153,24 +115,15 @@ def sampling_points(Pc):
                 Pl.append((j[0],j[1]))
     Pl.append(Pl[0])
     return Pl
-
 # Pc = sampling_points(Pc)
+AAP = Pc;Ac = Pc;Ac.append(Ac[0]);Hc = []
 
-AAP = Pc
-Ac = Pc
-Ac.append(Ac[0])
-
-Hc = []
 for i in range(len(H)):
     Hc.append(expand(H[i]))
-# print("The Hc is:",Hc)
-
-# Try to sample points on holes as well
 
 Bc = Hc
 for i in range(len(Bc)):
     Bc[i].append(Bc[i][0])
-# print(Bc)
 
 '''Now put all the vertices of the Hc in Pc'''
 for i in range(len(Ac)-1):
@@ -179,9 +132,12 @@ for i in range(len(Bc)):
     for j in range(len(Bc[i])-1):
         Zc.append(Bc[i][j])
 
+''' The function Sorting sorts the list'''
 def Sorting(lst):
     lst2 = sorted(lst, key=len, reverse = True)
     return lst2
+
+
 ''' orientation function: To check the orientation on points (x1,y1),(x2,y2),(x3,y3)'''
 def orientation(x1,y1,x2,y2,x3,y3):
         val = (float((y2-y1)*(x3-x2)))-(float((x2-x1)*(y3-y2)))
@@ -191,14 +147,18 @@ def orientation(x1,y1,x2,y2,x3,y3):
             return 2 #counterclockwise
         else:
             return 0 #collinear
+
+
 ''' point_in_seg_area function: To check if the point lies in segment area'''
 def point_in_seg_area(x1,y1,x2,y2,x3,y3):
         if ((x2<=max(x1,x3)) and (x2>=min(x1,x3))\
                 and (y2<=max(y1,y3)) and (y2>=min(y1,y3))):
             return True
         return False
+
+
 ''' check_intersection function: To check if the line formed by points (x1,y1) and (x2,y2) intersects line
-      formed by (x3,y3) and (x4,y4)'''
+    formed by (x3,y3) and (x4,y4)'''
 def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
         o1 = orientation(x1,y1,x2,y2,x3,y3)
         o2 = orientation(x1,y1,x2,y2,x4,y4)
@@ -216,6 +176,8 @@ def check_intersection(x1,y1,x2,y2,x3,y3,x4,y4):
             return True
         return  False
 
+
+'''The function create_point_pair creates edges from points'''
 def create_point_pair(P):
     Pb = []
     for i in range(len(P)-1):
@@ -244,6 +206,9 @@ for i in range(len(H)):
     for j in range(len(H[i])-1):
         Pf.append(H[i][j])
 
+
+''' The function non_intersecting_diag creates non intersecting diagonals in the polygon. 
+    Non intersecting diagonals do not intersect with the exterior of the polygon'''
 def non_intersecting_diag(Zc,P,Pf):
     Yx = [];Zn = []
     for i in range(len(Zc)):
@@ -304,6 +269,8 @@ def non_intersecting_diag(Zc,P,Pf):
     return Yx
 Yx = non_intersecting_diag(Zc,P,Pf)
 
+
+''' The function mini_chk_pts implements the proposed algorithm and returns the list of the scan locations' diagonals'''
 def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
     Yn=[];M=[];Ys1=[];Ys2=[];Yk1=[];Yy1=[];Yf1 = [];Ye1 = []; R = []
     for r in range(len(Zc)):#this is important for arranging the diagonals.
@@ -327,8 +294,6 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
         if not Yy2 == []:
                Yy2.append(Yy2[0])
         Ys2.append(Yy2)
-    #print("Ys2 is:",Ys2)
-
 
     for i in range(len(Ys1)):   #have a look at this, I have made some changes
         for j in range(len(Ys2)):
@@ -406,7 +371,7 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
         #     else:
         #         A2 = Yf2[Dist.index(min(Dist))]
 
-        # #print("Yf2:",Yf2)
+        #print("Yf2:",Yf2)
         if not Yf2 == []:
                A2 = Yf2[0]
         for i in range(len(Yf2[0])):
@@ -428,7 +393,9 @@ def mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H):
         F = F2
     return Yn
 Yn = mini_chk_pts(Ac,Zc,Bc,Pb,P,Yx,H)
-# print(Yn)
+
+
+''' The function Guards given the final list of the scan locations '''
 def clean_up_final(Yn):
     final = []; R = []; r = []
     for i in Yn:  #avoiding repetition
@@ -448,6 +415,17 @@ def clean_up_final(Yn):
 Final_Diagonals = clean_up_final(Yn) 
 Yn = Final_Diagonals
 
+
+''' The function Guards given the final list of the scan locations '''
+def Guards(Final_Diagonals):
+    Guards = []
+    for i in range(len(Final_Diagonals)):
+        if not Final_Diagonals[i][0][0] in Guards:
+            Guards.append(Final_Diagonals[i][0][0])
+    return Guards
+
+
+''' The function plt_plot plots the polygon and scan locations with diagonals'''
 def plt_plot(P,Yn,H,Hc):
     Hx = [] ; Hy = [];Hsx = []; Hsy = []
     Px = [];Py = [];Dx = [];Dy = [];Sx = [];Sy = [];APx = [];APy = []
@@ -474,7 +452,7 @@ def plt_plot(P,Yn,H,Hc):
         Dy.append(Yn[j][1][1][1])
         Sx.append(Yn[j][0][0][0])
         Sy.append(Yn[j][0][0][1])
-        # plt.plot(Dx,Dy, color = 'g')
+        plt.plot(Dx,Dy, color = 'g')
     plt.plot(Px,Py, color = 'b')
     for a in range(len(H)):
         Hx = [] ; Hy = []
@@ -483,7 +461,9 @@ def plt_plot(P,Yn,H,Hc):
             Hy.append(H[a][b][1])
         plt.fill(Hx,Hy,color = 'r')
     # plt.fill(Px,Py,color = 'b')
-    # plt.plot(APx,APy,color = 'b')
-    # plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
+    plt.plot(APx,APy,color = 'b')
+    plt.scatter(Sx,Sy,s = 700,marker = '.',color = 'k')
     return plt.show()
+
+print(Guards(Final_Diagonals))
 plt_plot(P,Yn,H,Hc)
