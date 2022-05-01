@@ -72,7 +72,7 @@ This will print the path length for each Algorithm and the time it took for that
   ![TSP_Path](https://user-images.githubusercontent.com/79450753/166120028-24daafd8-d80e-4687-9a23-b80037624b10.png)
 
 TSP for polygon with holes:
-![HOLES_TSP_PATH]()
+![HOLES_TSP_PATH](https://github.com/zen1405/Watchman-Route-Optimal/blob/main/Polygon%20with%20holes%20example.PNG)
 
 Referral Papers and materials:
 1. https://math.mit.edu/~apost/courses/18.204_2018/Nicole_Chesnokov_paper.pdf
