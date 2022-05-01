@@ -58,7 +58,13 @@ tried to implement:
 2. Held-Karp Algorithm
 3. Genetic Algorithm
 
-`python search.py`
+To run the code, please type in 
+
+`python search.py --holes`
+
+to run the code without holes and
+
+`python serach.py --no-holes`
 
 This will print the path length for each Algorithm and the time it took for that algorithm, and the order of traversal.
 
