@@ -44,10 +44,10 @@ Run the following python code to get the solution for Art Gallery Problem:
   (The detailed instructions for the above codes are given in code itself)
  
 AGP for polygon with holes
-`
-Shrink_Polygon_AGP_With_Holes.py
-`
 
+`Shrink_Polygon_AGP_With_Holes.py`
+
+![Polygon_with_Holes](https://user-images.githubusercontent.com/79450753/166182110-bc99b7c7-0f69-4a1e-964e-d50f7978eab5.png)
 
 
 ### Travelling Salesman Problem - Watchman Route:
