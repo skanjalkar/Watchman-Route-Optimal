@@ -58,14 +58,23 @@ tried to implement:
 2. Held-Karp Algorithm
 3. Genetic Algorithm
 
-`python search.py`
+To run the code, please type in 
+
+`python search.py --holes`
+
+to run the code without holes and
+
+`python serach.py --no-holes`
 
 This will print the path length for each Algorithm and the time it took for that algorithm, and the order of traversal.
 
   The figure below gives an idea of how the TSP works:
   ![TSP_Path](https://user-images.githubusercontent.com/79450753/166120028-24daafd8-d80e-4687-9a23-b80037624b10.png)
 
-Referral Papers:
+TSP for polygon with holes:
+![HOLES_TSP_PATH](https://github.com/zen1405/Watchman-Route-Optimal/blob/main/Polygon%20with%20holes%20example.PNG)
+
+Referral Papers and materials:
 1. https://math.mit.edu/~apost/courses/18.204_2018/Nicole_Chesnokov_paper.pdf
 2. https://members.loria.fr/HEverett/McGill-ISA/Bellairs-2005/rafa.pdf
 3. https://arxiv.org/pdf/1708.01461.pdf
