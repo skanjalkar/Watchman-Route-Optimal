@@ -81,16 +81,3 @@ This will print the path length for each Algorithm and the time it took for that
 TSP for polygon with holes:
 ![HOLES_TSP_PATH](https://github.com/zen1405/Watchman-Route-Optimal/blob/main/Polygon%20with%20holes%20example.PNG)
 
-Referral Papers and materials:
-1. https://math.mit.edu/~apost/courses/18.204_2018/Nicole_Chesnokov_paper.pdf
-2. https://members.loria.fr/HEverett/McGill-ISA/Bellairs-2005/rafa.pdf
-3. https://arxiv.org/pdf/1708.01461.pdf
-4. https://arxiv.org/pdf/1611.05092.pdf
-5. https://arxiv.org/pdf/1612.03246.pdf
-6. https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.105.1879&rep=rep1&type=pdf
-7. http://www.ams.sunysb.edu/~jsbm/papers/watchman.pdf
-8. https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6320878
-9. https://link.springer.com/content/pdf/10.1007/BF02574671.pdf (WRP)
-10. https://link.springer.com/content/pdf/10.1007/PL00009467.pdf (WRP)
-11. https://en.wikipedia.org/wiki/Travelling_salesman_problem
-12. https://en.wikipedia.org/wiki/Held%E2%80%93Karp_algorithm
