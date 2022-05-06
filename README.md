@@ -50,7 +50,7 @@ AGP for polygon with holes
 
 ![Polygon_with_Holes](https://user-images.githubusercontent.com/79450753/166182110-bc99b7c7-0f69-4a1e-964e-d50f7978eab5.png)
 
-(More details on AGP: [Art Gallery Problem](https://github.com/Rubo12345/Computational-Geometry-Research-on-the-Art-Gallery-Problem-AGP)
+More details on AGP: [Art Gallery Problem](https://github.com/Rubo12345/Computational-Geometry-Research-on-the-Art-Gallery-Problem-AGP)
 
 ### Travelling Salesman Problem - Watchman Route:
 Watchman Route is considered a Travelling Salesman Problem, which is defined as Given a list of cities and the distances
