@@ -31,6 +31,7 @@ Art Gallery Problem is a problem to determine the minimum number of scan locatio
   5) Continue step 3 and 4 until all th edges are scans
   
   The figure below gives an idea of how the algorithm works:
+  
   ![Proposed Algorithm Flow](https://user-images.githubusercontent.com/79450753/166077173-88e61091-e632-4abb-84a0-ed738710028f.png)
 
 Run the following python code to get the solution for Art Gallery Problem:
