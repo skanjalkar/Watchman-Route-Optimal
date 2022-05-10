@@ -31,6 +31,7 @@ Art Gallery Problem is a problem to determine the minimum number of scan locatio
   5) Continue step 3 and 4 until all th edges are scans
   
   The figure below gives an idea of how the algorithm works:
+  
   ![Proposed Algorithm Flow](https://user-images.githubusercontent.com/79450753/166077173-88e61091-e632-4abb-84a0-ed738710028f.png)
 
 Run the following python code to get the solution for Art Gallery Problem:
@@ -49,6 +50,7 @@ AGP for polygon with holes
 
 ![Polygon_with_Holes](https://user-images.githubusercontent.com/79450753/166182110-bc99b7c7-0f69-4a1e-964e-d50f7978eab5.png)
 
+More details on AGP: [Art Gallery Problem](https://github.com/Rubo12345/Computational-Geometry-Research-on-the-Art-Gallery-Problem-AGP)
 
 ### Travelling Salesman Problem - Watchman Route:
 Watchman Route is considered a Travelling Salesman Problem, which is defined as Given a list of cities and the distances
