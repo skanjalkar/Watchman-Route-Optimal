@@ -4,6 +4,17 @@
 ### Shreyas Kanjalkar, [Rutwik Bonde](https://github.com/Rubo12345)
 Before you run the code, to make sure you have all the requirements met do:
 
+## Create virtual environment:
+
+1. Create python virtual environment by running
+```python3 -m venv .venv```
+
+2. Source the venv by running
+
+```source .venv/bin/activate```
+
+3. Install all the required depedencies
+
 ```pip install -r requirements.txt```
 
 ## Problem Statement: 
